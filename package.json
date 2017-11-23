@@ -1,0 +1,28 @@
+{
+  "name": "sham-ui-cli",
+  "version": "1.0.0",
+  "description": "CLI tools for sham-ui",
+  "preferGlobal": true,
+  "bin": {
+    "sham-ui": "bin/sham-ui"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sham-ui/sham-ui-cli.git"
+  },
+  "author": "Eugene Burnashov <shamcode@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sham-ui/sham-ui-cli/issues"
+  },
+  "homepage": "https://github.com/sham-ui/sham-ui-cli#readme",
+  "dependencies": {
+    "chalk": "^2.3.0",
+    "commander": "^2.12.1",
+    "ncp": "^2.0.0",
+    "ora": "^1.3.0"
+  }
+}

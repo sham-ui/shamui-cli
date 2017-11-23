@@ -1,0 +1,55 @@
+#!/usr/bin/env node
+
+const program = require( 'commander' );
+const path = require( 'path' );
+const ora = require( 'ora' );
+const ncp = require( 'ncp' ).ncp;
+const { cyan, dim } = require( 'chalk' );
+const scaffold = require( '../src/scaffold' );
+
+const VALID_TEMPLATES = [
+    'app'
+];
+
+program
+    .usage( `<${VALID_TEMPLATES.join( '|' )}> [project-name]` )
+    .parse( process.argv );
+
+if ( program.args.length < 1 ) {
+    return program.help();
+}
+
+const type = program.args[ 0 ];
+if ( -1 === VALID_TEMPLATES.indexOf( type ) ) {
+    return program.help();
+}
+
+const template = path.join( __dirname, '../', 'templates', type );
+const name = program.args[ 1 ];
+const to = path.resolve( name );
+
+copyAndScaffold( template, name, to );
+
+function copyAndScaffold( template, name, to ) {
+    const spinner = ora( 'Downloading template' );
+    spinner.start();
+
+    ncp.limit = 16;
+    ncp( template, to, function( err ) {
+        if ( err ) {
+            spinner.fail( 'Unexpected error.' )
+        } else {
+            scaffold( name, to, function( err ) {
+                if ( err ) {
+                    spinner.fail( 'Unexpected error.' )
+                } else {
+                    spinner.succeed( [
+                        `Project ${cyan( name )} generated!`,
+                        `Please run ${dim( 'npm install' )} followed by ${dim( 'npm start' )}.`
+                    ].join( '\n' ) );
+                }
+            } );
+        }
+        spinner.stop();
+    } );
+}

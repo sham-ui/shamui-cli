@@ -1,0 +1,10 @@
+{% import Header from './Header.sht' %}
+{% import Footer from './Footer.sht' %}
+
+<Header/>
+<main>
+    <pre>
+        {{ description }}
+    </pre>
+</main>
+<Footer/>

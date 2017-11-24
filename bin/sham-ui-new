@@ -3,7 +3,6 @@
 const program = require( 'commander' );
 const path = require( 'path' );
 const ora = require( 'ora' );
-const ncp = require( 'ncp' ).ncp;
 const { cyan, dim } = require( 'chalk' );
 const scaffold = require( '../src/scaffold' );
 
@@ -31,25 +30,19 @@ const to = path.resolve( name );
 copyAndScaffold( template, name, to );
 
 function copyAndScaffold( template, name, to ) {
-    const spinner = ora( 'Downloading template' );
+    const spinner = ora( 'Process template' );
     spinner.start();
 
-    ncp.limit = 16;
-    ncp( template, to, function( err ) {
+    scaffold( name, template, to, function( err ) {
         if ( err ) {
             spinner.fail( 'Unexpected error.' )
         } else {
-            scaffold( name, to, function( err ) {
-                if ( err ) {
-                    spinner.fail( 'Unexpected error.' )
-                } else {
-                    spinner.succeed( [
-                        `Project ${cyan( name )} generated!`,
-                        `Please run ${dim( 'npm install' )} followed by ${dim( 'npm start' )}.`
-                    ].join( '\n' ) );
-                }
-            } );
+            spinner.succeed( [
+                `Project ${cyan( name )} generated!`,
+                `Please run ${dim( 'npm install' )} followed by ${dim( 'npm start' )}.`
+            ].join( '\n' ) );
         }
-        spinner.stop();
     } );
+
+    spinner.stop();
 }

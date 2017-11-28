@@ -4,4 +4,5 @@ require( 'commander' )
     .version( require( '../package' ).version )
     .usage( '<command> [options]' )
     .command( 'new', 'generate a new project from a template' ).alias( 'n' )
+    .command( 'generate', 'generate a new widget' ).alias( 'g' )
     .parse( process.argv );

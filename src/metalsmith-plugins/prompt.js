@@ -1,13 +1,13 @@
 const async = require( 'async' );
 const inquirer = require( 'inquirer' );
-const evaluate = require( './eval' );
+const evaluate = require( '../utils/eval' );
 
 const promptMapping = {
     string: 'input',
     boolean: 'confirm'
 };
 
-function prompt( data, key, prompt, done ) {
+function _prompt( data, key, prompt, done ) {
     if ( prompt.when && !evaluate( prompt.when, data ) ) {
         return done();
     }
@@ -43,12 +43,20 @@ function prompt( data, key, prompt, done ) {
     } );
 }
 
-module.exports = function( prompts, data, done ) {
+function prompt( prompts, data, done ) {
     async.eachSeries(
         Object.keys( prompts ),
         function( key, next ) {
-            prompt( data, key, prompts[ key ], next );
+            _prompt( data, key, prompts[ key ], next );
         },
         done
     );
-};
+}
+
+function promptQuestions( prompts ) {
+    return function( files, metalsmith, done ) {
+        prompt( prompts, metalsmith.metadata(), done );
+    }
+}
+
+module.exports = promptQuestions;

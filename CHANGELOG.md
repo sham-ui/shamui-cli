@@ -1,3 +1,6 @@
+## 1.2.0 
+* Add scaffolding for widget (`sham-ui g widget <widget-name>`)
+
 ## 1.1.1 
 * Remove `.npmignore` from template
 

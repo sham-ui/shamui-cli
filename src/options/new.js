@@ -1,6 +1,6 @@
 const path = require( 'path' );
 const metadata = require( 'read-metadata' );
-const getGitUser = require( './git-user' );
+const getGitUser = require( '../utils/git-user' );
 
 function getConfig( dir ) {
     const json = path.join( dir, 'config.json' );

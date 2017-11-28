@@ -3,7 +3,9 @@ import App from '../widgets/App.sht';
 
 export default function() {
     const app = new App( 'body', 'app', {
-
+        afterRender() {
+            this.update();
+        }
     } );
 
     DI.bind( 'widgets:app', app );

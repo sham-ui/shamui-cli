@@ -1,3 +1,6 @@
+## 1.2.2
+* Update `sham-ui-templates-loader` and `sham-ui-jest-preprocessor`
+
 ## 1.2.1 
 * Update `sham-ui-templates`
 

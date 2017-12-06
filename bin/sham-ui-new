@@ -35,7 +35,7 @@ function copyAndScaffold( template, name, to ) {
 
     scaffold( name, template, to, function( err ) {
         if ( err ) {
-            spinner.fail( 'Unexpected error.' )
+            spinner.fail( `Unexpected error: ${err}` );
         } else {
             spinner.succeed( [
                 `Project ${cyan( name )} generated!`,

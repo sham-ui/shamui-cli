@@ -5,6 +5,9 @@ const getOptions = require( './options/new' );
 const filterFiles = require( './metalsmith-plugins/filter-files' );
 const promptQuestions = require( './metalsmith-plugins/prompt' );
 const renderTemplates = require( './metalsmith-plugins/render-templates' );
+const renameFiles = require( './metalsmith-plugins/rename-files' );
+
+const classify = require( './utils/classify' );
 
 function scaffold( name, src, dest, done ) {
     const opts = getOptions( name, src );
@@ -13,11 +16,13 @@ function scaffold( name, src, dest, done ) {
     const data = Object.assign( metalsmith.metadata(), {
         destDirName: name,
         inPlace: dest === process.cwd(),
-        noEscape: true
+        noEscape: true,
+        classifiedName: classify( name )
     } );
 
     metalsmith.use( promptQuestions( opts.prompts ) )
         .use( filterFiles( opts.filters ) )
+        .use( renameFiles )
         .use( renderTemplates( opts.skipInterpolation ) );
 
     metalsmith.clean( false )

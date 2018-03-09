@@ -5,9 +5,11 @@ const path = require( 'path' );
 const ora = require( 'ora' );
 const { cyan, dim } = require( 'chalk' );
 const scaffold = require( '../src/new' );
+const capitalize = require( '../src/utils/capitalize' );
 
 const VALID_TEMPLATES = [
-    'app'
+    'app',
+    'widget'
 ];
 
 program
@@ -38,8 +40,9 @@ function copyAndScaffold( template, name, to ) {
             spinner.fail( `Unexpected error: ${err}` );
         } else {
             spinner.succeed( [
-                `Project ${cyan( name )} generated!`,
-                `Please run ${dim( 'npm install' )} followed by ${dim( 'npm start' )}.`
+                `${capitalize( type )} ${cyan( name )} generated!`,
+                `Now you can manual edit ${dim( '.npmignore' )}.`,
+                `Please run ${dim( 'npm install' )} followed by ${dim( 'npm start' )}.`,
             ].join( '\n' ) );
         }
     } );

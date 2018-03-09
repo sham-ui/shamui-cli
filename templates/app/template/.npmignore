@@ -1,0 +1,12 @@
+npm-debug.log
+node_modules
+
+.DS_Store
+.idea
+Thumbs.db
+
+/coverage/
+# /src/
+# /__tests__/
+# /__mocks__/
+# webpack.config.js

@@ -3,12 +3,12 @@
     "name": {
       "type": "string",
       "required": true,
-      "label": "App name"
+      "label": "Widget name"
     },
     "description": {
       "type": "string",
       "required": true,
-      "label": "App description"
+      "label": "Widget description"
     },
     "author": {
       "type": "string",

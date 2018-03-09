@@ -1,3 +1,6 @@
+## 1.3.0
+* Add template for widget project
+
 ## 1.2.6
 * Update dependencies
 

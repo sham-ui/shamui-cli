@@ -7,6 +7,13 @@ if ( module.hot ) {
     const app = DI.resolve( 'widgets:app' );
     if ( app !== undefined ) {
         app.remove();
+        DI.resolve( 'sham-ui' ).render.widgets.forEach( widget => {
+            try {
+                widget.remove();
+            } catch ( e ) {
+
+            }
+        } )
     }
     module.hot.accept();
 }

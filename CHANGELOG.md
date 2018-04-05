@@ -1,3 +1,9 @@
+## 1.3.2
+Workaround for module replacement
+
+## 1.3.1
+* Update dependencies 
+
 ## 1.3.0
 * Add template for widget project
 

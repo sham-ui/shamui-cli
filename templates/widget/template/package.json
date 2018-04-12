@@ -28,7 +28,7 @@
     "sham-ui-jest-preprocessor": "1.0.5",
     "sham-ui-templates": "0.0.17",
     "sham-ui-templates-loader": "^1.0.15",
-    "sham-ui-test-helpers": "^1.6.5",
+    "sham-ui-test-helpers": "^1.7.0",
     "style-loader": "^0.19.0",
     "webpack": "^3.10.0",
     "webpack-dev-middleware": "^1.12.0",

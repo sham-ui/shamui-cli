@@ -1,3 +1,7 @@
+## 1.3.3
+* Update `sham-ui-test-helpers`
+* Fix [#4](https://github.com/sham-ui/sham-ui-cli/issues/4)
+
 ## 1.3.2
 Workaround for module replacement
 

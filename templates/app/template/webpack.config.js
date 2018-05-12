@@ -9,9 +9,11 @@ const entry = [
     './src/styles/main.scss',
 ];
 
+let devtool;
 if ( env === 'build' ) {
     plugins.push( new webpack.optimize.UglifyJsPlugin( { minimize: true } ) );
 } else {
+    devtool = 'cheap-module-eval-source-map';
     entry.push( 'webpack-hot-middleware/client' );
     plugins.push( new webpack.HotModuleReplacementPlugin() );
 }
@@ -26,7 +28,7 @@ plugins.push(
 
 module.exports = {
     entry,
-    devtool: 'cheap-module-eval-source-map',
+    devtool,
     output: {
         path: path.join( __dirname, 'dist' ),
         filename: 'bundle.js',

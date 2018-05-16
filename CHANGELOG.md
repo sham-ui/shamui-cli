@@ -1,3 +1,12 @@
+## 1.3.6
+Fix `.gitignore` & `.npmginore` [#1](https://github.com/sham-ui/sham-ui-cli/issues/1)
+
+## 1.3.5
+Update dependencies
+
+## 1.3.4
+Fix minimize code for project
+
 ## 1.3.3
 * Update `sham-ui-test-helpers`
 * Fix [#4](https://github.com/sham-ui/sham-ui-cli/issues/4)

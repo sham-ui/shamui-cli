@@ -17,7 +17,9 @@ function scaffold( name, src, dest, done ) {
         destDirName: name,
         inPlace: dest === process.cwd(),
         noEscape: true,
-        classifiedName: classify( name )
+        classifiedName: classify( name ),
+        gitignore: '.gitignore',
+        npmignore: '.npmignore'
     } );
 
     metalsmith.use( promptQuestions( opts.prompts ) )

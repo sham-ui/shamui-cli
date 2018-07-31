@@ -3,7 +3,7 @@
     "name": {
       "type": "string",
       "required": true,
-      "label": "Widget name"
+      "label": "Widget path"
     }
   }
 }

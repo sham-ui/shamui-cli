@@ -7,13 +7,23 @@ const promptQuestions = require( './metalsmith-plugins/prompt' );
 const renderTemplates = require( './metalsmith-plugins/render-templates' );
 const renameFiles = require( './metalsmith-plugins/rename-files' );
 
+const classify = require( './utils/classify' );
+
 function scaffold( name, src, dest, done ) {
     const opts = getOptions( name, src );
     const metalsmith = Metalsmith( path.join( src, 'template' ) );
 
+
+    const inTestRelativePathChunks = [ '..', '..', 'src', 'widgets', `${name}.sht` ];
+    name.split( '/' ).forEach(
+        () => inTestRelativePathChunks.unshift( '..' )
+    );
+
     const data = Object.assign( metalsmith.metadata(), {
         inPlace: true,
-        noEscape: true
+        noEscape: true,
+        classifiedName: classify( name ),
+        testRelativePath: inTestRelativePathChunks.join( '/' )
     } );
 
     metalsmith.use( promptQuestions( opts.prompts ) )

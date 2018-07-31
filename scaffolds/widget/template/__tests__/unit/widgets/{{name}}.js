@@ -1,7 +1,7 @@
-import {{ name }} from '../../../src/widgets/{{ name }}.sht';
+import {{ classifiedName }}  from '{{testRelativePath}}';
 import renderer from 'sham-ui-test-helpers';
 
 it( 'renders correctly', () => {
-    const meta = renderer( {{ name }}, {} );
+    const meta = renderer( {{ classifiedName }}, {} );
     expect( meta.toJSON() ).toMatchSnapshot();
 } );

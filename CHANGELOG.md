@@ -1,3 +1,11 @@
+## 1.3.8
+* Upgrade jest
+* Add ESlint to templates
+* Change test-scripts commands
+
+## 1.3.7
+* Fix invalid relative path to widget in tests 
+
 ## 1.3.6
 Fix `.gitignore` & `.npmginore` [#1](https://github.com/sham-ui/sham-ui-cli/issues/1)
 

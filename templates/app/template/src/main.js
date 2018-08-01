@@ -11,9 +11,9 @@ if ( module.hot ) {
             try {
                 widget.remove();
             } catch ( e ) {
-
+                // eslint-disable-next-line no-empty
             }
-        } )
+        } );
     }
     module.hot.accept();
 }

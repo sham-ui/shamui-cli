@@ -6,12 +6,13 @@
   "version": "0.0.1",
   "scripts": {
     "start": "node demo-app/server.js",
-    "test": "jest --coverage",
-    "watch": "jest --watchAll",
-    "build": "WEBPACK_ENV=build webpack"
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watchAll",
+    "build": "WEBPACK_ENV=build webpack --progress"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.6",
     "babel-jest": "^21.2.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-class-properties": "^6.18.0",
@@ -20,9 +21,12 @@
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "css-loader": "^0.28.7",
+    "eslint": "^5.1.0",
+    "eslint-plugin-jest": "^21.18.0",
     "express": "^4.13.4",
     "extract-text-webpack-plugin": "^3.0.2",
-    "jest": "^21.2.1",
+    "jest": "^23.4.1",
+    "jest-runner-eslint": "^0.6.0",
     "node-sass": "^4.5.0",
     "sass-loader": "^6.0.3",
     "sham-ui-jest-preprocessor": "1.0.6",
@@ -48,12 +52,28 @@
     ]
   },
   "jest": {
-    "transform": {
-      "^.+\\.sht$": "sham-ui-jest-preprocessor",
-      "^.+\\.js$": "babel-jest"
-    },
-    "collectCoverageFrom": [
-      "src/**/*.js"
+    "projects": [
+      {
+        "displayName": "test",
+        "transform": {
+          "^.+\\.sht$": "sham-ui-jest-preprocessor",
+          "^.+\\.js$": "babel-jest"
+        },
+        "collectCoverageFrom": [
+          "src/**/*.js"
+        ],
+        "testURL": "http://{{ name }}.example.com"
+      },
+      {
+        "runner": "jest-runner-eslint",
+        "displayName": "lint",
+        "testMatch": [
+          "<rootDir>/src/**/*.js",
+          "<rootDir>/__tests__/**/*.js",
+          "<rootDir>/__mocks__/**/*.js",
+          "<rootDir>/demo-app/**/*.js"
+        ]
+      }
     ]
   }
 }

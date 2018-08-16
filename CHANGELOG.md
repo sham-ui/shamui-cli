@@ -1,3 +1,6 @@
+## 1.3.9
+* Fix .gitignore for widget template [#7](https://github.com/sham-ui/sham-ui-cli/issues/7)
+
 ## 1.3.8
 * Upgrade jest
 * Add ESlint to templates
@@ -7,13 +10,13 @@
 * Fix invalid relative path to widget in tests 
 
 ## 1.3.6
-Fix `.gitignore` & `.npmginore` [#1](https://github.com/sham-ui/sham-ui-cli/issues/1)
+* Fix `.gitignore` & `.npmginore` [#1](https://github.com/sham-ui/sham-ui-cli/issues/1)
 
 ## 1.3.5
-Update dependencies
+* Update dependencies
 
 ## 1.3.4
-Fix minimize code for project
+* Fix minimize code for project
 
 ## 1.3.3
 * Update `sham-ui-test-helpers`

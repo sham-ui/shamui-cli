@@ -18,6 +18,7 @@ const entry = [
 
 module.exports = {
     entry,
+    mode: 'development',
     devtool: 'cheap-module-eval-source-map',
     output: {
         path: path.join( __dirname, 'dist' ),
@@ -26,7 +27,7 @@ module.exports = {
     },
     plugins: plugins,
     module: {
-        loaders: [ {
+        rules: [ {
             test: /\.scss$/,
             loader: ExtractTextPlugin.extract( {
                 fallback: 'style-loader',
@@ -44,7 +45,7 @@ module.exports = {
             exclude: /(node_modules)/,
             include: [ __dirname, path.join( __dirname, '../src' ) ]
         }, {
-            test: /\.sht/,
+            test: /\.sht$/,
             loader: 'sham-ui-templates-loader?hot'
         } ]
     }

@@ -1,3 +1,7 @@
+## 1.4.0
+* Update webpack & other dependencies
+* Uncomment string in `.npmignore` templates
+
 ## 1.3.9
 * Fix .gitignore for widget template [#7](https://github.com/sham-ui/sham-ui-cli/issues/7)
 

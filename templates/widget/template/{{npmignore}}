@@ -7,8 +7,8 @@ node_modules
 Thumbs.db
 
 /coverage/
-# /src/
-# /demo-app/
-# /__tests__/
-# /__mocks__/
-# webpack.config.js
+/src/
+/demo-app/
+/__tests__/
+/__mocks__/
+webpack.config.js

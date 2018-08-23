@@ -1,3 +1,6 @@
+## 1.4.1
+* Update dependencies
+
 ## 1.4.0
 * Update webpack & other dependencies
 * Uncomment string in `.npmignore` templates

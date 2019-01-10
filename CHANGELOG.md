@@ -1,3 +1,10 @@
+## 2.0.0
+* Add scaffolding for widget with js (`sham-ui g js-widget`)
+* Update `.npmignore`
+* Update dependencies
+* Exclude `.sht` from coverage
+* Add `prepublish` script to widget template
+
 ## 1.4.1
 * Update dependencies
 

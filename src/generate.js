@@ -9,12 +9,12 @@ const renameFiles = require( './metalsmith-plugins/rename-files' );
 
 const classify = require( './utils/classify' );
 
-function scaffold( name, src, dest, done ) {
+function scaffold( name, src, dest, fileName, done ) {
     const opts = getOptions( name, src );
     const metalsmith = Metalsmith( path.join( src, 'template' ) );
 
 
-    const inTestRelativePathChunks = [ '..', '..', 'src', 'widgets', `${name}.sht` ];
+    const inTestRelativePathChunks = [ '..', '..', 'src', 'widgets', `${fileName}` ];
     name.split( '/' ).forEach(
         () => inTestRelativePathChunks.unshift( '..' )
     );

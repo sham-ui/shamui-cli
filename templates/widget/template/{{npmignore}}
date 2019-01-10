@@ -12,3 +12,4 @@ Thumbs.db
 /__tests__/
 /__mocks__/
 webpack.config.js
+yarn-error.log

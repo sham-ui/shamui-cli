@@ -1,3 +1,6 @@
+## 2.0.1
+* Update dependencies
+
 ## 2.0.0
 * Add scaffolding for widget with js (`sham-ui g js-widget`)
 * Update `.npmignore`

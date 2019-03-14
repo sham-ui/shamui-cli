@@ -28,6 +28,18 @@ module.exports = {
         }, {
             test: /\.sht/,
             loader: 'sham-ui-templates-loader?{}'
+        }, {
+            test: /\.sfw$/,
+            use: [
+                { loader: 'babel-loader' },
+                {
+                    loader: 'sham-ui-templates-loader?hot',
+                    options: {
+                        asModule: false,
+                        asSingleFileWidget: true
+                    }
+                }
+            ]
         } ]
     }
 };

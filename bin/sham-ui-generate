@@ -8,7 +8,8 @@ const scaffold = require( '../src/generate' );
 
 const VALID_TEMPLATES = [
     'widget',
-    'js-widget'
+    'js-widget',
+    'sfw'
 ];
 
 program
@@ -33,7 +34,11 @@ copyAndScaffold( template, name, to );
 function copyAndScaffold( template, name, to ) {
     const spinner = ora( 'Process scaffold template' );
     spinner.start();
-    const fileName = 'js-widget' === type ? name : `${name}.sht`;
+    const fileName = {
+        'js-widget': name,
+        'widget': `${name}.sht`,
+        'sfw': `${name}.sfw`,
+    }[ type ];
     scaffold( name, template, to, fileName, function( err ) {
         if ( err ) {
             spinner.fail( `Unexpected error: ${err}` );

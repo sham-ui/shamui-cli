@@ -1,5 +1,6 @@
 ## 2.0.2
 * Update dependencies
+* Scaffolding for single file widget [#8](https://github.com/sham-ui/sham-ui-cli/issues/8)
 
 ## 2.0.1
 * Update dependencies

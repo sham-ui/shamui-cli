@@ -1,3 +1,6 @@
+## 2.0.4
+* Fix `sham-ui-test-helpers` version in app template
+
 ## 2.0.3
 * Update dependencies
 

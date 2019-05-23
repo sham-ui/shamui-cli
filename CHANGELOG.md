@@ -1,3 +1,6 @@
+## master
+* Fix webpack config for demo-app [#9](https://github.com/sham-ui/sham-ui-cli/issues/9)
+
 ## 2.0.4
 * Fix `sham-ui-test-helpers` version in app template
 

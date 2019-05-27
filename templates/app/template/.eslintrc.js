@@ -14,7 +14,21 @@ module.exports = {
         "ecmaVersion": 6,
         "sourceType": "module"
     },
-    "plugins": [ "jest" ],
+    "globals": {
+        "Template": true
+    },
+    "plugins": [
+        "html",
+        "jest"
+    ],
+    "settings": {
+        "html/indent": "+4",
+        "html/report-bad-indent": "error",
+        "html/html-extensions": [
+            ".html",
+            ".sfw"
+        ]
+    },
     "rules": {
         "indent": [
             "error",

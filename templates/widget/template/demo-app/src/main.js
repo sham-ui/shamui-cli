@@ -3,7 +3,8 @@ import controller from './controllers/main';
 
 DI.bind( 'widget-binder', controller );
 
-if ( module.hot ) {
+// Used only for dev, don't include in production build
+if ( !PRODUCTION && module.hot ) {
     const UI = DI.resolve( 'sham-ui' );
     if ( undefined !== UI ) {
         UI.render.unregister( 'app' );

@@ -6,11 +6,11 @@
 
 ``` bash
 # install dependencies
-npm install
+yarn
 
 # run dev server
-npm run start
+yarn run start
 
 # build for production with minification
-npm run build
+yarn run build
 ```

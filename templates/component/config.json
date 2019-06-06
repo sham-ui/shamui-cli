@@ -1,0 +1,18 @@
+{
+  "prompts": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "label": "Component name"
+    },
+    "description": {
+      "type": "string",
+      "required": true,
+      "label": "Component description"
+    },
+    "author": {
+      "type": "string",
+      "label": "Author"
+    }
+  }
+}

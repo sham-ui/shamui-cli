@@ -7,9 +7,9 @@ const { cyan } = require( 'chalk' );
 const scaffold = require( '../src/generate' );
 
 const VALID_TEMPLATES = [
-    'widget',
-    'js-widget',
-    'sfw'
+    'component',
+    'js-component',
+    'sfc'
 ];
 
 program
@@ -35,9 +35,9 @@ function copyAndScaffold( template, name, to ) {
     const spinner = ora( 'Process scaffold template' );
     spinner.start();
     const fileName = {
-        'js-widget': name,
-        'widget': `${name}.sht`,
-        'sfw': `${name}.sfw`,
+        'js-component': name,
+        'component': `${name}.sht`,
+        'sfc': `${name}.sfc`,
     }[ type ];
     scaffold( name, template, to, fileName, function( err ) {
         if ( err ) {

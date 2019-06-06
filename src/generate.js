@@ -14,7 +14,7 @@ function scaffold( name, src, dest, fileName, done ) {
     const metalsmith = Metalsmith( path.join( src, 'template' ) );
 
 
-    const inTestRelativePathChunks = [ '..', '..', 'src', 'widgets', `${fileName}` ];
+    const inTestRelativePathChunks = [ '..', '..', 'src', 'components', `${fileName}` ];
     name.split( '/' ).forEach(
         () => inTestRelativePathChunks.unshift( '..' )
     );

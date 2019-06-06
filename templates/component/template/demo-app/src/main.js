@@ -3,8 +3,7 @@ import initializer from './initializers/main';
 
 DI.bind( 'component-binder', initializer );
 
-// Used only for dev, don't include in production build
-if ( !PRODUCTION && module.hot ) {
+if ( module.hot ) {
     const UI = DI.resolve( 'sham-ui' );
     if ( undefined !== UI ) {
         UI.render.unregister( 'app' );

@@ -2,6 +2,11 @@
 * Fix webpack config for demo-app [#9](https://github.com/sham-ui/sham-ui-cli/issues/9)
 * Add eslint support for SFW [#10](https://github.com/sham-ui/sham-ui-cli/issues/10)
 * Remove HMR code from production build
+* Upgrade babel to 7.0
+* Upgrade `sham-ui-*`
+* Rename widget to component
+* Rename `.sfw` to `.sfc`
+* Rename controllers to initializers
 
 ## 2.0.4
 * Fix `sham-ui-test-helpers` version in app template

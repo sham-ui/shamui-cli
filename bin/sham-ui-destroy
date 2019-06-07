@@ -1,0 +1,51 @@
+#!/usr/bin/env node
+
+const program = require( 'commander' );
+const path = require( 'path' );
+const ora = require( 'ora' );
+const { cyan } = require( 'chalk' );
+const destroy = require( '../src/destroy' );
+
+const VALID_TEMPLATES = [
+    'component',
+    'js-component',
+    'sfc'
+];
+
+program
+    .usage( `<${VALID_TEMPLATES.join( '|' )}> [name]` )
+    .parse( process.argv );
+
+if ( program.args.length < 1 ) {
+    return program.help();
+}
+
+const type = program.args[ 0 ];
+if ( -1 === VALID_TEMPLATES.indexOf( type ) ) {
+    return program.help();
+}
+
+const template = path.join( __dirname, '../', 'scaffolds', type );
+const name = program.args[ 1 ];
+const to = path.resolve( '.' );
+
+destroyScaffold( template, name, to );
+
+function destroyScaffold( template, name, to ) {
+    const spinner = ora( 'Process scaffold template' );
+    spinner.start();
+    const fileName = {
+        'js-component': name,
+        'component': `${name}.sht`,
+        'sfc': `${name}.sfc`,
+    }[ type ];
+    destroy( name, template, to, fileName, function( err ) {
+        if ( err ) {
+            spinner.fail( `Unexpected error: ${err}` );
+        } else {
+            spinner.succeed( `${type} ${cyan( name )} destroyed!` );
+        }
+    } );
+
+    spinner.stop();
+}

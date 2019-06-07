@@ -4,12 +4,12 @@ const getOptions = require( './options/generate' );
 
 const filterFiles = require( './metalsmith-plugins/filter-files' );
 const promptQuestions = require( './metalsmith-plugins/prompt' );
-const renderTemplates = require( './metalsmith-plugins/render-templates' );
 const renameFiles = require( './metalsmith-plugins/rename-files' );
+const removeFiles = require( './metalsmith-plugins/remove-files' );
 
 const classify = require( './utils/classify' );
 
-function scaffold( name, src, dest, fileName, done ) {
+function destroy( name, src, dest, fileName, done ) {
     const opts = getOptions( name, src );
     const metalsmith = Metalsmith( path.join( src, 'template' ) );
 
@@ -23,15 +23,16 @@ function scaffold( name, src, dest, fileName, done ) {
         inPlace: true,
         noEscape: true,
         classifiedName: classify( name ),
+        dest: dest,
         testRelativePath: inTestRelativePathChunks.join( '/' )
     } );
 
     metalsmith.use( promptQuestions( opts.prompts ) )
         .use( filterFiles( opts.filters ) )
         .use( renameFiles )
-        .use( renderTemplates( opts.skipInterpolation ) );
+        .use( removeFiles );
 
-    metalsmith.clean( true )
+    metalsmith.clean( false )
         .source( '.' ) // start from template root instead of `./src` which is Metalsmith's default for `source`
         .destination( dest )
         .build( done );
@@ -39,4 +40,4 @@ function scaffold( name, src, dest, fileName, done ) {
     return data;
 }
 
-module.exports = scaffold;
+module.exports = destroy;

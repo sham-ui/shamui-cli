@@ -8,6 +8,7 @@
 * Rename `.sfw` to `.sfc`
 * Rename controllers to initializers
 * Destroy argument for remove generated scaffold items [#11](https://github.com/sham-ui/sham-ui-cli/issues/11)
+* Update dependencies
 
 ## 2.0.4
 * Fix `sham-ui-test-helpers` version in app template

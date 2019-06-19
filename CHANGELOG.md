@@ -9,6 +9,7 @@
 * Rename controllers to initializers
 * Destroy argument for remove generated scaffold items [#11](https://github.com/sham-ui/sham-ui-cli/issues/11)
 * Update dependencies
+* Add stylelint to templates [#15](https://github.com/sham-ui/sham-ui-cli/issues/15)
 
 ## 2.0.4
 * Fix `sham-ui-test-helpers` version in app template

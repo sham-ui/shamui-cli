@@ -12,7 +12,7 @@ module.exports = {
         path: __dirname,
         filename: '[name].js',
         publicPath: '/',
-        library: ['{{name}}', '{{name}}/[name]' ],
+        library: [ '{{name}}', '{{name}}/[name]' ],
         libraryTarget: 'umd'
     },
     externals: [

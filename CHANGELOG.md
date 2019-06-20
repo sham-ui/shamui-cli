@@ -1,3 +1,6 @@
+## 3.0.2
+* Fix template `webpack.config.js` code style 
+
 ## 3.0.1
 * Downgrade `inquirer` 
 

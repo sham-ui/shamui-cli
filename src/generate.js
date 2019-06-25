@@ -31,7 +31,7 @@ function scaffold( name, src, dest, fileName, done ) {
         .use( renameFiles )
         .use( renderTemplates( opts.skipInterpolation ) );
 
-    metalsmith.clean( true )
+    metalsmith.clean( false )
         .source( '.' ) // start from template root instead of `./src` which is Metalsmith's default for `source`
         .destination( dest )
         .build( done );

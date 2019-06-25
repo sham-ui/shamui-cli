@@ -1,3 +1,6 @@
+## 3.0.5
+* Fix generate items
+
 ## 3.0.4
 * Update dependencies
 

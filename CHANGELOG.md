@@ -1,3 +1,7 @@
+## 3.0.6
+* Some code style fixs
+* Define `PRODUCTION` for tests
+
 ## 3.0.5
 * Fix generate items
 

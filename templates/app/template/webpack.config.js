@@ -7,7 +7,7 @@ function createConfig( isProd ) {
     return {
         entry: [
             './src/main.js',
-            './src/styles/main.scss',
+            './src/styles/main.scss'
         ],
         output: {
             path: path.join( __dirname, 'dist' ),
@@ -85,11 +85,11 @@ module.exports = ( env, argv ) => {
             new OptimizeCssAssetsPlugin( {
                 cssProcessor: require( 'cssnano' ),
                 cssProcessorPluginOptions: {
-                    preset: [ 'default', { discardComments: { removeAll: true } } ],
+                    preset: [ 'default', { discardComments: { removeAll: true } } ]
                 },
                 canPrint: true
             } )
-        )
+        );
     }
     config.mode = argv.mode;
     return config;

@@ -1,3 +1,6 @@
+## 3.0.7
+* Code style fixs
+
 ## 3.0.6
 * Some code style fixs
 * Define `PRODUCTION` for tests

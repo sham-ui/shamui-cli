@@ -1,3 +1,6 @@
+## 3.1.0
+* Template for `admin-panel` [#21](https://github.com/sham-ui/sham-ui-cli/issues/21)
+
 ## 3.0.7
 * Code style fixs
 

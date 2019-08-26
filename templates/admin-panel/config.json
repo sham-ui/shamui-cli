@@ -1,0 +1,28 @@
+{
+  "prompts": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "label": "App name"
+    },
+    "shortName": {
+      "type": "string",
+      "required": true,
+      "label": "Short app name (golang module name, cookie prefix etc)"
+    },
+    "logoText": {
+      "type": "string",
+      "required": true,
+      "label": "Logo text"
+    },
+    "description": {
+      "type": "string",
+      "required": true,
+      "label": "App description"
+    },
+    "author": {
+      "type": "string",
+      "label": "Author"
+    }
+  }
+}

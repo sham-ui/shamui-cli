@@ -9,7 +9,8 @@ const capitalize = require( '../src/utils/capitalize' );
 
 const VALID_TEMPLATES = [
     'app',
-    'component'
+    'component',
+    'admin-panel'
 ];
 
 program
@@ -41,7 +42,7 @@ function copyAndScaffold( template, name, to ) {
         } else {
             spinner.succeed( [
                 `${capitalize( type )} ${cyan( name )} generated!`,
-                `Please run ${dim( 'yarn' )} followed by ${dim( 'yarn start' )}.`,
+                `Please check ${dim( 'README.md' )} for further instructions.`,
             ].join( '\n' ) );
         }
     } );

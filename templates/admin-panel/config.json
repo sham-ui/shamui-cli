@@ -15,6 +15,21 @@
       "required": true,
       "label": "Logo text"
     },
+    "dbName": {
+      "type": "string",
+      "required": true,
+      "label": "Database name"
+    },
+    "dbUser": {
+      "type": "string",
+      "required": true,
+      "label": "Database user"
+    },
+    "dbPassword": {
+      "type": "string",
+      "required": true,
+      "label": "Database user password"
+    },
     "description": {
       "type": "string",
       "required": true,

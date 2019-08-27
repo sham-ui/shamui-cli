@@ -27,7 +27,6 @@
    ```bash
    ./bin/{{ shortName }}
    ```
-   If is first run, then edit `server/config.cfg` and restart server
 3. In another terminal go to `client` directory and run:
    ```bash
    yarn start

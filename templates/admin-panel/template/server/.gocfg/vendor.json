@@ -1,0 +1,77 @@
+{
+  "GitRepos": {
+    "vendor/src/github.com/NYTimes/gziphandler": {
+      "URI": "https://github.com/NYTimes/gziphandler",
+      "Ref": "dd0439581c7657cb652dfe5c71d7d48baf39541d"
+    },
+    "vendor/src/github.com/antonlindstrom/pgstore": {
+      "URI": "https://github.com/antonlindstrom/pgstore",
+      "Ref": "a407030ba6d0efd9a1aad3d0cfc18a9b13d2f2e7"
+    },
+    "vendor/src/github.com/go-bindata/go-bindata": {
+      "URI": "https://github.com/go-bindata/go-bindata",
+      "Ref": "ee3c2418e3682cc4a4e6c5dd1b32d0b98f7e2c55"
+    },
+    "vendor/src/github.com/gorilla/context": {
+      "URI": "https://github.com/gorilla/context",
+      "Ref": "51ce91d2eaddeca0ef29a71d766bb3634dadf729"
+    },
+    "vendor/src/github.com/gorilla/csrf": {
+      "URI": "https://github.com/gorilla/csrf",
+      "Ref": "d1620373958b3d521d88c063d1c9b678e734e9df"
+    },
+    "vendor/src/github.com/gorilla/mux": {
+      "URI": "https://github.com/gorilla/mux",
+      "Ref": "a7962380ca08b5a188038c69871b8d3fbdf31e89"
+    },
+    "vendor/src/github.com/gorilla/securecookie": {
+      "URI": "https://github.com/gorilla/securecookie",
+      "Ref": "e65cf8c5df817c89aeb47ecb46064e802e2de943"
+    },
+    "vendor/src/github.com/gorilla/sessions": {
+      "URI": "https://github.com/gorilla/sessions",
+      "Ref": "12bd4761fc66ac946e16fcc2a32b1e0b066f6177"
+    },
+    "vendor/src/github.com/julienschmidt/httprouter": {
+      "URI": "https://github.com/julienschmidt/httprouter",
+      "Ref": "d1898390779332322e6b5ca5011da4bf249bb056"
+    },
+    "vendor/src/github.com/lib/pq": {
+      "URI": "https://github.com/lib/pq",
+      "Ref": "9eb73efc1fcc404148b56765b0d3f61d9a5ef8ee"
+    },
+    "vendor/src/github.com/pkg/errors": {
+      "URI": "https://github.com/pkg/errors",
+      "Ref": "ffb6e22f01932bf7ac35e0bad9be11f01d1c8685"
+    },
+    "vendor/src/github.com/rs/cors": {
+      "URI": "https://github.com/rs/cors",
+      "Ref": "76f58f330d76a55c5badc74f6212e8a15e742c77"
+    },
+    "vendor/src/github.com/sirupsen/logrus": {
+      "URI": "https://github.com/sirupsen/logrus",
+      "Ref": "4ea4861398d99a2d05be29675c5b74caf7bea95e"
+    },
+    "vendor/src/github.com/urfave/negroni": {
+      "URI": "https://github.com/urfave/negroni",
+      "Ref": "390728d3c6ab037195ad3ac12daaa0304b0e681a"
+    },
+    "vendor/src/golang.org/x/crypto": {
+      "URI": "https://go.googlesource.com/crypto",
+      "Ref": "b8fe1690c61389d7d2a8074a507d1d40c5d30448"
+    },
+    "vendor/src/golang.org/x/sys": {
+      "URI": "https://go.googlesource.com/sys",
+      "Ref": "41f3e6584952bb034a481797859f6ab34b6803bd"
+    },
+    "vendor/src/gopkg.in/gcfg.v1": {
+      "URI": "https://gopkg.in/gcfg.v1",
+      "Ref": "61b2c08bc8f6068f7c5ca684372f9a6cb1c45ebe"
+    },
+    "vendor/src/gopkg.in/warnings.v0": {
+      "URI": "https://gopkg.in/warnings.v0",
+      "Ref": "ec4a0fea49c7b46c2aeb0b51aac55779c607e52b"
+    }
+  },
+  "MercurialRepos": {}
+}

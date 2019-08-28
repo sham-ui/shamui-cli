@@ -1,0 +1,27 @@
+<template>
+    {% import WithoutFlushLoader from 'sham-ui-without-flush-loader' %}
+    {% import PageLoadingIndicator from './PageLoadingIndicator.sht' %}
+
+    {% if sessionData.sessionValidated && dataLoaded %}
+        <h4 class="page-header">
+            {% defblock 'header' %}
+        </h4>
+        <div class="page-body">
+            {% defblock 'body' %}
+        </div>
+    {% else %}
+        <WithoutFlushLoader loadingComponent=\{{PageLoadingIndicator}}/>
+    {% endif %}
+</template>
+
+<script>
+    import { options } from 'sham-ui';
+    import { useStorage } from '../storages/session';
+
+    @useStorage( 'sessionData' )
+    class Page extends Template {
+        @options dataLoaded = true;
+    }
+
+    export default Page;
+</script>

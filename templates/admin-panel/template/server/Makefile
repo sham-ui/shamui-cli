@@ -1,5 +1,10 @@
-install:
+restore_wgo:
 	wgo restore
+
+get_go_bindata:
+	wgo get -u github.com/go-bindata/go-bindata/...
+
+install: restore_wgo get_go_bindata
 
 .ONESHELL:
 build_js:

@@ -1,0 +1,59 @@
+<template>
+    {% import ErrorsPanel from './ErrorsPanel.sht' %}
+
+    <form class=\{{formClass}} :onsubmit=\{{::this._submitForm}} :ref="formNode">
+        {% defblock 'header' %}
+
+        <ErrorsPanel errors=\{{errors}}/>
+
+        {% defblock 'default' %}
+
+        <button type="submit" :disabled=\{{dataSaving}}>
+            \{{submitText}}
+            {% defblock 'submit' %}
+        </button>
+
+        {% defblock 'footer' %}
+    </form>
+</template>
+
+<script>
+    import { options } from 'sham-ui';
+
+    export default class FormContainer extends Template {
+        @options dataSaving = false;
+        @options formClass = 'form';
+        @options get errors() {
+            return [];
+        }
+
+        @options submitText = '';
+        @options submit() {
+            return Promise.resolve();
+        }
+        @options success() {}
+        @options getErrors() {
+            return [];
+        }
+
+        _submitForm( e ) {
+            e.preventDefault();
+            this.update( {
+                dataSaving: true,
+                errors: []
+            } );
+            const formData = new FormData( this.formNode );
+            this.options.submit( formData ).then(
+                ( ...args ) => this.options.success( ...args ),
+                ::this._submitFormFail
+            );
+        }
+
+        _submitFormFail( error ) {
+            this.update( {
+                dataSaving: false,
+                errors: this.options.getErrors( error )
+            } );
+        }
+    }
+</script>

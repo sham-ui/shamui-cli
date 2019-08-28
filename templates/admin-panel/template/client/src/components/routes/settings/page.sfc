@@ -1,0 +1,47 @@
+<template>
+    {% import Page from '../../Page.sfc' %}
+    {% import Paragraph from './paragraph.sfc' %}
+    {% import NameForm from './form/name.sfc' %}
+    {% import EmailForm from './form/email.sfc' %}
+
+    <!-- Pass sessionData.sessionValidated to page for update blocks-->
+    <Page _=\{{sessionData.sessionValidated}}>
+        {% block 'header' %}
+            Profile settings
+        {% endblock %}
+
+        {% block 'body' %}
+            <div class="panel settings">
+                <Paragraph
+                    paragraphClassName="mg-b-30"
+                    title="Name"
+                    value=\{{sessionData.name}}
+                    form=\{{NameForm}}
+                    onUpdateValue=\{{::this.onUpdateSessionData}}
+                />
+
+                <Paragraph
+                    title="Email"
+                    value=\{{sessionData.email}}
+                    form=\{{EmailForm}}
+                    onUpdateValue=\{{::this.onUpdateSessionData}}
+                />
+            </div>
+        {% endblock %}
+    </Page>
+</template>
+
+<script>
+    import { inject } from 'sham-ui';
+    import { useStorage } from '../../../storages/session';
+
+    @useStorage( 'sessionData' )
+    class RoutesSettingsPage extends Template {
+        @inject session;
+
+        onUpdateSessionData( done ) {
+            this.session.validateSession().then( done );
+        }
+    }
+    export default RoutesSettingsPage;
+</script>

@@ -1,0 +1,48 @@
+<template>
+    {% import DynamicComponent from 'sham-ui-dynamic-component' %}
+
+    <h6>\{{title}}</h6>
+    <p class=\{{paragraphClassName}}>
+        \{{value}}
+        <a :onclick=\{{::this.editClick}}>
+            <i class="icon-pencil"></i>
+        </a>
+        {% if editFormVisible %}
+            <DynamicComponent
+                component=\{{form}}
+                value=\{{value}}
+                onUpdate=\{{::this._onUpdateValue}}
+            />
+        {% endif %}
+    </p>
+</template>
+
+<script>
+    import { options } from 'sham-ui';
+
+    export default class RoutesSettingsParagraph extends Template {
+        @options paragraphClassName = 'mg-b-0';
+        @options title = '';
+        @options value = '';
+        @options editFormVisible = false;
+        @options onUpdateValue( toggle ) {
+            toggle();
+        }
+        @options form = null;
+
+        editClick( e ) {
+            e.stopPropagation();
+            this._toggleEdit();
+        }
+
+        _toggleEdit() {
+            this.update( {
+                editFormVisible: !this.options.editFormVisible
+            } );
+        }
+
+        _onUpdateValue() {
+            this.options.onUpdateValue( ::this._toggleEdit );
+        }
+    }
+</script>

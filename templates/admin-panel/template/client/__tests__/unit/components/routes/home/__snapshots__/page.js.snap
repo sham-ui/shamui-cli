@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Object {
+  "Constructor": "RoutesHomePage",
+  "Options": Object {
+    "ID": "component",
+    "containerSelector": "body",
+    "types": Array [],
+  },
+  "html": "
+<h4 class=\\"page-header\\"> Home
+  <!--header-->
+</h4>
+<div class=\\"page-body\\">
+  <div class=\\"panel\\"> Project description </div>
+  <!--body-->
+</div>
+<!--if-->
+<!--Page-->
+",
+}
+`;

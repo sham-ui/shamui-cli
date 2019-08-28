@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Object {
+  "Constructor": "LayoutMain",
+  "Options": Object {
+    "ID": "component",
+    "containerSelector": "body",
+    "sessionData": Object {
+      "email": "",
+      "isAuthenticated": false,
+      "name": "",
+      "sessionValidated": false,
+    },
+    "types": Array [],
+  },
+  "html": "
+<!--ActivePageContainer-->
+<!--if-->
+",
+}
+`;

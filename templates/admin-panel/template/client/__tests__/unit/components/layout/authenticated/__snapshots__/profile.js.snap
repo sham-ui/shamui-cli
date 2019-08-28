@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Object {
+  "Constructor": "LayoutAuthenticatedProfile",
+  "Options": Object {
+    "ID": "component",
+    "containerSelector": "body",
+    "directives": Object {
+      "EventListener": [Function],
+      "disabled": [Function],
+      "hrefto": [Function],
+      "onclick": [Function],
+      "oninput": [Function],
+      "onload": [Function],
+      "onresize": [Function],
+      "onscroll": [Function],
+      "onselect": [Function],
+      "onsubmit": [Function],
+      "ref": [Function],
+    },
+    "dropDownVisible": false,
+    "sessionData": Object {
+      "email": "",
+      "isAuthenticated": false,
+      "name": "Test member",
+      "sessionValidated": false,
+    },
+    "types": Array [],
+  },
+  "html": "
+<div class=\\"dropdown\\">
+  <a class=\\"link-profile\\"><span class=\\"logged-name\\">Test member</span></a>
+  <div class=\\"dropdown-menu \\">
+    <ul class=\\"user-profile-nav\\">
+      <li>
+        <a href=\\"/\\">
+          <i class=\\"icon-cog\\"></i> Settings </a>
+      </li>
+      <li>
+        <a href=\\"#\\">
+          <i class=\\"icon-logout\\"></i> Sign Out </a>
+      </li>
+    </ul>
+  </div>
+</div>
+",
+}
+`;

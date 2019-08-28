@@ -1,0 +1,50 @@
+<template>
+    {% import FormContainer from '../../../FormContainer.sfc' %}
+
+    <FormContainer
+        formClass="form-layout"
+        submitText="Update"
+        submit=\{{::this._submitForm}}
+        success=\{{::this._updateEmailSuccess}}
+        getErrors=\{{::this._getErrors}}
+    >
+        <div class="form-group">
+            <label>
+                Enter your email:
+            </label>
+            <input name="email1" type="text" value=\{{value}} autofocus>
+        </div>
+        <div class="form-group">
+            <label>
+                Confirm your email:
+            </label>
+            <input name="email2" type="text" value=\{{value}}>
+        </div>
+    </FormContainer>
+</template>
+
+<script>
+    import { options, inject } from 'sham-ui';
+
+    export default class RoutesSettingsFormEmail extends Template {
+        @inject store;
+
+        @options value = '';
+        @options onUpdate() {}
+
+        _submitForm( formData ) {
+            return this.store.updateMemberEmail( {
+                newEmail1: formData.get( 'email1' ).trim(),
+                newEmail2: formData.get( 'email2' ).trim()
+            } );
+        }
+
+        _updateEmailSuccess() {
+            this.options.onUpdate();
+        }
+
+        _getErrors( { Messages = [ 'Update email fail' ] } ) {
+            return Messages;
+        }
+    }
+</script>

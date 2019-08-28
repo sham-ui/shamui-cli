@@ -1,0 +1,72 @@
+<template>
+    {% import path from 'sham-ui-router/params' %}
+    {% import FormContainer from '../../FormContainer.sfc' %}
+    {% import Logo from '../../Logo.sht' %}
+
+    <div class="signup-page">
+        <FormContainer
+            submitText="Sign Up"
+            submit=\{{::this._submitForm}}
+            success=\{{::this._signUpSuccess}}
+            getErrors=\{{::this._getErrors}}
+        >
+            {% block 'header' %}
+                <Logo/>
+            {% endblock %}
+
+            {% block 'default' %}
+                <div class="form-group">
+                    <input name="name" type="text" placeholder="Enter your username" autofocus>
+                </div>
+                <div class="form-group">
+                    <input name="email" type="text" placeholder="Enter your email" >
+                </div>
+                <div class="form-group">
+                    <input name="password" type="password" placeholder="Enter your password">
+                </div>
+                <div class="form-group">
+                    <input name="password2" type="password" placeholder="Confirm your password">
+                </div>
+            {% endblock %}
+
+            {% block 'footer' %}
+                <div class="signup-label">
+                    Already a member?
+                    <a :hrefto=\{{path("login")}}>
+                        Sign In
+                    </a>
+                </div>
+            {% endblock %}
+        </FormContainer>
+    </div>
+</template>
+
+<script>
+    import { inject } from 'sham-ui';
+
+    export default class RoutesSignupPage extends Template {
+        @inject store;
+        @inject router;
+        @inject session;
+
+        _submitForm( formData ) {
+            return this.store.signUp( {
+                name: formData.get( 'name' ).trim(),
+                email: formData.get( 'email' ).trim(),
+                password: formData.get( 'password' ),
+                password2: formData.get( 'password2' )
+            } );
+        }
+
+        _signUpSuccess() {
+            this.session.resetSessionValidation();
+            this.router.navigate(
+                this.router.generate( 'home', {} )
+            );
+        }
+
+        _getErrors( { Messages = [ 'Signup fail' ] } ) {
+            return Messages;
+        }
+    }
+</script>

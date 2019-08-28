@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Object {
+  "Constructor": "RoutesSettingsFormName",
+  "Options": Object {
+    "ID": "component",
+    "containerSelector": "body",
+    "directives": Object {
+      "EventListener": [Function],
+      "disabled": [Function],
+      "onclick": [Function],
+      "oninput": [Function],
+      "onload": [Function],
+      "onresize": [Function],
+      "onscroll": [Function],
+      "onselect": [Function],
+      "onsubmit": [Function],
+      "ref": [Function],
+    },
+    "onUpdate": [Function],
+    "types": Array [],
+    "value": "",
+  },
+  "html": "
+<form class=\\"form-layout\\">
+  <!--header-->
+  <!--if-->
+  <!--ErrorsPanel-->
+  <div class=\\"form-group\\">
+    <label> Name: </label>
+    <input name=\\"name\\" type=\\"text\\" autofocus=\\"\\">
+  </div>
+  <!--default-->
+  <button type=\\"submit\\">Update
+    <!--submit-->
+  </button>
+  <!--footer-->
+</form>
+<!--FormContainer-->
+",
+}
+`;

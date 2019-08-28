@@ -1,0 +1,21 @@
+<template>
+    {% import ActivePageContainer from 'sham-ui-router/active-page-container' %}
+    {% import LayoutAuthenticated from './authenticated.sfc' %}
+
+    {% if sessionData.isAuthenticated %}
+        <LayoutAuthenticated/>
+    {% else %}
+        <ActivePageContainer/>
+    {% endif %}
+</template>
+
+<script>
+    import { useStorage } from '../../storages/session';
+
+    @useStorage( 'sessionData' )
+    class LayoutMain extends Template {
+
+    }
+
+    export default LayoutMain;
+</script>

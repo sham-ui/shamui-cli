@@ -1,0 +1,43 @@
+<template>
+    {% import FormContainer from '../../../FormContainer.sfc' %}
+
+    <FormContainer
+        formClass="form-layout"
+        submitText="Update"
+        submit=\{{::this._submitForm}}
+        success=\{{::this._updateMemberNameSuccess}}
+        getErrors=\{{::this._getErrors}}
+    >
+        <div class="form-group">
+            <label>
+                Name:
+            </label>
+            <input name="name" type="text" value=\{{value}} autofocus>
+        </div>
+    </FormContainer>
+</template>
+
+<script>
+    import { options, inject } from 'sham-ui';
+
+    export default class RoutesSettingsFormName extends Template {
+        @inject store;
+
+        @options value = '';
+        @options onUpdate() {}
+
+        _submitForm( formData ) {
+            return this.store.updateMemberName( {
+                newName: formData.get( 'name' ).trim()
+            } );
+        }
+
+        _updateMemberNameSuccess() {
+            this.options.onUpdate();
+        }
+
+        _getErrors( { Messages = [ 'Update member name fail' ] } ) {
+            return Messages;
+        }
+    }
+</script>

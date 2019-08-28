@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Object {
+  "Constructor": "RoutesSettingsPage",
+  "Options": Object {
+    "ID": "component",
+    "containerSelector": "body",
+    "directives": Object {
+      "EventListener": [Function],
+      "disabled": [Function],
+      "onclick": [Function],
+      "oninput": [Function],
+      "onload": [Function],
+      "onresize": [Function],
+      "onscroll": [Function],
+      "onselect": [Function],
+      "onsubmit": [Function],
+      "ref": [Function],
+    },
+    "sessionData": Object {
+      "email": "test@test.com",
+      "isAuthenticated": false,
+      "name": "Test member",
+      "sessionValidated": true,
+    },
+    "types": Array [],
+  },
+  "html": "
+<h4 class=\\"page-header\\"> Profile settings
+  <!--header-->
+</h4>
+<div class=\\"page-body\\">
+  <div class=\\"panel settings\\">
+    <h6>Name</h6>
+    <p class=\\"mg-b-30\\">Test member
+      <a>
+        <i class=\\"icon-pencil\\"></i>
+      </a>
+      <!--if-->
+    </p>
+    <!--Paragraph-->
+    <h6>Email</h6>
+    <p class=\\"mg-b-0\\">test@test.com
+      <a>
+        <i class=\\"icon-pencil\\"></i>
+      </a>
+      <!--if-->
+    </p>
+    <!--Paragraph-->
+  </div>
+  <!--body-->
+</div>
+<!--if-->
+<!--Page-->
+",
+}
+`;

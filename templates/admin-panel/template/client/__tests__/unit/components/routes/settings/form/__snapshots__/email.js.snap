@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`display errors 1`] = `
+Object {
+  "Constructor": "RoutesSettingsFormEmail",
+  "Options": Object {
+    "ID": "component",
+    "containerSelector": "body",
+    "directives": Object {
+      "EventListener": [Function],
+      "disabled": [Function],
+      "onclick": [Function],
+      "oninput": [Function],
+      "onload": [Function],
+      "onresize": [Function],
+      "onscroll": [Function],
+      "onselect": [Function],
+      "onsubmit": [Function],
+      "ref": [Function],
+    },
+    "onUpdate": [Function],
+    "types": Array [],
+    "value": "",
+  },
+  "html": "
+<form class=\\"form-layout\\">
+  <!--header-->
+  <ul class=\\"errors-panel\\">
+    <li>Update email fail</li>
+  </ul>
+  <!--if-->
+  <!--ErrorsPanel-->
+  <div class=\\"form-group\\">
+    <label> Enter your email: </label>
+    <input name=\\"email1\\" type=\\"text\\" autofocus=\\"\\">
+  </div>
+  <div class=\\"form-group\\">
+    <label> Confirm your email: </label>
+    <input name=\\"email2\\" type=\\"text\\">
+  </div>
+  <!--default-->
+  <button type=\\"submit\\">Update
+    <!--submit-->
+  </button>
+  <!--footer-->
+</form>
+<!--FormContainer-->
+",
+}
+`;
+
+exports[`renders correctly 1`] = `
+Object {
+  "Constructor": "RoutesSettingsFormEmail",
+  "Options": Object {
+    "ID": "component",
+    "containerSelector": "body",
+    "directives": Object {
+      "EventListener": [Function],
+      "disabled": [Function],
+      "onclick": [Function],
+      "oninput": [Function],
+      "onload": [Function],
+      "onresize": [Function],
+      "onscroll": [Function],
+      "onselect": [Function],
+      "onsubmit": [Function],
+      "ref": [Function],
+    },
+    "onUpdate": [Function],
+    "types": Array [],
+    "value": "",
+  },
+  "html": "
+<form class=\\"form-layout\\">
+  <!--header-->
+  <!--if-->
+  <!--ErrorsPanel-->
+  <div class=\\"form-group\\">
+    <label> Enter your email: </label>
+    <input name=\\"email1\\" type=\\"text\\" autofocus=\\"\\">
+  </div>
+  <div class=\\"form-group\\">
+    <label> Confirm your email: </label>
+    <input name=\\"email2\\" type=\\"text\\">
+  </div>
+  <!--default-->
+  <button type=\\"submit\\">Update
+    <!--submit-->
+  </button>
+  <!--footer-->
+</form>
+<!--FormContainer-->
+",
+}
+`;

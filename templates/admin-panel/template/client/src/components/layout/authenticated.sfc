@@ -1,0 +1,103 @@
+<template>
+    {% import ActivePageContainer from 'sham-ui-router/active-page-container' %}
+    {% import path from 'sham-ui-router/params' %}
+    {% import Navigation from './authenticated/navigation.sfc' %}
+    {% import Profile from './authenticated/profile.sfc' %}
+
+    <div class=\{{wrapperClasses}} :onclick=\{{::this.wrapperOnClick}}>
+        <div class="logo">
+            <a :hrefto=\{{path("home")}}>
+                <span>[</span>
+                {{ logoText }}
+                <span>]</span>
+            </a>
+        </div>
+
+        <div class="sideleft">
+            <Navigation/>
+        </div>
+
+        <div class="header">
+            <div class="header-left">
+                <div class="navicon-left">
+                    <a :onclick=\{{::this.navigationButtonOnClick}}>
+                        <i class="icon-menu"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="header-right">
+                <Profile/>
+            </div>
+        </div>
+
+        <div class="mainpanel">
+            <ActivePageContainer/>
+        </div>
+    </div>
+</template>
+
+<script>
+    import { options } from 'sham-ui';
+
+    const MAX_SCREEN_SIZE = 992;
+
+    export default class LayoutAuthenticated extends Template {
+        @options wrapperClasses = '';
+        @options menuCollapsed = false;
+        @options smallScreenSize = false;
+
+        navigationButtonOnClick( e ) {
+            e.stopPropagation();
+            let wrapperClasses = '';
+            if ( this.options.smallScreenSize ) {
+                if ( this.options.menuCollapsed ) {
+                    wrapperClasses = 'show-left';
+                }
+            } else {
+                if ( !this.options.menuCollapsed ) {
+                    wrapperClasses = 'collapsed-menu';
+                }
+            }
+            this.update( {
+                wrapperClasses,
+                menuCollapsed: !this.options.menuCollapsed
+            } );
+        }
+
+        wrapperOnClick() {
+            if ( this.options.smallScreenSize && !this.options.menuCollapsed ) {
+                this.update( {
+                    menuCollapsed: true,
+                    wrapperClasses: ''
+                } );
+            }
+        }
+
+        render() {
+            super.render( ...arguments );
+            this._screenWidthChange();
+        }
+
+        _screenWidthChange() {
+
+            // media query change
+            const WidthChange = ( mq ) => {
+                const smallScreenSize = !mq.matches;
+                this.update( {
+                    smallScreenSize,
+                    menuCollapsed: (
+                        smallScreenSize &&
+                        smallScreenSize !== this.options.smallScreenSize
+                    ) || this.options.menuCollapsed
+                } );
+            };
+
+            // media query event handler
+            if ( window.matchMedia ) {
+                const mq = window.matchMedia( `(min-width: ${MAX_SCREEN_SIZE}px)` );
+                mq.addListener( WidthChange );
+                WidthChange( mq );
+            }
+        }
+    }
+</script>

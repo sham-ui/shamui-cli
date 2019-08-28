@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`logout 1`] = `
+"<h4 class=\\"page-header\\"> Home
+  <!--header-->
+</h4>
+<div class=\\"page-body\\">
+  <div class=\\"panel\\"> Project description </div>
+  <!--body-->
+</div>
+<!--if-->
+<!--Page-->
+<!--ActivePageContainer-->
+<!--if-->
+<!--Layout-->
+<!--if-->"
+`;

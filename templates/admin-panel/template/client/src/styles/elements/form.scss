@@ -1,0 +1,121 @@
+.form {
+  padding: 25px;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.21);
+  width: 300px;
+  border-radius: 3px;
+  background-color: #fff;
+  button {
+    width: 100%;
+  }
+}
+
+.form, .form-layout {
+  .form-group {
+    margin-bottom: 1rem;
+    input {
+      display: block;
+      width: 100%;
+      padding: .65rem .75rem;
+      font-size: .875rem;
+      line-height: 1.25;
+      color: #495057;
+      background: #fff none;
+      background-clip: padding-box;
+      border: 1px solid rgba(0,0,0,.15);
+      border-radius: 3px;
+      transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+      margin: 0;
+      font-family: inherit;
+      touch-action: manipulation;
+      overflow: visible;
+      position: relative;
+      min-height: 1px;
+      &:focus {
+        color: #495057;
+        background-color: #fff;
+        border-color: #55a6f8;
+        outline: 0;
+      }
+    }
+  }
+  button {
+    display: block;
+    color: #fff;
+    background-color: #17a2b8;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .65rem .75rem;
+    font-size: .875rem;
+    line-height: 1.25;
+    border-radius: 3px;
+    transition: all .15s ease-in-out;
+    text-transform: none;
+    font-family: inherit;
+    touch-action: manipulation;
+    overflow: visible;
+    margin-left: auto;
+    margin-right: auto;
+    &:hover {
+      color: #fff;
+      background-color: #138496;
+      border-color: #117a8b;
+    }
+    &:active {
+      box-shadow: none;
+      background-color: #138496;
+      background-image: none;
+      border-color: #117a8b
+    }
+    &:disabled {
+      background-color: #17a2b8;
+      border-color: #17a2b8;
+      opacity: .65;
+    }
+  }
+}
+
+@media (min-width: 480px) {
+  .form {
+    padding: 40px;
+    width: 400px
+  }
+}
+
+.form-layout {
+  padding: 30px;
+  border: 1px solid #ced4da;
+  .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0;
+      position: relative;
+      width: 100%;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+  }
+}
+
+@media (min-width: 576px) {
+  .form-layout .form-group {
+    label {
+      justify-content: flex-end;
+      flex: 0 0 33.3333333333%;
+      max-width: 33.3333333333%;
+    }
+    input {
+      flex: 0 0 66.6666666667%;
+      max-width: 66.6666666667%;
+    }
+  }
+}

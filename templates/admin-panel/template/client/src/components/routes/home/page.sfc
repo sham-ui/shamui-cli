@@ -1,0 +1,20 @@
+<template>
+    {% import Page from '../../Page.sfc' %}
+    <Page>
+        {% block 'header' %}
+            Home
+        {% endblock %}
+
+        {% block 'body' %}
+            <div class="panel">
+                Project description
+            </div>
+        {% endblock %}
+    </Page>
+</template>
+
+<script>
+    export default class RoutesHomePage extends Template {
+
+    }
+</script>

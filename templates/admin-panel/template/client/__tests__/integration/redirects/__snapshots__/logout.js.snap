@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`logout from settings page 1`] = `
+"<div class=\\"login-page\\">
+  <form class=\\"form\\">
+    <div class=\\"logo\\"><span><span>[</span> {{ logoText }} <span>]</span></span></div>
+    <!--Logo-->
+    <!--header-->
+    <!--if-->
+    <!--ErrorsPanel-->
+    <div class=\\"form-group\\">
+      <input name=\\"email\\" type=\\"text\\" placeholder=\\"Enter your email\\" autofocus=\\"\\">
+    </div>
+    <div class=\\"form-group\\">
+      <input name=\\"password\\" type=\\"password\\" placeholder=\\"Enter your password\\">
+    </div>
+    <!--default-->
+    <button type=\\"submit\\">Sign In
+      <!--submit-->
+    </button>
+    <div class=\\"signup-label\\"> Not yet a member? <a href=\\"signup\\"> Sign Up </a>
+    </div>
+    <!--footer-->
+  </form>
+</div>
+<!--ActivePageContainer-->
+<!--if-->
+<!--Layout-->
+<!--if-->"
+`;

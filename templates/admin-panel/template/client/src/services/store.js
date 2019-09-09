@@ -62,6 +62,10 @@ export default class Store {
             {};
     }
 
+    static extractData( { data } ) {
+        return data;
+    }
+
     csrftoken() {
         return this.axios.get( '/csrftoken' ).then(
             response => response.headers[ 'x-csrf-token' ]
@@ -82,7 +86,7 @@ export default class Store {
         return this.tokenPromise.then(
             () => this.axios.get( '/validsession' )
         ).then(
-            ( { data } ) => ( { data } )
+            this.constructor.extractData
         );
     }
 
@@ -94,7 +98,7 @@ export default class Store {
         return this.axios.post( '/login', data ).then( response => {
             this.token = response.headers[ 'x-csrf-token' ];
             this.tokenLoaded = true;
-            return response;
+            return this.constructor.extractData( response );
         } );
     }
 

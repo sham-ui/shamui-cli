@@ -1,3 +1,7 @@
+## 3.1.1
+* Fixs for `admin-panel` login
+* Add `store.extractData` for `admin-panel`
+
 ## 3.1.0
 * Template for `admin-panel` [#21](https://github.com/sham-ui/sham-ui-cli/issues/21)
 

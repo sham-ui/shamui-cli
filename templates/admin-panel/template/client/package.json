@@ -42,7 +42,7 @@
     "pretty": "^2.0.0",
     "sass-loader": "~7.1.0",
     "sham-ui-cube-animation": "^0.0.3",
-    "sham-ui-data-storage": "^0.0.2",
+    "sham-ui-data-storage": "^0.0.3",
     "sham-ui-directives": "^3.0.1",
     "sham-ui-dynamic-component": "^0.0.1",
     "sham-ui-jest-preprocessor": "^3.0.4",

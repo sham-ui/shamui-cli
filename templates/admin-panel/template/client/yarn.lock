@@ -9129,10 +9129,10 @@ sham-ui-cube-animation@^0.0.3:
   dependencies:
     sham-ui "^3.3.0"
 
-sham-ui-data-storage@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/sham-ui-data-storage/-/sham-ui-data-storage-0.0.2.tgz#134a75630974e558a41b09eb96e0a833d52c5303"
-  integrity sha512-BBZ3/PoWniAU4c6b/sw5xkzFMz9IgyO7H2kIljqxRc8pTl/VDqZvrPzJ03fovDTw+2xxiyLgeN++TrXPXEOGDQ==
+sham-ui-data-storage@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/sham-ui-data-storage/-/sham-ui-data-storage-0.0.3.tgz#0036c31de764c43c97bd8b3d04a8422f468d2a3b"
+  integrity sha512-sepvwysFmP1illjL0OLUiPnS0/D56WJVSfLgxkQmJ9wI0F9iHPz5jVRZsvTsniKQ0cW387MagWX94NWMVeGCeg==
   dependencies:
     sham-ui "^3.3.0"
 

@@ -10,11 +10,13 @@ export default class Session {
     }
 
     login( email, password ) {
-        return this.store.login( { email, password } ).then( ( { data } ) => {
-            this.data.email = data.Email;
-            this.data.name = data.Name;
+        return this.store.login( { email, password } ).then( ( { Email, Name } ) => {
+            this.data.email = Email;
+            this.data.name = Name;
         } ).then(
             ::this.resetSessionValidation
+        ).then(
+            () => this.validateSessionPromise
         );
     }
 
@@ -32,11 +34,15 @@ export default class Session {
     validateSession() {
         this.data.sessionValidated = false;
         return this.store.validSession().then(
-            ( { data } ) => {
+            ( { Email, Name } ) => {
                 this.data.sessionValidated = true;
                 this.data.isAuthenticated = true;
-                this.data.email = data.Email;
-                this.data.name = data.Name;
+                this.data.email = Email;
+                this.data.name = Name;
+
+                // Manual run sync for guaranteed update Layout
+                // component before promise resolved
+                this.data.sync();
                 return true;
             },
             () => {

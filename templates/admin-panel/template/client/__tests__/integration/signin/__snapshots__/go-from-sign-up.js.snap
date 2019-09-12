@@ -24,7 +24,7 @@ exports[`can go to signup page 1`] = `
     <button type=\\"submit\\">Sign Up
       <!--submit-->
     </button>
-    <div class=\\"signup-label\\"> Already a member? <a href=\\"login\\"> Sign In </a>
+    <div class=\\"signup-label\\"> Already a member? <a href=\\"/login\\"> Sign In </a>
     </div>
     <!--footer-->
   </form>

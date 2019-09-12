@@ -1,3 +1,6 @@
+## 3.1.2
+* Fix active class for links in `admin-panel` template
+
 ## 3.1.1
 * Fixs for `admin-panel` login
 * Add `store.extractData` for `admin-panel`

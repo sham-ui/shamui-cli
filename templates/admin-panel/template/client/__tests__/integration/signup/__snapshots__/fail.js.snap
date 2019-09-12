@@ -27,7 +27,7 @@ exports[`fail sign up 1`] = `
     <button type=\\"submit\\">Sign Up
       <!--submit-->
     </button>
-    <div class=\\"signup-label\\"> Already a member? <a href=\\"login\\"> Sign In </a>
+    <div class=\\"signup-label\\"> Already a member? <a href=\\"/login\\"> Sign In </a>
     </div>
     <!--footer-->
   </form>

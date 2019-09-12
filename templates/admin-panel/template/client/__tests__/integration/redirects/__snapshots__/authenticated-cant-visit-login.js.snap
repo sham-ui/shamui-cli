@@ -29,7 +29,7 @@ exports[`authenticated member can't visit login page 1`] = `
         <div class=\\"dropdown-menu \\">
           <ul class=\\"user-profile-nav\\">
             <li>
-              <a href=\\"settings\\">
+              <a href=\\"/settings\\">
                 <i class=\\"icon-cog\\"></i> Settings
               </a>
             </li>

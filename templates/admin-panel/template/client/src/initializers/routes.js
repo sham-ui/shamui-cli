@@ -12,9 +12,9 @@ export default function() {
     let homePageURL;
 
     router
-        .bindPage( 'signup', 'signup', SignupPage, {} )
-        .bindPage( 'login', 'login', LoginPage, {} )
-        .bindPage( 'settings', 'settings', SettingsPage, {} )
+        .bindPage( '/signup', 'signup', SignupPage, {} )
+        .bindPage( '/login', 'login', LoginPage, {} )
+        .bindPage( '/settings', 'settings', SettingsPage, {} )
         .bindPage( '', 'home', HomePage, {} )
         .hooks( {
             before( done ) {

@@ -18,7 +18,7 @@ exports[`logout from settings page 1`] = `
     <button type=\\"submit\\">Sign In
       <!--submit-->
     </button>
-    <div class=\\"signup-label\\"> Not yet a member? <a href=\\"signup\\"> Sign Up </a>
+    <div class=\\"signup-label\\"> Not yet a member? <a href=\\"/signup\\"> Sign Up </a>
     </div>
     <!--footer-->
   </form>

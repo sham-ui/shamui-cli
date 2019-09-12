@@ -24,7 +24,7 @@ exports[`success sign up 1`] = `
     <button type=\\"submit\\">Sign Up
       <!--submit-->
     </button>
-    <div class=\\"signup-label\\"> Already a member? <a href=\\"login\\"> Sign In </a>
+    <div class=\\"signup-label\\"> Already a member? <a href=\\"/login\\"> Sign In </a>
     </div>
     <!--footer-->
   </form>
@@ -64,7 +64,7 @@ exports[`success sign up 2`] = `
         <div class=\\"dropdown-menu \\">
           <ul class=\\"user-profile-nav\\">
             <li>
-              <a href=\\"settings\\">
+              <a href=\\"/settings\\">
                 <i class=\\"icon-cog\\"></i> Settings
               </a>
             </li>

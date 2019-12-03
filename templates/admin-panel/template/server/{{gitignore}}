@@ -1,4 +1,4 @@
 vendor/
 pkg/
-config.cfg
+/config.cfg
 bin/

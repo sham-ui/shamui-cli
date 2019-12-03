@@ -1,3 +1,7 @@
+## master
+* Fix `.gitignore` for `admin-panel` template 
+* Add `travis-ci` to templates
+
 ## 3.1.2
 * Fix active class for links in `admin-panel` template
 

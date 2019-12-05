@@ -1,6 +1,7 @@
 # {{ name }}
+[![Build Status](https://travis-ci.com/sham-ui/{{ name }}.svg?branch=master)](https://travis-ci.com/sham-ui/{{ name }})
 
-> {{ description }}
+{{ description }}
 
 ## install dependencies
 ``` bash

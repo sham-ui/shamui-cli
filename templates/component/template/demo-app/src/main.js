@@ -1,15 +1,14 @@
-import ShamUI, { DI } from 'sham-ui';
-import initializer from './initializers/main';
-
-DI.bind( 'component-binder', initializer );
+import { DI, start } from 'sham-ui';
+import mainInitializer from './initializers/main';
 
 if ( module.hot ) {
-    const UI = DI.resolve( 'sham-ui' );
-    if ( undefined !== UI ) {
-        UI.render.unregister( 'app' );
-        DI.resolve( 'sham-ui:store' ).forEach( component => {
+    const store = DI.resolve( 'sham-ui:store' );
+    const app = store.findById( 'app' );
+    if ( undefined !== app ) {
+        app.remove();
+        store.forEach( component => {
             try {
-                UI.render.unregister( component.ID );
+                component.remove();
             } catch ( e ) {
                 // eslint-disable-next-line no-empty
             }
@@ -18,5 +17,6 @@ if ( module.hot ) {
     module.hot.accept();
 }
 
-new ShamUI( true );
+mainInitializer();
+start();
 

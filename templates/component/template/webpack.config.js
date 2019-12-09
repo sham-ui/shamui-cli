@@ -6,7 +6,7 @@ const plugins = [
 
 module.exports = {
     entry: {
-        index: './src/{{name}}.js'
+        index: './src/{{name}}.sfc'
     },
     output: {
         path: __dirname,

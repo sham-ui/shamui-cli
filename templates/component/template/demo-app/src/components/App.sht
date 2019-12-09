@@ -1,4 +1,4 @@
-{% import {{ classifiedName }} from '../../../src/{{name}}' %}
+{% import {{ classifiedName }} from '../../../src/{{name}}.sfc' %}
 
 <main>
     <pre>

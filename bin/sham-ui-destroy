@@ -7,8 +7,7 @@ const { cyan } = require( 'chalk' );
 const destroy = require( '../src/destroy' );
 
 const VALID_TEMPLATES = [
-    'component',
-    'js-component',
+    'template',
     'sfc'
 ];
 
@@ -35,8 +34,7 @@ function destroyScaffold( template, name, to ) {
     const spinner = ora( 'Process scaffold template' );
     spinner.start();
     const fileName = {
-        'js-component': name,
-        'component': `${name}.sht`,
+        'template': `${name}.sht`,
         'sfc': `${name}.sfc`,
     }[ type ];
     destroy( name, template, to, fileName, function( err ) {

@@ -1,6 +1,9 @@
 ## master
 * Fix `.gitignore` for `admin-panel` template 
 * Add `travis-ci` to templates
+* Remove `js-component` scaffolding
+* Rename `component` scaffolding to `template`
+* Change default component type for `component` template as `SFC` 
 
 ## 3.1.2
 * Fix active class for links in `admin-panel` template

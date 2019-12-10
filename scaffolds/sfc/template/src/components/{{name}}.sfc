@@ -3,7 +3,12 @@
 </template>
 
 <script>
-    export default class {{classifiedName}} extends Template {
+    import { mergeWithTemplate } from 'sham-ui-macro/babel.macro';
+
+    @mergeWithTemplate
+    class {{classifiedName}} extends Template {
 
     }
+
+    export default {{classifiedName}};
 </script>

@@ -4,6 +4,7 @@
 * Remove `js-component` scaffolding
 * Rename `component` scaffolding to `template`
 * Change default component type for `component` template as `SFC` 
+* Add `documentation` for `component` template
 
 ## 3.1.2
 * Fix active class for links in `admin-panel` template

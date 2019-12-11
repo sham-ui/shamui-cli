@@ -12,7 +12,7 @@
     "build": "yarn build:silent --progress",
     "size": "yarn build && size-limit",
     "prepublish": "yarn size && yarn build",
-    "doc:generate": "documentation readme src/index.js --section=API",
+    "doc:generate": "documentation readme src/documentation.js --section=API",
     "doc:lint": "documentation lint src/**"
   },
   "devDependencies": {

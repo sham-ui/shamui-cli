@@ -18,8 +18,4 @@ yarn add {{name}}
 ```
 
 ### API
-```html
-{% import {{name}} from '{{name}}' %}
-...
-    <{{name}}/>
-...
+

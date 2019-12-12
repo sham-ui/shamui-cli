@@ -7,8 +7,7 @@
  * {{ description }}
  * @class {{classifiedName}}
  * @classdesc
- * @property {{{classifiedName}}Options} options
- *
+ * @property { {{~classifiedName~}}Options} options
  * @example
  * {% import {{classifiedName}} from '{{name}}' %}
  *   ...

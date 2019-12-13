@@ -4,7 +4,7 @@
  */
 
 /**
- * {{ description }}
+ * {{description}}
  * @class {{classifiedName}}
  * @classdesc
  * @property { {{~classifiedName~}}Options} options

@@ -29,6 +29,7 @@
     "babel-eslint": "^10.0.2",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.6",
+    "babel-plugin-macros": "^2.6.1",
     "core-js": "^3.2.1",
     "css-loader": "~2.1.1",
     "eslint": "^5.16.0",
@@ -90,7 +91,8 @@
         {
           "useBuiltIns": true
         }
-      ]
+      ],
+      "macros"
     ]
   },
   "stylelint": {
@@ -153,6 +155,9 @@
   "size-limit": [
     {
       "path": "index.js",
+      "ignore": [
+        "sham-ui"
+      ],
       "limit": "1 KB"
     }
   ],

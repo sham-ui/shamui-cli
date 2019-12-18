@@ -11,8 +11,11 @@
 yarn
 
 # run dev server
-yarn run start
+yarn start
 
 # build for production with minification
-yarn run build
+yarn build
+
+# check size limit
+yarn size
 ```

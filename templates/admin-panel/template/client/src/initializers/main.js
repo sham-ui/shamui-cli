@@ -13,7 +13,7 @@ export default function() {
 
     const app = new App( {
         ID: 'app',
-        containerSelector: 'body',
+        container: document.querySelector( 'body' ),
         directives: {
             ...directives,
             hrefto

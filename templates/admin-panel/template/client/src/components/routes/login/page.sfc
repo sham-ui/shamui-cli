@@ -36,7 +36,7 @@
 </template>
 
 <script>
-    import { inject } from 'sham-ui';
+    import { inject } from 'sham-ui-macro/babel.macro';
 
     export default class RoutesLoginPage extends Template {
         @inject session;

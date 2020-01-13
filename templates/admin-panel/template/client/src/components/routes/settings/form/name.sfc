@@ -18,7 +18,7 @@
 </template>
 
 <script>
-    import { options, inject } from 'sham-ui';
+    import { inject, options } from 'sham-ui-macro/babel.macro';
 
     export default class RoutesSettingsFormName extends Template {
         @inject store;

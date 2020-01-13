@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { DI, inject } from 'sham-ui';
+import { DI } from 'sham-ui';
+import { inject } from 'sham-ui-macro/babel.macro';
 
 export default class Store {
     @inject session;

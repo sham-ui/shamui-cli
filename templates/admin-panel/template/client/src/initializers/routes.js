@@ -18,8 +18,8 @@ export default function() {
         .bindPage( '', 'home', HomePage, {} )
         .hooks( {
             before( done ) {
-                const route = router.lastRouteResolved();
-                if ( 'home' === route.name && route.url !== homePageURL ) {
+                const currentRoute = router.storage;
+                if ( 'home' === currentRoute.name && currentRoute.url !== homePageURL ) {
 
                     // 404 page
                     done( false );
@@ -27,7 +27,7 @@ export default function() {
                     return;
                 }
                 DI.resolve( 'session' ).validateSessionPromise.then( isAuthenticated => {
-                    if ( [ 'signup', 'login' ].includes( route.name ) ) {
+                    if ( [ 'signup', 'login' ].includes( currentRoute.name ) ) {
                         done( !isAuthenticated );
                         if ( isAuthenticated ) {
 
@@ -51,6 +51,7 @@ export default function() {
         } );
 
     homePageURL = router.generate( 'home' );
+    router.resolve();
 }
 
 function routerResolve( routerResolved ) {

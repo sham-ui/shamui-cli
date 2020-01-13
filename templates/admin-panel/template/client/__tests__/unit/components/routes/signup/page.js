@@ -12,7 +12,9 @@ it( 'renders correctly', () => {
     DI.bind( 'router', {
         generate: jest.fn().mockReturnValueOnce( '/' ),
         activePageComponent: compile``,
-        lastRouteResolved: jest.fn().mockReturnValueOnce( '/' )
+        storage: {
+            url: '/'
+        }
     } );
     const meta = renderer( RoutesSignupPage, {
         directives: {
@@ -28,7 +30,9 @@ it( 'display errors', async() => {
     DI.bind( 'router', {
         generate: jest.fn().mockReturnValueOnce( '/' ),
         activePageComponent: compile``,
-        lastRouteResolved: jest.fn().mockReturnValueOnce( '/' )
+        storage: {
+            url: '/'
+        }
     } );
 
     const signUpMock = jest.fn();

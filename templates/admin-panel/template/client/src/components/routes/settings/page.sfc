@@ -32,7 +32,7 @@
 </template>
 
 <script>
-    import { inject } from 'sham-ui';
+    import { inject } from 'sham-ui-macro/babel.macro';
     import { useStorage } from '../../../storages/session';
 
     @useStorage( 'sessionData' )

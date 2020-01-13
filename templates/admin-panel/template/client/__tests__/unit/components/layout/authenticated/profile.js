@@ -15,7 +15,9 @@ it( 'renders correctly', () => {
     DI.bind( 'router', {
         generate: jest.fn().mockReturnValueOnce( '/' ),
         activePageComponent: compile``,
-        lastRouteResolved: jest.fn().mockReturnValueOnce( '/' )
+        storage: {
+            url: '/'
+        }
     } );
     const meta = renderer( LayoutAuthenticatedProfile, {
         directives: {

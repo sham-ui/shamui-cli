@@ -25,7 +25,7 @@
 </template>
 
 <script>
-    import { options, inject } from 'sham-ui';
+    import { inject, options } from 'sham-ui-macro/babel.macro';
     import { useStorage } from '../../../storages/session';
 
     @useStorage( 'sessionData' )

@@ -1,4 +1,5 @@
-import { DI, inject } from 'sham-ui';
+import { DI } from 'sham-ui';
+import { inject } from 'sham-ui-macro/babel.macro';
 
 export default class Session {
     @inject router;
@@ -64,11 +65,10 @@ export default class Session {
     }
 
     _isRestrictedPage() {
-        const page = this.router.lastRouteResolved();
-        return undefined !== page && ![
+        return ![
             'signup',
             'login'
-        ].includes( page.name );
+        ].includes( this.router.storage.name );
     }
 
     _goToLoginPage() {

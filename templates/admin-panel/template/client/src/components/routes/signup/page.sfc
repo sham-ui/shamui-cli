@@ -42,7 +42,7 @@
 </template>
 
 <script>
-    import { inject } from 'sham-ui';
+    import { inject } from 'sham-ui-macro/babel.macro';
 
     export default class RoutesSignupPage extends Template {
         @inject store;

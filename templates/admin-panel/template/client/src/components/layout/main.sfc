@@ -10,12 +10,13 @@
 </template>
 
 <script>
+    import { mergeWithTemplate } from 'sham-ui-macro/babel.macro';
     import { useStorage } from '../../storages/session';
 
-    @useStorage( 'sessionData' )
+    @mergeWithTemplate
     class LayoutMain extends Template {
 
     }
 
-    export default LayoutMain;
+    export default useStorage( 'sessionData' )( LayoutMain );
 </script>

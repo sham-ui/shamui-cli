@@ -37,11 +37,12 @@
 </template>
 
 <script>
-    import { options } from 'sham-ui';
+    import { options, mergeWithTemplate } from 'sham-ui-macro/babel.macro';
 
     const MAX_SCREEN_SIZE = 992;
 
-    export default class LayoutAuthenticated extends Template {
+    @mergeWithTemplate
+    class LayoutAuthenticated extends Template {
         @options wrapperClasses = '';
         @options menuCollapsed = false;
         @options smallScreenSize = false;
@@ -100,4 +101,6 @@
             }
         }
     }
+
+    export default LayoutAuthenticated;
 </script>

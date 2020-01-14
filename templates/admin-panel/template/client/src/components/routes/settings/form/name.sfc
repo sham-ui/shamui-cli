@@ -18,9 +18,10 @@
 </template>
 
 <script>
-    import { inject, options } from 'sham-ui-macro/babel.macro';
+    import { inject, options, mergeWithTemplate } from 'sham-ui-macro/babel.macro';
 
-    export default class RoutesSettingsFormName extends Template {
+    @mergeWithTemplate
+    class RoutesSettingsFormName extends Template {
         @inject store;
 
         @options value = '';
@@ -40,4 +41,6 @@
             return Messages;
         }
     }
+
+    export default RoutesSettingsFormName;
 </script>

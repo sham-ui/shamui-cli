@@ -18,9 +18,10 @@
 </template>
 
 <script>
-    import { options } from 'sham-ui';
+    import { options, mergeWithTemplate } from 'sham-ui-macro/babel.macro';
 
-    export default class FormContainer extends Template {
+    @mergeWithTemplate
+    class FormContainer extends Template {
         @options dataSaving = false;
         @options formClass = 'form';
         @options get errors() {
@@ -56,4 +57,6 @@
             } );
         }
     }
+
+    export default FormContainer;
 </script>

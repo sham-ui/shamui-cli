@@ -25,10 +25,10 @@
 </template>
 
 <script>
-    import { inject, options } from 'sham-ui-macro/babel.macro';
+    import { inject, options, mergeWithTemplate } from 'sham-ui-macro/babel.macro';
     import { useStorage } from '../../../storages/session';
 
-    @useStorage( 'sessionData' )
+    @mergeWithTemplate
     class LayoutAuthenticatedProfile extends Template {
         @inject session;
 
@@ -55,5 +55,5 @@
         }
     }
 
-    export default LayoutAuthenticatedProfile;
+    export default useStorage( 'sessionData' )( LayoutAuthenticatedProfile );
 </script>

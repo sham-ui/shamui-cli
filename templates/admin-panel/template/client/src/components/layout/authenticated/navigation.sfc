@@ -13,7 +13,12 @@
 </template>
 
 <script>
-    export default class LayoutAuthenticatedNavigation extends Template {
+    import { mergeWithTemplate } from 'sham-ui-macro/babel.macro';
+
+    @mergeWithTemplate
+    class LayoutAuthenticatedNavigation extends Template {
 
     }
+
+    export default LayoutAuthenticatedNavigation;
 </script>

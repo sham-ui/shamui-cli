@@ -42,9 +42,10 @@
 </template>
 
 <script>
-    import { inject } from 'sham-ui-macro/babel.macro';
+    import { inject, mergeWithTemplate } from 'sham-ui-macro/babel.macro';
 
-    export default class RoutesSignupPage extends Template {
+    @mergeWithTemplate
+    class RoutesSignupPage extends Template {
         @inject store;
         @inject router;
         @inject session;
@@ -69,4 +70,6 @@
             return Messages;
         }
     }
+
+    export default RoutesSignupPage;
 </script>

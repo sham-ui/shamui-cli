@@ -14,7 +14,12 @@
 </template>
 
 <script>
-    export default class RoutesHomePage extends Template {
+    import { mergeWithTemplate } from 'sham-ui-macro/babel.macro';
+
+    @mergeWithTemplate
+    class RoutesHomePage extends Template {
 
     }
+
+    export default RoutesHomePage;
 </script>

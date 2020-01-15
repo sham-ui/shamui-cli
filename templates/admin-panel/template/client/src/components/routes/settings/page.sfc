@@ -32,10 +32,10 @@
 </template>
 
 <script>
-    import { inject } from 'sham-ui-macro/babel.macro';
+    import { mergeWithTemplate, inject } from 'sham-ui-macro/babel.macro';
     import { useStorage } from '../../../storages/session';
 
-    @useStorage( 'sessionData' )
+    @mergeWithTemplate
     class RoutesSettingsPage extends Template {
         @inject session;
 
@@ -43,5 +43,6 @@
             this.session.validateSession().then( done );
         }
     }
-    export default RoutesSettingsPage;
+
+    export default useStorage( 'sessionData' )( RoutesSettingsPage );
 </script>

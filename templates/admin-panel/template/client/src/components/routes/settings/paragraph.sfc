@@ -18,9 +18,10 @@
 </template>
 
 <script>
-    import { options } from 'sham-ui';
+    import { mergeWithTemplate, options } from 'sham-ui-macro/babel.macro';
 
-    export default class RoutesSettingsParagraph extends Template {
+    @mergeWithTemplate
+    class RoutesSettingsParagraph extends Template {
         @options paragraphClassName = 'mg-b-0';
         @options title = '';
         @options value = '';
@@ -45,4 +46,6 @@
             this.options.onUpdateValue( ::this._toggleEdit );
         }
     }
+
+    export default RoutesSettingsParagraph;
 </script>

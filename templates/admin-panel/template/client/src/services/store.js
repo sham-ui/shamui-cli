@@ -21,7 +21,6 @@ export default class Store {
             ( response ) => response,
             ::this._responseFailInterceptor
         );
-        this.tokenLoaded = false;
     }
 
     _requestInterceptor( request ) {
@@ -72,7 +71,6 @@ export default class Store {
             response => response.headers[ 'x-csrf-token' ]
         ).then( token => {
             this.token = token;
-            this.tokenLoaded = true;
         } );
     }
 
@@ -98,7 +96,6 @@ export default class Store {
     login( data ) {
         return this.axios.post( '/login', data ).then( response => {
             this.token = response.headers[ 'x-csrf-token' ];
-            this.tokenLoaded = true;
             return this.constructor.extractData( response );
         } );
     }

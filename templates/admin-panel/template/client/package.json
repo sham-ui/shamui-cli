@@ -45,16 +45,16 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "pretty": "^2.0.0",
     "sass-loader": "~7.1.0",
-    "sham-ui-cube-animation": "^1.0.0",
-    "sham-ui-data-storage": "^1.0.1",
-    "sham-ui-directives": "^4.0.0",
-    "sham-ui-dynamic-component": "^1.0.0",
-    "sham-ui-jest-preprocessor": "^4.0.0",
+    "sham-ui-cube-animation": "^1.0.1",
+    "sham-ui-data-storage": "^1.0.3",
+    "sham-ui-directives": "^4.0.1",
+    "sham-ui-dynamic-component": "^1.0.1",
+    "sham-ui-jest-preprocessor": "^4.0.1",
     "sham-ui-macro": "^1.0.0",
-    "sham-ui-templates": "^4.0.0",
-    "sham-ui-templates-loader": "^4.0.0",
-    "sham-ui-test-helpers": "^4.0.0",
-    "sham-ui-without-flush-loader": "^1.0.0",
+    "sham-ui-templates": "^4.0.1",
+    "sham-ui-templates-loader": "^4.0.1",
+    "sham-ui-test-helpers": "^4.0.1",
+    "sham-ui-without-flush-loader": "^1.0.1",
     "style-loader": "~0.22.1",
     "stylelint": "^10.1.0",
     "stylelint-config-recommended-scss": "^3.3.0",
@@ -67,8 +67,8 @@
   "dependencies": {
     "axios": "^0.18.1",
     "core-js": "^3.2.1",
-    "sham-ui": "^4.0.0",
-    "sham-ui-router": "^4.0.1"
+    "sham-ui": "^4.0.1",
+    "sham-ui-router": "^4.0.4"
   },
   "babel": {
     "presets": [

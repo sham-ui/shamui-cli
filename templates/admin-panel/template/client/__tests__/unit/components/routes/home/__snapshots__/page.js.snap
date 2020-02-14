@@ -5,8 +5,6 @@ Object {
   "Constructor": "RoutesHomePage",
   "Options": Object {
     "ID": "component",
-    "containerSelector": "body",
-    "types": Array [],
   },
   "html": "
 <h4 class=\\"page-header\\"> Home

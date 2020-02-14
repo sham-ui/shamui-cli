@@ -5,7 +5,6 @@ Object {
   "Constructor": "FormContainer",
   "Options": Object {
     "ID": "component",
-    "containerSelector": "body",
     "dataSaving": false,
     "directives": Object {
       "EventListener": [Function],
@@ -25,7 +24,6 @@ Object {
     "submit": [Function],
     "submitText": "",
     "success": [Function],
-    "types": Array [],
   },
   "html": "
 <form class=\\"form\\">
@@ -47,7 +45,6 @@ Object {
   "Constructor": "FormContainer",
   "Options": Object {
     "ID": "component",
-    "containerSelector": "body",
     "dataSaving": false,
     "directives": Object {
       "EventListener": [Function],
@@ -84,7 +81,6 @@ Object {
     },
     "submitText": "",
     "success": [Function],
-    "types": Array [],
   },
   "html": "
 <form class=\\"form\\">

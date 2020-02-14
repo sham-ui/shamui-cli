@@ -5,11 +5,9 @@ Object {
   "Constructor": "LayoutAuthenticatedNavigation",
   "Options": Object {
     "ID": "component",
-    "containerSelector": "body",
     "directives": Object {
       "hrefto": [Function],
     },
-    "types": Array [],
   },
   "html": "
 <label class=\\"sidebar-label\\">Navigation</label>

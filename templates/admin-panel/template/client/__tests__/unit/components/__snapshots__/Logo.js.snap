@@ -5,8 +5,6 @@ Object {
   "Constructor": "Logo",
   "Options": Object {
     "ID": "component",
-    "containerSelector": "body",
-    "types": Array [],
   },
   "html": "
 <div class=\\"logo\\"><span><span>[</span> {{ logoText }} <span>]</span></span>

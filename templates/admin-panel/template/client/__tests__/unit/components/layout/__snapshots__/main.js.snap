@@ -5,14 +5,12 @@ Object {
   "Constructor": "LayoutMain",
   "Options": Object {
     "ID": "component",
-    "containerSelector": "body",
     "sessionData": Object {
       "email": "",
       "isAuthenticated": false,
       "name": "",
       "sessionValidated": false,
     },
-    "types": Array [],
   },
   "html": "
 <!--ActivePageContainer-->

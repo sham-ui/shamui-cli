@@ -5,8 +5,6 @@ Object {
   "Constructor": "ErrorsPanel",
   "Options": Object {
     "ID": "component",
-    "containerSelector": "body",
-    "types": Array [],
   },
   "html": "<!--if-->",
 }

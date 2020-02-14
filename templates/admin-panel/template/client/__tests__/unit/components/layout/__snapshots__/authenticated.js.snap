@@ -5,7 +5,6 @@ Object {
   "Constructor": "LayoutAuthenticated",
   "Options": Object {
     "ID": "component",
-    "containerSelector": "body",
     "directives": Object {
       "EventListener": [Function],
       "disabled": [Function],
@@ -21,7 +20,6 @@ Object {
     },
     "menuCollapsed": false,
     "smallScreenSize": false,
-    "types": Array [],
     "wrapperClasses": "",
   },
   "html": "

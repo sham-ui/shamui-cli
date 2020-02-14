@@ -5,7 +5,6 @@ Object {
   "Constructor": "RoutesSettingsParagraph",
   "Options": Object {
     "ID": "component",
-    "containerSelector": "body",
     "directives": Object {
       "EventListener": [Function],
       "disabled": [Function],
@@ -23,7 +22,6 @@ Object {
     "onUpdateValue": [Function],
     "paragraphClassName": "mg-b-0",
     "title": "",
-    "types": Array [],
     "value": "",
   },
   "html": "
@@ -45,7 +43,6 @@ Object {
   "Constructor": "RoutesSettingsParagraph",
   "Options": Object {
     "ID": "component",
-    "containerSelector": "body",
     "directives": Object {
       "EventListener": [Function],
       "disabled": [Function],
@@ -63,7 +60,6 @@ Object {
     "onUpdateValue": [Function],
     "paragraphClassName": "mg-b-0",
     "title": "",
-    "types": Array [],
     "value": "",
   },
   "html": "
@@ -83,7 +79,6 @@ Object {
   "Constructor": "RoutesSettingsParagraph",
   "Options": Object {
     "ID": "component",
-    "containerSelector": "body",
     "directives": Object {
       "EventListener": [Function],
       "disabled": [Function],
@@ -101,7 +96,6 @@ Object {
     "onUpdateValue": [Function],
     "paragraphClassName": "mg-b-0",
     "title": "",
-    "types": Array [],
     "value": "",
   },
   "html": "

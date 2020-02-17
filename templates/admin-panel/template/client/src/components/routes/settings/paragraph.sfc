@@ -11,7 +11,7 @@
             <DynamicComponent
                 component=\{{form}}
                 value=\{{value}}
-                onUpdate=\{{::this._onUpdateValue}}
+                onUpdateSuccess=\{{::this._onUpdateValue}}
             />
         {% endif %}
     </p>

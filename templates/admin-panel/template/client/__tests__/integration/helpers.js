@@ -1,11 +1,11 @@
-import ShamUI, { DI } from 'sham-ui';
+import { start, DI } from 'sham-ui';
 import pretty from 'pretty';
 import initializer from '../../src/initializers/main';
 
 export const app = {
     async start( waitRendering = true ) {
-        DI.bind( 'component-binder', initializer );
-        new ShamUI( true );
+        initializer();
+        start();
         if ( waitRendering ) {
             await this.waitRendering();
         }
@@ -47,12 +47,13 @@ function clearBody() {
 }
 
 function resetShamUI() {
-    const UI = DI.resolve( 'sham-ui' );
-    if ( undefined !== UI ) {
-        UI.render.unregister( 'app' );
-        DI.resolve( 'sham-ui:store' ).forEach( component => {
+    const store = DI.resolve( 'sham-ui:store' );
+    const app = store.findById( 'app' );
+    if ( undefined !== app ) {
+        app.remove();
+        store.forEach( component => {
             try {
-                UI.render.unregister( component.ID );
+                component.remove();
             } catch ( e ) {
                 // eslint-disable-next-line no-empty
             }

@@ -17,7 +17,7 @@ Object {
       "onsubmit": [Function],
       "ref": [Function],
     },
-    "onUpdate": [Function],
+    "onUpdateSuccess": [Function],
     "value": "",
   },
   "html": "

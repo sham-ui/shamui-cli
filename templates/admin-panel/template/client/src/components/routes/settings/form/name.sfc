@@ -25,7 +25,7 @@
         @inject store;
 
         @options value = '';
-        @options onUpdate() {}
+        @options onUpdateSuccess() {}
 
         _submitForm( formData ) {
             return this.store.updateMemberName( {
@@ -34,7 +34,7 @@
         }
 
         _updateMemberNameSuccess() {
-            this.options.onUpdate();
+            this.options.onUpdateSuccess();
         }
 
         _getErrors( { Messages = [ 'Update member name fail' ] } ) {

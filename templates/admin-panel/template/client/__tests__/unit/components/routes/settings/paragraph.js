@@ -14,8 +14,8 @@ it( 'default onUpdate options', () => {
         directives,
         form: compile`<button data-test-dummy-button :onclick=\{{onUpdate}}>Click me!</button>`
     } );
-    meta.component.querySelector( '.icon-pencil' ).click();
+    meta.component.container.querySelector( '.icon-pencil' ).click();
     expect( meta.toJSON() ).toMatchSnapshot();
-    meta.component.querySelector( '[data-test-dummy-button]' ).click();
+    meta.component.container.querySelector( '[data-test-dummy-button]' ).click();
     expect( meta.toJSON() ).toMatchSnapshot();
 } );

@@ -16,7 +16,7 @@ it( 'submit', async() => {
         directives,
         success
     } );
-    meta.component.querySelector( '[type="submit"]' ).click();
+    meta.component.container.querySelector( '[type="submit"]' ).click();
     await new Promise( resolve => setImmediate( resolve ) );
     expect( success ).toHaveBeenCalledTimes( 1 );
 } );
@@ -28,7 +28,7 @@ it( 'submit fail', async() => {
         directives,
         submit
     } );
-    meta.component.querySelector( '[type="submit"]' ).click();
+    meta.component.container.querySelector( '[type="submit"]' ).click();
     await new Promise( resolve => setImmediate( resolve ) );
     expect( submit ).toHaveBeenCalledTimes( 1 );
     expect( meta.toJSON() ).toMatchSnapshot();

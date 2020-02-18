@@ -53,11 +53,11 @@ it( 'display errors', async() => {
         password: 'passw0rd'
     };
     const { component } = meta;
-    component.querySelector( '[name="name"]' ).value = formData.name;
-    component.querySelector( '[name="email"]' ).value = formData.email;
-    component.querySelector( '[name="password"]' ).value = formData.password;
-    component.querySelector( '[name="password2"]' ).value = formData.password;
-    component.querySelector( '[type="submit"]' ).click();
+    component.container.querySelector( '[name="name"]' ).value = formData.name;
+    component.container.querySelector( '[name="email"]' ).value = formData.email;
+    component.container.querySelector( '[name="password"]' ).value = formData.password;
+    component.container.querySelector( '[name="password2"]' ).value = formData.password;
+    component.container.querySelector( '[type="submit"]' ).click();
 
     await new Promise( resolve => setImmediate( resolve ) );
 

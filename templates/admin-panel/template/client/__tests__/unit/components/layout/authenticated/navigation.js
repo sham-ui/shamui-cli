@@ -13,7 +13,8 @@ it( 'renders correctly', () => {
         generate: jest.fn().mockReturnValueOnce( '/' ),
         activePageComponent: compile``,
         storage: {
-            url: '/'
+            url: '/',
+            addWatcher() {}
         }
     } );
 

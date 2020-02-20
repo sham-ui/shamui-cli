@@ -22,8 +22,7 @@ Object {
   "html": "
 <div class=\\"login-page\\">
   <form class=\\"form\\">
-    <div class=\\"logo\\"><span><span>[</span> {{ logoText }} <span>]</span></span>
-    </div>
+    <div class=\\"logo\\"><span><span>[</span> {{ logoText }} <span>]</span></span></div>
     <!--Logo-->
     <!--header-->
     <ul class=\\"errors-panel\\">
@@ -41,8 +40,7 @@ Object {
     <button type=\\"submit\\">Sign In
       <!--submit-->
     </button>
-    <div class=\\"signup-label\\"> Not yet a member?
-      <a href=\\"/\\"> Sign Up </a>
+    <div class=\\"signup-label\\"> Not yet a member? <a href=\\"/\\"> Sign Up </a>
     </div>
     <!--footer-->
   </form>
@@ -73,8 +71,7 @@ Object {
   "html": "
 <div class=\\"login-page\\">
   <form class=\\"form\\">
-    <div class=\\"logo\\"><span><span>[</span> {{ logoText }} <span>]</span></span>
-    </div>
+    <div class=\\"logo\\"><span><span>[</span> {{ logoText }} <span>]</span></span></div>
     <!--Logo-->
     <!--header-->
     <!--if-->
@@ -89,8 +86,7 @@ Object {
     <button type=\\"submit\\">Sign In
       <!--submit-->
     </button>
-    <div class=\\"signup-label\\"> Not yet a member?
-      <a href=\\"/\\"> Sign Up </a>
+    <div class=\\"signup-label\\"> Not yet a member? <a href=\\"/\\"> Sign Up </a>
     </div>
     <!--footer-->
   </form>

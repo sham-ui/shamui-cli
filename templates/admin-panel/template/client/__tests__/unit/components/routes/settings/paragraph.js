@@ -12,7 +12,7 @@ it( 'renders correctly', () => {
 it( 'default onUpdate options', () => {
     const meta = renderer( RoutesSettingsParagraph, {
         directives,
-        form: compile`<button data-test-dummy-button :onclick=\{{onUpdate}}>Click me!</button>`
+        form: compile`<button data-test-dummy-button :onclick=\{{onUpdateSuccess}}>Click me!</button>`
     } );
     meta.component.container.querySelector( '.icon-pencil' ).click();
     expect( meta.toJSON() ).toMatchSnapshot();

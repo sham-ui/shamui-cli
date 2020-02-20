@@ -33,11 +33,13 @@ Object {
     <ul class=\\"user-profile-nav\\">
       <li>
         <a href=\\"/\\">
-          <i class=\\"icon-cog\\"></i> Settings </a>
+          <i class=\\"icon-cog\\"></i> Settings
+        </a>
       </li>
       <li>
         <a href=\\"#\\">
-          <i class=\\"icon-logout\\"></i> Sign Out </a>
+          <i class=\\"icon-logout\\"></i> Sign Out
+        </a>
       </li>
     </ul>
   </div>

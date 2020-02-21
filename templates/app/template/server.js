@@ -20,7 +20,8 @@ app.listen( port, function( error ) {
         console.error( error );
     } else {
         console.info(
-            'App "{{ name }}" started.\nOpen up http://localhost:%s/ in your browser.',
+            'App "{{ name }}" started.\n' +
+            'Open up http://localhost:%s/ in your browser.',
             port
         );
     }

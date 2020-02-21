@@ -24,7 +24,8 @@ app.listen( port, function( error ) {
 
         // eslint-disable-next-line no-console
         console.info(
-            'App "Demo for {{name}}" started.\nOpen up http://localhost:%s/ in your browser.',
+            'App "Demo for {{name}}" started.\n' +
+            'Open up http://localhost:%s/ in your browser.',
             port
         );
     }

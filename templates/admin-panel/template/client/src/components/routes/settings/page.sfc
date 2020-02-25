@@ -4,8 +4,7 @@
     {% import NameForm from './form/name.sfc' %}
     {% import EmailForm from './form/email.sfc' %}
 
-    <!-- Pass sessionData.sessionValidated to page for update blocks-->
-    <Page _=\{{sessionData.sessionValidated}}>
+    <Page>
         {% block 'header' %}
             Profile settings
         {% endblock %}

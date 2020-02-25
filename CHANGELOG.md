@@ -1,4 +1,5 @@
 ## master
+* Remove workaround for `Page` in `admin-panel` template 
 * Fix `.gitignore` for `admin-panel` template 
 * Add `travis-ci` to templates
 * Remove `js-component` scaffolding

@@ -1,4 +1,5 @@
 ## master
+* Refactoring initializers [#40](https://github.com/sham-ui/sham-ui-cli/issues/40)
 * Remove workaround for `Page` in `admin-panel` template 
 * Fix `.gitignore` for `admin-panel` template 
 * Add `travis-ci` to templates

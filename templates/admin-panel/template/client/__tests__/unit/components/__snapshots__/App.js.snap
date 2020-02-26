@@ -5,7 +5,15 @@ Object {
   "Constructor": "App",
   "Options": Object {
     "ID": "component",
+    "appState": Object {
+      "routerResolved": false,
+      "tokenLoaded": false,
+    },
   },
-  "html": "<!--if-->",
+  "html": "
+<!--if-->
+<!--WithoutFlushLoader-->
+<!--if-->
+",
 }
 `;

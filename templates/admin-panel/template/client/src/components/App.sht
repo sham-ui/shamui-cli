@@ -1,9 +1,0 @@
-{% import WithoutFlushLoader from 'sham-ui-without-flush-loader' %}
-{% import Layout from './layout/main.sfc' %}
-{% import PageLoadingIndicator from './PageLoadingIndicator.sht' %}
-
-{% if tokenLoaded && routerResolved %}
-    <Layout/>
-{% else %}
-    <WithoutFlushLoader loadingComponent=\{{PageLoadingIndicator}}/>
-{% endif %}

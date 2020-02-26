@@ -36,14 +36,14 @@ export default function() {
                                 router.generate( 'home' )
                             );
                         } else {
-                            routerResolve( true );
+                            routerResolve();
                         }
                     } else {
                         done( isAuthenticated );
                         if ( isAuthenticated ) {
 
                             // if non authenticated wait redirects to login
-                            routerResolve( true );
+                            routerResolve();
                         }
                     }
                 } );
@@ -54,8 +54,8 @@ export default function() {
     router.resolve();
 }
 
-function routerResolve( routerResolved ) {
-    DI.resolve( 'sham-ui:store' ).findById( 'app' ).update( {
-        routerResolved
-    } );
+function routerResolve() {
+    const storage = DI.resolve( 'app:storage' );
+    storage.routerResolved = true;
+    storage.sync();
 }

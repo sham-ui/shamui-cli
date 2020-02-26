@@ -1,4 +1,4 @@
-import App from '../../../src/components/App.sht';
+import App from '../../../src/components/App.sfc';
 import renderer from 'sham-ui-test-helpers';
 
 it( 'renders correctly', () => {

@@ -1,15 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`logout 1`] = `
-"<h4 class=\\"page-header\\"> Home
-  <!--header-->
-</h4>
-<div class=\\"page-body\\">
-  <div class=\\"panel\\"> Project description </div>
-  <!--body-->
+"<div class=\\"login-page\\">
+  <form class=\\"form\\">
+    <div class=\\"logo\\"><span><span>[</span> {{ logoText }} <span>]</span></span></div>
+    <!--Logo-->
+    <!--header-->
+    <!--if-->
+    <!--ErrorsPanel-->
+    <div class=\\"form-group\\">
+      <input name=\\"email\\" type=\\"text\\" placeholder=\\"Enter your email\\" autofocus=\\"\\">
+    </div>
+    <div class=\\"form-group\\">
+      <input name=\\"password\\" type=\\"password\\" placeholder=\\"Enter your password\\">
+    </div>
+    <!--default-->
+    <button type=\\"submit\\">Sign In
+      <!--submit-->
+    </button>
+    <div class=\\"signup-label\\"> Not yet a member? <a href=\\"/signup\\"> Sign Up </a>
+    </div>
+    <!--footer-->
+  </form>
 </div>
-<!--if-->
-<!--Page-->
 <!--ActivePageContainer-->
 <!--if-->
 <!--Layout-->

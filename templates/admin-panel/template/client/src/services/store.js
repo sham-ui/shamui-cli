@@ -4,7 +4,6 @@ import { inject } from 'sham-ui-macro/babel.macro';
 
 export default class Store {
     @inject session;
-    @inject( 'app:storage' ) appState;
 
     constructor() {
         DI.bind( 'store', this );
@@ -72,22 +71,11 @@ export default class Store {
             response => response.headers[ 'x-csrf-token' ]
         ).then( token => {
             this.token = token;
-            this.appState.tokenLoaded = true;
-            this.appState.sync();
         } );
     }
 
-    get tokenPromise() {
-        if ( undefined === this._tokenPromise ) {
-            this._tokenPromise = this.csrftoken();
-        }
-        return this._tokenPromise;
-    }
-
     validSession() {
-        return this.tokenPromise.then(
-            () => this.axios.get( '/validsession' )
-        ).then(
+        return this.axios.get( '/validsession' ).then(
             this.constructor.extractData
         );
     }

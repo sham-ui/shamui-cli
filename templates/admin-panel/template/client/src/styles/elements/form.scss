@@ -75,6 +75,18 @@
       border-color: #17a2b8;
       opacity: .65;
     }
+
+    .sk-cube-grid {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      margin-left: 5px;
+      margin-right: 5px;
+      vertical-align: text-bottom;
+      .sk-cube {
+        background-color: #fff;
+      }
+    }
   }
 }
 

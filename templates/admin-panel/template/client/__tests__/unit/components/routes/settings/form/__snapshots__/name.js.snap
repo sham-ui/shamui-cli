@@ -30,7 +30,8 @@ Object {
     <input name=\\"name\\" type=\\"text\\" autofocus=\\"\\">
   </div>
   <!--default-->
-  <button type=\\"submit\\">Update
+  <button type=\\"submit\\">
+    <!--if-->Update
     <!--submit-->
   </button>
   <!--footer-->

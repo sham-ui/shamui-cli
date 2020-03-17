@@ -43,7 +43,8 @@ Object {
       <input name=\\"password2\\" type=\\"password\\" placeholder=\\"Confirm your password\\">
     </div>
     <!--default-->
-    <button type=\\"submit\\">Sign Up
+    <button type=\\"submit\\">
+      <!--if-->Sign Up
       <!--submit-->
     </button>
     <div class=\\"signup-label\\"> Already a member? <a href=\\"/\\"> Sign In </a>
@@ -95,7 +96,8 @@ Object {
       <input name=\\"password2\\" type=\\"password\\" placeholder=\\"Confirm your password\\">
     </div>
     <!--default-->
-    <button type=\\"submit\\">Sign Up
+    <button type=\\"submit\\">
+      <!--if-->Sign Up
       <!--submit-->
     </button>
     <div class=\\"signup-label\\"> Already a member? <a href=\\"/\\"> Sign In </a>

@@ -15,7 +15,8 @@ exports[`logout from settings page 1`] = `
       <input name=\\"password\\" type=\\"password\\" placeholder=\\"Enter your password\\">
     </div>
     <!--default-->
-    <button type=\\"submit\\">Sign In
+    <button type=\\"submit\\">
+      <!--if-->Sign In
       <!--submit-->
     </button>
     <div class=\\"signup-label\\"> Not yet a member? <a href=\\"/signup\\"> Sign Up </a>

@@ -1,5 +1,6 @@
 <template>
     {% import ErrorsPanel from './ErrorsPanel.sht' %}
+    {% import CubeAnimation from 'sham-ui-cube-animation' %}
 
     <form class=\{{formClass}} :onsubmit=\{{::this._submitForm}} :ref="formNode">
         {% defblock 'header' %}
@@ -9,6 +10,10 @@
         {% defblock 'default' %}
 
         <button type="submit" :disabled=\{{dataSaving}}>
+            {% if dataSaving %}
+                <CubeAnimation/>
+            {% endif %}
+
             \{{submitText}}
             {% defblock 'submit' %}
         </button>

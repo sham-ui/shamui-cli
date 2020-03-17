@@ -73,7 +73,8 @@ exports[`success edit email 1`] = `
               <input name=\\"email2\\" type=\\"text\\">
             </div>
             <!--default-->
-            <button type=\\"submit\\">Update
+            <button type=\\"submit\\">
+              <!--if-->Update
               <!--submit-->
             </button>
             <!--footer-->

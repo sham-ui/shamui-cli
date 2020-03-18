@@ -22,5 +22,10 @@ build_amd64: bind_dist
 
 build: build_386 build_amd64
 
-test:
-	wgo test -v ./src/{{ shortName }}/... && echo "Tests finished with success"
+run_test:
+	wgo test -v ./src/{{ shortName }}/... -cover -coverprofile=coverage.out -coverpkg ./src/{{ shortName }}/... && echo "Tests finished with success"
+
+coverage:
+	wgo tool cover -html=coverage.out
+
+test: run_test coverage

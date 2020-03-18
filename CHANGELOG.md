@@ -1,4 +1,6 @@
 ## master
+* Update go from `1.8` to `1.14` in admin-panel template
+* Add code coverage for `server` in admin-panel template [#45](https://github.com/sham-ui/sham-ui-cli/issues/45)
 * Add loader indicator for submit form button in admin-panel template [#35](https://github.com/sham-ui/sham-ui-cli/issues/35)
 * Refactoring initializers [#40](https://github.com/sham-ui/sham-ui-cli/issues/40)
 * Remove workaround for `Page` in `admin-panel` template 

@@ -6,14 +6,18 @@
 1. Install [gvm](https://github.com/moovweb/gvm)
 2. Run 
    ```bash
-   gvm install go1.8
-   gvm use go1.8
+   gvm install go1.14
+   gvm use go1.14
    ```
-3. Go to `server` directory and run:
+3. Install `wgo`
+    ```bash
+    got get github.com/skelterjohn/wgo
+    ```
+4. Go to `server` directory and run:
    ```bash
    make install 
    ```
-4. Go to `client` directory and run:
+5. Go to `client` directory and run:
     ```bash
     yarn
     ```

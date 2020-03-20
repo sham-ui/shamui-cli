@@ -1,4 +1,4 @@
-## master
+## 4.0.0
 * Add tests for save name/email without change in admin-panel template
 * Update go from `1.8` to `1.14` in admin-panel template
 * Add code coverage for `server` in admin-panel template [#45](https://github.com/sham-ui/sham-ui-cli/issues/45)

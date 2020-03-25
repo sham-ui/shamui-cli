@@ -1,7 +1,8 @@
 import { DI, start } from 'sham-ui';
 import mainInitializer from './initializers/main';
 
-if ( module.hot ) {
+// Used only for dev, don't include in production build
+if ( !PRODUCTION && module.hot ) {
     const store = DI.resolve( 'sham-ui:store' );
     const app = store.findById( 'app' );
     if ( undefined !== app ) {

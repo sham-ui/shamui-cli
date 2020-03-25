@@ -1,3 +1,8 @@
+## master
+* Remove module hot replacement code from production build in app template
+* Add `yarn-error.log` to `.gitignore` templates
+* Remove some polyfills from templates 
+
 ## 4.0.0
 * Add tests for save name/email without change in admin-panel template
 * Update go from `1.8` to `1.14` in admin-panel template

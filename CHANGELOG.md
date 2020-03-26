@@ -1,4 +1,4 @@
-## master
+## 4.0.1
 * Remove module hot replacement code from production build in app template
 * Add `yarn-error.log` to `.gitignore` templates
 * Remove some polyfills from templates 

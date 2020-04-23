@@ -39,7 +39,11 @@ export default class Store {
     }
 
     _responseFailInterceptor( error ) {
-        const { request, response } = error;
+        const { response, config } = error;
+        const request = {
+            url: config.url.replace( config.baseURL, '/' ),
+            method: config.method
+        };
         if (
             this.session.data.isAuthenticated &&
             response &&

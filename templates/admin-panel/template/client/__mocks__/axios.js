@@ -33,7 +33,11 @@ function mockMethodFactory( method ) {
                 );
             } else {
                 const error = {
-                    request,
+                    config: {
+                        url,
+                        method,
+                        baseURL: '/'
+                    },
                     response: {
                         data,
                         headers,

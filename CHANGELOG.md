@@ -1,3 +1,6 @@
+## 4.0.3
+* Fix login in `admin-panel` template
+
 ## 4.0.2
 * Fix logout in `admin-panel` template
 * Update dependencies

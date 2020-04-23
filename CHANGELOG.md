@@ -1,3 +1,7 @@
+## 4.0.2
+* Fix logout in `admin-panel` template
+* Update dependencies
+
 ## 4.0.1
 * Remove module hot replacement code from production build in app template
 * Add `yarn-error.log` to `.gitignore` templates

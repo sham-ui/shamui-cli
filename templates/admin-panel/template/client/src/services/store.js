@@ -40,8 +40,17 @@ export default class Store {
 
     _responseFailInterceptor( error ) {
         const { request, response } = error;
-        if ( this.session.data.isAuthenticated && response && 401 === response.status ) {
-            this.session.logout();
+        if (
+            this.session.data.isAuthenticated &&
+            response &&
+            401 === response.status &&
+            !this._isValidSession( request )
+        ) {
+
+            // Logout
+            requestAnimationFrame(
+                () => this.session.logout()
+            );
             return Promise.reject( error );
         }
         if (

@@ -5,6 +5,7 @@ export default class Session {
     @inject router;
     @inject store;
     @inject( 'session:storage' ) data;
+    @inject( 'app:storage' ) app;
 
     constructor() {
         DI.bind( 'session', this );
@@ -49,7 +50,9 @@ export default class Session {
             () => {
                 this.data.sessionValidated = true;
                 this.data.isAuthenticated = false;
-                this._goToLoginPage();
+                this.data.email = '';
+                this.data.name = '';
+                this.data.sync();
                 return false;
             }
         );
@@ -58,29 +61,19 @@ export default class Session {
     logout() {
         this.store.logout().then(
             () => {
+
+                // Reset router
+                this.app.routerResolved = false;
+                this.app.sync();
+
+                // Reset cached session
                 this.resetSessionValidation();
-                this._goToLoginPage();
+
+                // Go to login page
+                this.router.navigate(
+                    this.router.generate( 'login' )
+                );
             }
         );
-    }
-
-    _isRestrictedPage() {
-        return ![
-            'signup',
-            'login'
-        ].includes( this.router.storage.name );
-    }
-
-    _goToLoginPage() {
-        this.data.isAuthenticated = false;
-        this.data.email = '';
-        this.data.name = '';
-        if ( this._isRestrictedPage() ) {
-            requestAnimationFrame(
-                () => this.router.navigate(
-                    this.router.generate( 'login', {} )
-                )
-            );
-        }
     }
 }

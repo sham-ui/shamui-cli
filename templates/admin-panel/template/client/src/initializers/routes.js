@@ -8,8 +8,9 @@ import SettingsPage from '../components/routes/settings/page.sfc';
 export default function() {
     const router = new Router( document.location.origin + '/' );
 
-    // Cached home page URL
+    // Cached home page & login URL
     let homePageURL;
+    let loginPageURL;
 
     router
         .bindPage( '/signup', 'signup', SignupPage, {} )
@@ -32,18 +33,18 @@ export default function() {
                         if ( isAuthenticated ) {
 
                             // Authenticated member can't visit signup & login page
-                            router.navigate(
-                                router.generate( 'home' )
-                            );
+                            router.navigate( homePageURL );
                         } else {
                             routerResolve();
                         }
                     } else {
                         done( isAuthenticated );
                         if ( isAuthenticated ) {
-
-                            // if non authenticated wait redirects to login
                             routerResolve();
+                        } else {
+
+                            // If non authenticated then redirects to login
+                            router.navigate( loginPageURL );
                         }
                     }
                 } );
@@ -51,6 +52,7 @@ export default function() {
         } );
 
     homePageURL = router.generate( 'home' );
+    loginPageURL = router.generate( 'login' );
     router.resolve();
 }
 

@@ -19,6 +19,14 @@ Object {
       "ref": [Function],
     },
     "menuCollapsed": false,
+    "routerData": Object {
+      "activePageComponent": null,
+      "activePageOptions": null,
+      "name": "",
+      "pageLoaded": true,
+      "params": Object {},
+      "url": "",
+    },
     "smallScreenSize": false,
     "wrapperClasses": "",
   },
@@ -65,7 +73,9 @@ Object {
       </div>
     </div>
   </div>
-  <div class=\\"mainpanel\\"></div>
+  <div class=\\"mainpanel\\">
+    <!--ActivePageContainer-->
+  </div>
 </div>
 ",
 }

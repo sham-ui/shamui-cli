@@ -53,6 +53,7 @@ exports[`menu for small screen size 1`] = `
     </div>
     <!--if-->
     <!--Page-->
+    <!--ActivePageContainer-->
   </div>
 </div>
 <!--LayoutAuthenticated-->
@@ -114,6 +115,7 @@ exports[`menu for small screen size 2`] = `
     </div>
     <!--if-->
     <!--Page-->
+    <!--ActivePageContainer-->
   </div>
 </div>
 <!--LayoutAuthenticated-->
@@ -175,6 +177,7 @@ exports[`menu for small screen size 3`] = `
     </div>
     <!--if-->
     <!--Page-->
+    <!--ActivePageContainer-->
   </div>
 </div>
 <!--LayoutAuthenticated-->

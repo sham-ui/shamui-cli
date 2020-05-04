@@ -14,9 +14,7 @@ export const app = {
         await new Promise( resolve => setImmediate( resolve ) );
     },
     click( selector ) {
-        document
-            .querySelector( selector )
-            .click();
+        document.querySelector( selector ).click();
     },
     checkBody() {
         expect(
@@ -70,11 +68,21 @@ function setupRouter() {
     history.pushState( {}, '', '' );
 }
 
+function setupLazyPageMocks( ...lazyPages ) {
+    DI.bind(
+        'router:lazy-page',
+        page => lazyPages.find(
+            mock => mock.toString() === page.toString()
+        )
+    );
+}
+
 export default function() {
     setupRAF();
     resetShamUI();
     clearBody();
     resetStorage();
     setupRouter();
+    setupLazyPageMocks();
     Object.defineProperty( window, 'CSS', { value: () => ( {} ) } );
 }

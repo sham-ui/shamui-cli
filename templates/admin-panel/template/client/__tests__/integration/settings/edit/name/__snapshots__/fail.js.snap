@@ -88,6 +88,7 @@ exports[`fail edit name 1`] = `
     </div>
     <!--if-->
     <!--Page-->
+    <!--ActivePageContainer-->
   </div>
 </div>
 <!--LayoutAuthenticated-->

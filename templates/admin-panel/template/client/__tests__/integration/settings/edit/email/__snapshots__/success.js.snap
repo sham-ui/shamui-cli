@@ -89,6 +89,7 @@ exports[`success edit email 1`] = `
     </div>
     <!--if-->
     <!--Page-->
+    <!--ActivePageContainer-->
   </div>
 </div>
 <!--LayoutAuthenticated-->
@@ -165,6 +166,7 @@ exports[`success edit email 2`] = `
     </div>
     <!--if-->
     <!--Page-->
+    <!--ActivePageContainer-->
   </div>
 </div>
 <!--LayoutAuthenticated-->

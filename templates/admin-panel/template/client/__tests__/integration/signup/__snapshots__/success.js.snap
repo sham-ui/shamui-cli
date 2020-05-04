@@ -89,6 +89,7 @@ exports[`success sign up 2`] = `
     </div>
     <!--if-->
     <!--Page-->
+    <!--ActivePageContainer-->
   </div>
 </div>
 <!--LayoutAuthenticated-->

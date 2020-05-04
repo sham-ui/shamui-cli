@@ -83,6 +83,7 @@ exports[`success login 2`] = `
     </div>
     <!--if-->
     <!--Page-->
+    <!--ActivePageContainer-->
   </div>
 </div>
 <!--LayoutAuthenticated-->

@@ -1,8 +1,10 @@
 <template>
     {% import ActivePageContainer from 'sham-ui-router/active-page-container' %}
+    {% import WithoutFlushLoader from 'sham-ui-without-flush-loader' %}
     {% import path from 'sham-ui-router/params' %}
     {% import Navigation from './authenticated/navigation.sfc' %}
     {% import Profile from './authenticated/profile.sfc' %}
+    {% import PageLoadingIndicator from '../PageLoadingIndicator.sht' %}
 
     <div class=\{{wrapperClasses}} :onclick=\{{::this.wrapperOnClick}}>
         <div class="logo">
@@ -31,13 +33,19 @@
         </div>
 
         <div class="mainpanel">
-            <ActivePageContainer/>
+            {% if routerData.pageLoaded %}
+                <ActivePageContainer/>
+            {% else %}
+                <!-- Wait load lazy page -->
+                <WithoutFlushLoader loadingComponent=\{{PageLoadingIndicator}}/>
+            {% endif %}
         </div>
     </div>
 </template>
 
 <script>
     import { options, mergeWithTemplate } from 'sham-ui-macro/babel.macro';
+    import { useStorage } from 'sham-ui-router/storage';
 
     const MAX_SCREEN_SIZE = 992;
 
@@ -102,5 +110,5 @@
         }
     }
 
-    export default LayoutAuthenticated;
+    export default useStorage( 'routerData' )( LayoutAuthenticated );
 </script>

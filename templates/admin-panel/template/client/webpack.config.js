@@ -1,6 +1,6 @@
 const path = require( 'path' );
 const webpack = require( 'webpack' );
-const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
+const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 const OptimizeCssAssetsPlugin = require( 'optimize-css-assets-webpack-plugin' );
 
 function createConfig( isProd ) {
@@ -12,13 +12,14 @@ function createConfig( isProd ) {
         output: {
             path: path.join( __dirname, 'dist' ),
             filename: 'bundle.js',
+            chunkFilename: '[name].bundle.js',
             publicPath: '/dist/'
         },
         plugins: [
             new webpack.NoEmitOnErrorsPlugin(),
-            new ExtractTextPlugin( {
-                allChunks: true,
-                filename: 'bundle.css'
+            new MiniCssExtractPlugin( {
+                filename: 'bundle.css',
+                chunkFilename: '[name].bundle.css'
             } ),
             new webpack.DefinePlugin( {
                 PRODUCTION: JSON.stringify( isProd )
@@ -26,17 +27,12 @@ function createConfig( isProd ) {
         ],
         module: {
             rules: [ {
-                test: /\.scss$/,
-                loader: ExtractTextPlugin.extract( {
-                    fallback: 'style-loader',
-                    use: 'css-loader!sass-loader'
-                } )
-            }, {
-                test: /\.css$/,
-                loader: ExtractTextPlugin.extract( {
-                    fallback: 'style-loader',
-                    use: 'css-loader'
-                } )
+                test: /\.scss$/i,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader'
+                ]
             }, {
                 test: /\.(woff2?|ttf|otf|eot|svg)$/,
                 use: [

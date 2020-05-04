@@ -53,6 +53,7 @@ exports[`authenticated member can't visit login page 1`] = `
     </div>
     <!--if-->
     <!--Page-->
+    <!--ActivePageContainer-->
   </div>
 </div>
 <!--LayoutAuthenticated-->

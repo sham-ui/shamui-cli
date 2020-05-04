@@ -11,10 +11,11 @@ func CreateMemberStructure() {
 	log.Info("Create members table")
 	_, err := Db.Exec(`
 		CREATE TABLE IF NOT EXISTS members(
-			"id" SERIAL PRIMARY KEY, 
-			"name" varchar(100), 
+			"id" SERIAL PRIMARY KEY,
+			"name" varchar(100),
 			"email" varchar(100),
-			"password" varchar(255)
+			"password" varchar(255),
+			"is_superuser" boolean NOT NULL DEFAULT false
 		);
 		ALTER TABLE ONLY members DROP CONSTRAINT IF EXISTS member_email_unique;
 		ALTER TABLE ONLY members ADD CONSTRAINT member_email_unique UNIQUE (email);
@@ -27,6 +28,7 @@ func CreateMemberStructure() {
 // NewMember is the struct for the member signup process
 type NewMember struct {
 	Name, Email, Password, Password2 string
+	IsSuperuser bool
 }
 
 func hashPassword(password string) (string, error) {
@@ -40,7 +42,7 @@ func CreateMember(m *NewMember) error {
 	if hashErr != nil {
 		log.Warn("Error hashing password: ", hashErr)
 	}
-	_, err := Db.Query("INSERT INTO members(name, email, password) VALUES ($1,$2, $3)", m.Name, m.Email, hashedPw)
+	_, err := Db.Query("INSERT INTO members(name, email, password, is_superuser) VALUES ($1,$2, $3, $4)", m.Name, m.Email, hashedPw, m.IsSuperuser)
 	if err != nil {
 		log.Println(err)
 		return err

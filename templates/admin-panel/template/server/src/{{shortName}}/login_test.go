@@ -19,7 +19,7 @@ func insertTestUser(db *sql.DB) {
 func TestLoginInvalidCSRF(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	req, _ := http.NewRequest("POST", "/api/login", bytes.NewBuffer([]byte{}))
 	response := test_helpers.ExecuteRequest(n, req)
@@ -30,7 +30,7 @@ func TestLoginInvalidCSRF(t *testing.T) {
 func TestLoginSuccess(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	insertTestUser(models.Db)
 	payload, _ := json.Marshal(map[string]interface{}{
@@ -48,7 +48,7 @@ func TestLoginSuccess(t *testing.T) {
 func TestLoginIncorrectPassword(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	insertTestUser(models.Db)
 	payload, _ := json.Marshal(map[string]interface{}{
@@ -66,7 +66,7 @@ func TestLoginIncorrectPassword(t *testing.T) {
 func TestLoginIncorrectEmail(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	insertTestUser(models.Db)
 	payload, _ := json.Marshal(map[string]interface{}{

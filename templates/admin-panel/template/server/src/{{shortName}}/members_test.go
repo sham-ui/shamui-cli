@@ -14,7 +14,7 @@ import (
 func TestUpdateNameSuccess(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	insertTestUser(models.Db)
 	payload, _ := json.Marshal(map[string]interface{}{
@@ -43,13 +43,13 @@ func TestUpdateNameSuccess(t *testing.T) {
 	response = test_helpers.ExecuteRequest(n, req)
 	test_helpers.Equals(t, http.StatusOK, response.Code)
 	body, _ = test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Name": "edited test name", "Email": "email"}, body)
+	test_helpers.Equals(t, map[string]interface{}{"Name": "edited test name", "Email": "email", "IsSuperuser": false}, body)
 }
 
 func TestUpdateNameUnauthtorized(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	insertTestUser(models.Db)
 	payload, _ := json.Marshal(map[string]interface{}{
@@ -66,7 +66,7 @@ func TestUpdateNameUnauthtorized(t *testing.T) {
 func TestUpdateNameShortName(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	insertTestUser(models.Db)
 	payload, _ := json.Marshal(map[string]interface{}{
@@ -95,13 +95,13 @@ func TestUpdateNameShortName(t *testing.T) {
 	response = test_helpers.ExecuteRequest(n, req)
 	test_helpers.Equals(t, http.StatusOK, response.Code)
 	body, _ = test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "email"}, body)
+	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": false}, body)
 }
 
 func TestUpdateEmailSuccess(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	insertTestUser(models.Db)
 	payload, _ := json.Marshal(map[string]interface{}{
@@ -131,13 +131,13 @@ func TestUpdateEmailSuccess(t *testing.T) {
 	response = test_helpers.ExecuteRequest(n, req)
 	test_helpers.Equals(t, http.StatusOK, response.Code)
 	body, _ = test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "newemail@test.com"}, body)
+	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "newemail@test.com", "IsSuperuser": false}, body)
 }
 
 func TestUpdateEmailUnauthtorized(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	insertTestUser(models.Db)
 	payload, _ := json.Marshal(map[string]interface{}{
@@ -155,7 +155,7 @@ func TestUpdateEmailUnauthtorized(t *testing.T) {
 func TestUpdateEmailShort(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	insertTestUser(models.Db)
 	payload, _ := json.Marshal(map[string]interface{}{
@@ -197,13 +197,13 @@ func TestUpdateEmailShort(t *testing.T) {
 	response = test_helpers.ExecuteRequest(n, req)
 	test_helpers.Equals(t, http.StatusOK, response.Code)
 	body, _ = test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "email"}, body)
+	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": false}, body)
 }
 
 func TestUpdateEmailNotMatch(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	insertTestUser(models.Db)
 	payload, _ := json.Marshal(map[string]interface{}{
@@ -233,13 +233,13 @@ func TestUpdateEmailNotMatch(t *testing.T) {
 	response = test_helpers.ExecuteRequest(n, req)
 	test_helpers.Equals(t, http.StatusOK, response.Code)
 	body, _ = test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "email"}, body)
+	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": false}, body)
 }
 
 func TestUpdateEmailNotUnique(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	insertTestUser(models.Db)
 	models.Db.Exec("INSERT INTO public.members (id, name, email, password) VALUES (2, 'test', 'email1', '$2a$14$QMQH3E2UyfIKTFvLfguQPOmai96AncIV.1bLbcd5huTG8gZxNfAyO')")
@@ -270,5 +270,5 @@ func TestUpdateEmailNotUnique(t *testing.T) {
 	response = test_helpers.ExecuteRequest(n, req)
 	test_helpers.Equals(t, http.StatusOK, response.Code)
 	body, _ = test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "email"}, body)
+	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": false}, body)
 }

@@ -8,8 +8,9 @@ import (
 )
 
 type resSession struct {
-	Name  string
-	Email string
+	Name        string
+	Email       string
+	IsSuperuser bool
 }
 
 // CsrfToken will generate a CSRF Token
@@ -26,8 +27,9 @@ func ValidSession(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Session is expired.", http.StatusUnauthorized)
 	} else {
 		msg := &resSession{
-			Name:  session.Name,
-			Email: session.Email,
+			Name:        session.Name,
+			Email:       session.Email,
+			IsSuperuser: session.IsSuperuser,
 		}
 		json.NewEncoder(w).Encode(msg)
 		log.Info("Session is good.")

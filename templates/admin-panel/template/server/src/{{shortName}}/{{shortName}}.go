@@ -2,6 +2,7 @@ package main
 
 import (
 	"assets"
+	"flag"
 	"github.com/antonlindstrom/pgstore"
 	"github.com/gorilla/context"
 	"github.com/gorilla/csrf"
@@ -9,6 +10,7 @@ import (
 	"github.com/rs/cors"
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/negroni"
+	"gopkg.in/AlecAivazis/survey.v1"
 	"net/http"
 	"{{ shortName }}/authentication"
 	"{{ shortName }}/config"
@@ -20,7 +22,7 @@ import (
 	"time"
 )
 
-func StartApplication(configPath string, n *negroni.Negroni) {
+func startApplication(configPath string, n *negroni.Negroni) {
 	config.LoadConfiguration(configPath)
 
 	store, err := pgstore.NewPGStore(config.DataBase.GetURL(), []byte(config.Session.Secret))
@@ -62,6 +64,7 @@ func StartApplication(configPath string, n *negroni.Negroni) {
 	r.HandleFunc("/api/csrftoken", sessions.CsrfToken).Methods("GET")
 	r.HandleFunc("/api/login", authentication.Login).Methods("POST")
 	r.HandleFunc("/api/logout", authentication.Logout).Methods("POST")
+
 	// Session Routes
 	r.HandleFunc("/api/validsession", sessions.ValidSession).Methods("GET")
 
@@ -79,9 +82,55 @@ func StartApplication(configPath string, n *negroni.Negroni) {
 	n.UseHandler(CSRF(r))
 }
 
+func createSuperUser() {
+	config.LoadConfiguration("config.cfg")
+	models.ConnToDB(config.DataBase.GetURL())
+	models.CreateMemberStructure()
+
+	var email string
+	err := survey.AskOne(&survey.Input{
+		Message: "Email:",
+	}, &email, nil)
+	if nil != err {
+		log.WithError(err).Fatal("can't get email")
+	}
+	var name string
+	err = survey.AskOne(&survey.Input{
+		Message: "Name:",
+	}, &name, nil)
+	if nil != err {
+		log.WithError(err).Fatal("can't get name")
+	}
+	var password string
+	err = survey.AskOne(&survey.Password{
+		Message: "Password:",
+	}, &password, nil)
+	if nil != err {
+		log.WithError(err).Fatal("can't get password")
+	}
+
+	err = models.CreateMember(&models.NewMember{
+		Name:        name,
+		Email:       email,
+		Password:    password,
+		IsSuperuser: true,
+	})
+	if nil == err {
+		log.Info("Superuser created: ", name)
+	} else {
+		log.WithError(err).Fatal("can't create superuser")
+	}
+}
+
 func main() {
+	createSuperuserFlag := flag.Bool("createsuperuser", false, "create superuser member")
+	flag.Parse()
+	if *createSuperuserFlag {
+		createSuperUser()
+		return
+	}
 	n := negroni.New(negroni.NewRecovery(), negroni.NewLogger())
-	StartApplication("config.cfg", n)
+	startApplication("config.cfg", n)
 	port := strconv.Itoa(config.Server.Port)
 	log.Infof("Server start on port :%s", port)
 	log.Fatal(http.ListenAndServe(":"+port, context.ClearHandler(n)))

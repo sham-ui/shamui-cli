@@ -16,9 +16,10 @@ func check(err error) {
 }
 
 type Session struct {
-	ID    string
-	Email string
-	Name  string
+	ID          string
+	Email       string
+	Name        string
+	IsSuperuser bool
 }
 
 func GetSession(r *http.Request) *Session {
@@ -36,9 +37,11 @@ func GetSession(r *http.Request) *Session {
 	id, _ := session.Values["id"].(string)
 	name, _ := session.Values["name"].(string)
 	email, _ := session.Values["email"].(string)
+	isSuperuser, _ := session.Values["is_superuser"].(bool)
 	return &Session{
-		ID:    id,
-		Name:  name,
-		Email: email,
+		ID:          id,
+		Name:        name,
+		Email:       email,
+		IsSuperuser: isSuperuser,
 	}
 }

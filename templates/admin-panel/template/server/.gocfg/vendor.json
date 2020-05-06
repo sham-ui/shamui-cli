@@ -64,6 +64,10 @@
       "URI": "https://go.googlesource.com/sys",
       "Ref": "41f3e6584952bb034a481797859f6ab34b6803bd"
     },
+    "vendor/src/gopkg.in/AlecAivazis/survey.v1": {
+      "URI": "https://gopkg.in/AlecAivazis/survey.v1",
+      "Ref": "da50ccef2fd74048e26b7846a731da4254035115"
+    },
     "vendor/src/gopkg.in/gcfg.v1": {
       "URI": "https://gopkg.in/gcfg.v1",
       "Ref": "61b2c08bc8f6068f7c5ca684372f9a6cb1c45ebe"

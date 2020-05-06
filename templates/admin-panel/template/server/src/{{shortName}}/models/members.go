@@ -28,7 +28,12 @@ func CreateMemberStructure() {
 // NewMember is the struct for the member signup process
 type NewMember struct {
 	Name, Email, Password, Password2 string
-	IsSuperuser bool
+	IsSuperuser                      bool
+}
+
+type MemberData struct {
+	ID, Name, Email string
+	IsSuperuser     bool
 }
 
 func hashPassword(password string) (string, error) {
@@ -50,32 +55,16 @@ func CreateMember(m *NewMember) error {
 	return err
 }
 
-// GetMemberID uses the primary email of a user to get the memberID from the member's table
-func GetMemberID(email string) (memberID string) {
-	sqlErr := Db.QueryRow("SELECT id FROM members WHERE email = $1", email).Scan(&memberID)
+func GetMemberData(email string) *MemberData {
+	data := &MemberData{}
+	sqlErr := Db.QueryRow("SELECT id, email, name, is_superuser FROM members WHERE email =$1", email).Scan(&data.ID, &data.Email, &data.Name, &data.IsSuperuser)
 	if sqlErr == sql.ErrNoRows {
-		memberID = ""
-		return
-	}
-	if sqlErr != nil {
-		memberID = ""
-		log.Println(sqlErr)
-	}
-	return
-}
-
-// GetMemberName grabs the name using the email
-func GetMemberName(id string) (name string) {
-	sqlErr := Db.QueryRow("SELECT name FROM members WHERE id =$1", id).Scan(&name)
-	if sqlErr == sql.ErrNoRows {
-		name = ""
-		return
+		return data
 	}
 	if sqlErr != nil {
 		log.Println(sqlErr)
-		name = ""
 	}
-	return name
+	return data
 }
 
 // UpdateMemberName uses the member ID to insert a new name

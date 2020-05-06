@@ -1,5 +1,6 @@
 ## master
 * Add support for lazy loaded page in `admin-panel` template
+* Add superuser member for `admin-panel` template
 
 ## 4.0.3
 * Fix login in `admin-panel` template

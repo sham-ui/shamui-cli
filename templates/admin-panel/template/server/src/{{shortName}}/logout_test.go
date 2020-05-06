@@ -14,7 +14,7 @@ import (
 func TestLogoutSuccess(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	insertTestUser(models.Db)
 	payload, _ := json.Marshal(map[string]interface{}{
@@ -32,7 +32,7 @@ func TestLogoutSuccess(t *testing.T) {
 	response := test_helpers.ExecuteRequest(n, req)
 	test_helpers.Equals(t, http.StatusOK, response.Code)
 	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "email"}, body)
+	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": false}, body)
 
 	req, _ = http.NewRequest("POST", "/api/logout", bytes.NewBuffer([]byte{}))
 	req.Header.Set("Cookie", test_helpers.MergeCookies(loginReq, loginResponse))
@@ -53,7 +53,7 @@ func TestLogoutSuccess(t *testing.T) {
 func TestLogoutFail(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 
 	req, _ := http.NewRequest("POST", "/api/logout", bytes.NewBuffer([]byte{}))

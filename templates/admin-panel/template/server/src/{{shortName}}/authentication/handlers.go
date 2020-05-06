@@ -57,13 +57,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(msg)
 		return
 	}
-	// Get the memberID based on the supplied email
-	memberID := models.GetMemberID(creds.Email)
-	memberName := models.GetMemberName(memberID)
+	data := models.GetMemberData(creds.Email)
 	m := memberDetails{
 		Status: "OK",
-		ID:     memberID,
-		Name:   memberName,
+		ID:     data.ID,
+		Name:   data.Name,
 		Email:  creds.Email,
 	}
 
@@ -72,9 +70,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("X-CSRF-Token", csrf.Token(r))
 	// Set cookie values and save
 	session.Values["authenticated"] = true
-	session.Values["name"] = memberName
+	session.Values["name"] = data.Name
 	session.Values["email"] = creds.Email
-	session.Values["id"] = memberID
+	session.Values["id"] = data.ID
+	session.Values["is_superuser"] = data.IsSuperuser
 	if err = session.Save(r, w); err != nil {
 		log.Printf("Error saving session: %v", err)
 	}

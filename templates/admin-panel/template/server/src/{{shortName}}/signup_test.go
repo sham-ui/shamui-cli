@@ -14,7 +14,7 @@ import (
 func TestSignupInvalidCSRF(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	req, _ := http.NewRequest("POST", "/api/members", bytes.NewBuffer([]byte{}))
 	response := test_helpers.ExecuteRequest(n, req)
@@ -25,7 +25,7 @@ func TestSignupInvalidCSRF(t *testing.T) {
 func TestSignupSuccess(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	payload, _ := json.Marshal(map[string]interface{}{
 		"Name":      "test",
@@ -44,7 +44,7 @@ func TestSignupSuccess(t *testing.T) {
 func TestSignupInvalidData(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	req, _ := http.NewRequest("POST", "/api/members", bytes.NewBuffer([]byte{}))
 	test_helpers.SetCSRFToken(n, req)
@@ -57,7 +57,7 @@ func TestSignupInvalidData(t *testing.T) {
 func TestSignupPasswordMustMatch(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	payload, _ := json.Marshal(map[string]interface{}{
 		"Name":      "test",
@@ -76,7 +76,7 @@ func TestSignupPasswordMustMatch(t *testing.T) {
 func TestSignupEmailUnique(t *testing.T) {
 	test_helpers.DisableLogger()
 	n := negroni.New()
-	StartApplication(path.Join("testdata", "config.cfg"), n)
+	startApplication(path.Join("testdata", "config.cfg"), n)
 	test_helpers.ClearDB(models.Db)
 	payload, _ := json.Marshal(map[string]interface{}{
 		"Name":      "test",

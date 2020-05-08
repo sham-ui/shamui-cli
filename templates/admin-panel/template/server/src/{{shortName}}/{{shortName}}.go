@@ -73,6 +73,9 @@ func startApplication(configPath string, n *negroni.Negroni) {
 	r.HandleFunc("/api/members/email", members.UpdateMemberEmail).Methods("PUT")
 	r.HandleFunc("/api/members/name", members.UpdateMemberName).Methods("PUT")
 
+	// Superuser sections
+	r.HandleFunc("/api/admin/members", members.Members).Methods("GET")
+
 	// Resources
 	spaHandler := assets.NewHandler()
 	r.PathPrefix("/").Handler(spaHandler)

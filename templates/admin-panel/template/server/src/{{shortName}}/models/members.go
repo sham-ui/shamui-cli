@@ -93,3 +93,32 @@ func UpdateMemberEmail(id string, email string) bool {
 	}
 	return true
 }
+
+func GetMembers(offset, limit int) []*MemberData {
+	var members []*MemberData
+	rows, err := Db.Query("SELECT id, email, name, is_superuser FROM members ORDER BY id LIMIT $1 OFFSET $2", limit, offset)
+	defer rows.Close()
+	if nil != err {
+		log.Println(err)
+		return members
+	}
+	for rows.Next() {
+		data := &MemberData{}
+		err := rows.Scan(&data.ID, &data.Email, &data.Name, &data.IsSuperuser)
+		if nil != err {
+			log.Println(err)
+			return members
+		}
+		members = append(members, data)
+	}
+	return members
+}
+
+func GetMembersCount() int {
+	var count int
+	err := Db.QueryRow("SELECT COUNT(*) FROM members").Scan(&count)
+	if nil != err {
+		log.Println(err)
+	}
+	return count
+}

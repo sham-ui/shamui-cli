@@ -10,6 +10,7 @@ import (
 	"{{ shortName }}/config"
 	"{{ shortName }}/models"
 	"{{ shortName }}/sessions"
+	"strconv"
 )
 
 type memberOutput struct {
@@ -205,4 +206,42 @@ func UpdateMemberName(w http.ResponseWriter, r *http.Request) {
 
 	log.Info("Member's ID: ", session.ID)
 	log.Info(msg)
+}
+
+func Members(w http.ResponseWriter, r *http.Request) {
+	session := sessions.GetSession(r)
+	if session == nil {
+		msg := resDetails{
+			Status:   "Expired session or cookie",
+			Messages: []string{"Session Expired.  Log out and log back in."},
+		}
+		json.NewEncoder(w).Encode(msg)
+		return
+	}
+	if !session.IsSuperuser {
+		msg := resDetails{
+			Status:   "Only superuser can get member list",
+			Messages: []string{"Only superuser can get member list"},
+		}
+		json.NewEncoder(w).Encode(msg)
+		return
+	}
+	offset, err := strconv.Atoi(r.URL.Query().Get("offset"))
+	if nil != err {
+		offset = 0
+	}
+	limit, err := strconv.Atoi(r.URL.Query().Get("limit"))
+	if nil != err {
+		limit = 20
+	}
+	res := map[string]interface{}{
+		"meta": map[string]int{
+			"offset": offset,
+			"limit":  limit,
+			"total":  models.GetMembersCount(),
+		},
+		"members": models.GetMembers(offset, limit),
+	}
+	json.NewEncoder(w).Encode(res)
+	w.WriteHeader(http.StatusOK)
 }

@@ -215,6 +215,7 @@ func Members(w http.ResponseWriter, r *http.Request) {
 			Status:   "Expired session or cookie",
 			Messages: []string{"Session Expired.  Log out and log back in."},
 		}
+		w.WriteHeader(http.StatusForbidden)
 		json.NewEncoder(w).Encode(msg)
 		return
 	}

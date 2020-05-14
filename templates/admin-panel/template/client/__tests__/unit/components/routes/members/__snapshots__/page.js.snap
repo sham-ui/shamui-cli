@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`display errors 1`] = `
+Object {
+  "Constructor": "RoutesMembersPage",
+  "Options": Object {
+    "ID": "component",
+    "dataLoaded": true,
+    "directives": Object {
+      "EventListener": [Function],
+      "disabled": [Function],
+      "onclick": [Function],
+      "oninput": [Function],
+      "onload": [Function],
+      "onresize": [Function],
+      "onscroll": [Function],
+      "onselect": [Function],
+      "onsubmit": [Function],
+      "ref": [Function],
+    },
+    "errors": Array [
+      "Fail load members list",
+    ],
+    "limit": 50,
+    "members": Array [],
+    "offset": 0,
+    "total": 0,
+  },
+  "html": "
+<h4 class=\\"page-header\\"> Members
+  <!--header-->
+</h4>
+<div class=\\"page-body\\">
+  <div class=\\"member-list\\">
+    <div class=\\"panel\\">
+      <ul class=\\"errors-panel\\">
+        <li>Fail load members list</li>
+      </ul>
+      <!--if-->
+      <!--ErrorsPanel-->
+      <!--Pagination-->
+    </div>
+  </div>
+  <!--body-->
+</div>
+<!--if-->
+<!--Page-->
+",
+}
+`;
+
+exports[`renders correctly 1`] = `
+Object {
+  "Constructor": "RoutesMembersPage",
+  "Options": Object {
+    "ID": "component",
+    "dataLoaded": false,
+    "directives": Object {
+      "EventListener": [Function],
+      "disabled": [Function],
+      "onclick": [Function],
+      "oninput": [Function],
+      "onload": [Function],
+      "onresize": [Function],
+      "onscroll": [Function],
+      "onselect": [Function],
+      "onsubmit": [Function],
+      "ref": [Function],
+    },
+    "errors": Array [],
+    "limit": 50,
+    "members": Array [],
+    "offset": 0,
+    "total": 0,
+  },
+  "html": "
+<h4 class=\\"page-header\\"> Members
+  <!--header-->
+</h4>
+<div class=\\"page-body\\">
+  <div class=\\"member-list\\">
+    <div class=\\"panel\\">
+      <!--if-->
+      <!--ErrorsPanel-->
+      <!--Pagination-->
+    </div>
+  </div>
+  <!--body-->
+</div>
+<!--if-->
+<!--Page-->
+",
+}
+`;

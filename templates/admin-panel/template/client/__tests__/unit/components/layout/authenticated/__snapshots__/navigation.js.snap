@@ -8,6 +8,13 @@ Object {
     "directives": Object {
       "hrefto": [Function],
     },
+    "sessionData": Object {
+      "email": "",
+      "isAuthenticated": false,
+      "isSuperuser": false,
+      "name": "",
+      "sessionValidated": false,
+    },
   },
   "html": "
 <label class=\\"sidebar-label\\">Navigation</label>
@@ -17,6 +24,7 @@ Object {
       <i class=\\"icon-home-outline menu-item-icon\\"></i><span class=\\"menu-item-label\\">Dashboard</span>
     </div>
   </a>
+  <!--if-->
 </div>
 ",
 }

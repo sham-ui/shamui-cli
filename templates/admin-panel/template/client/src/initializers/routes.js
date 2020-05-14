@@ -16,6 +16,14 @@ export default function() {
         .bindPage( '/signup', 'signup', SignupPage, {} )
         .bindPage( '/login', 'login', LoginPage, {} )
         .bindPage( '/settings', 'settings', SettingsPage, {} )
+        .bindLazyPage(
+            '/members',
+            'members/list',
+            () => import(
+                /* webpackChunkName: "su_members_list" */ '../components/routes/members/page.sfc'
+            ),
+            {}
+        )
         .bindPage( '', 'home', HomePage, {} )
         .hooks( {
             before( done ) {
@@ -27,7 +35,8 @@ export default function() {
                     router.navigate( homePageURL );
                     return;
                 }
-                DI.resolve( 'session' ).validateSessionPromise.then( isAuthenticated => {
+                const session = DI.resolve( 'session' );
+                session.validateSessionPromise.then( isAuthenticated => {
                     if ( [ 'signup', 'login' ].includes( currentRoute.name ) ) {
                         done( !isAuthenticated );
                         if ( isAuthenticated ) {
@@ -37,6 +46,14 @@ export default function() {
                         } else {
                             routerResolve();
                         }
+                    } else if (
+                        currentRoute.name.startsWith( 'members/' ) &&
+                        !session.data.isSuperuser
+                    ) {
+
+                        // 403 page
+                        done( false );
+                        router.navigate( homePageURL );
                     } else {
                         done( isAuthenticated );
                         if ( isAuthenticated ) {

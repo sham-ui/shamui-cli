@@ -1,0 +1,42 @@
+<template>
+    <div class="page-buttons">
+        {% for item of this.items( pages ) %}
+            {% if item.showAsLast %}
+                ...
+            {% endif %}
+            <button
+                data-test-pagination-page=\{{item.page}}
+                :onclick=\{{goToPage.bind( this,  item.page )}}
+                :disabled=\{{item.page === currentPage}}
+            >
+                \{{item.page}}
+            </button>
+            {% if item.showAsFirst %}
+                ...
+            {% endif %}
+        {% endfor %}
+    </div>
+</template>
+
+<script>
+    import { mergeWithTemplate, options } from 'sham-ui-macro/babel.macro';
+
+    @mergeWithTemplate
+    class PaginationPages extends Template {
+        @options pages = [];
+        @options currentPage = 1;
+        @options goToPage() {}
+
+        items( pages ) {
+            return pages.map(
+                ( page, index, enumerable ) => ( {
+                    page,
+                    showAsFirst: ( enumerable[ index + 1 ] || page ) - page > 1,
+                    showAsLast: index > 0 && ( enumerable[ index - 1 ] - page > 1 )
+                } )
+            );
+        }
+    }
+
+    export default PaginationPages;
+</script>

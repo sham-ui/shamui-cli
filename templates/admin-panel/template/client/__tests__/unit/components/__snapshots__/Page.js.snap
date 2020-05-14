@@ -9,6 +9,7 @@ Object {
     "sessionData": Object {
       "email": "",
       "isAuthenticated": false,
+      "isSuperuser": false,
       "name": "",
       "sessionValidated": true,
     },

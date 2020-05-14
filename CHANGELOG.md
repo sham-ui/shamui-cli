@@ -3,6 +3,7 @@
 * Add superuser member for `admin-panel` template
 * API endpoint for get members (only for superuser) in `admin-panel` template
 * Fix response status for get member list in `admin-panel` template
+* Add `members/list` page for superuser in `admin-panel` template
 
 ## 4.0.3
 * Fix login in `admin-panel` template

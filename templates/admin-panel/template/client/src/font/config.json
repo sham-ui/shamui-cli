@@ -35,6 +35,12 @@
       "css": "pencil",
       "code": 59396,
       "src": "typicons"
+    },
+    {
+      "uid": "31972e4e9d080eaa796290349ae6c1fd",
+      "css": "users",
+      "code": 59398,
+      "src": "fontawesome"
     }
   ]
 }

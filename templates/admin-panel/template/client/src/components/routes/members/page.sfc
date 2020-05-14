@@ -1,0 +1,111 @@
+<template>
+    {% import ErrorsPanel from '../../ErrorsPanel.sht' %}
+    {% import Page from '../../Page.sfc' %}
+    {% import Pagination from '../../pagination/index.sfc' %}
+
+    <Page>
+        {% block 'header' %}
+            Members
+        {% endblock %}
+
+        {% block 'body' %}
+            <div class="member-list">
+                <div class="panel">
+                    <ErrorsPanel errors=\{{errors}}/>
+                    <Pagination
+                        dataLoaded=\{{dataLoaded}}
+                        goToPage=\{{::this.loadData}}
+                        currentPage=\{{page}}
+                        limit=\{{limit}}
+                        total=\{{total}}
+                    >
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Is superuser?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for member of members %}
+                                    <tr>
+                                        <td>\{{member.ID}}</td>
+                                        <td>\{{member.Name}}</td>
+                                        <td>\{{member.Email}}</td>
+                                        <td class="text-center">\{{member.IsSuperuser ? 'Yes' : 'No'}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </Pagination>
+                </div>
+            </div>
+        {% endblock %}
+    </Page>
+</template>
+
+<script>
+    import { mergeWithTemplate, inject, options } from 'sham-ui-macro/babel.macro';
+
+    @mergeWithTemplate
+    class RoutesMembersPage extends Template {
+        /** @type Store */
+        @inject store;
+
+        @options dataLoaded = false;
+        @options errors = [];
+        @options offset = 0;
+        @options limit = 50;
+        @options total = 0;
+        @options members = [];
+
+        didMount() {
+            this.loadData( 1 );
+        }
+
+        offsetByPage( page, limit ) {
+
+            // Page=1 will result into offset 0, page=2 will result into
+            // offset 50 and so on
+            return ( page - 1 ) * limit;
+        }
+
+        loadData( page ) {
+            this.update( {
+                dataLoaded: false
+            } );
+            this.store.axios.get( 'admin/members', {
+                params: {
+                    offset: this.offsetByPage( page, this.options.limit ),
+                    limit: this.options.limit
+                }
+            } ).then(
+                data => this._loadDataSuccess(
+                    page,
+                    this.store.constructor.extractData( data )
+                ),
+                ::this._loadDataFail
+            );
+        }
+
+        _loadDataSuccess( page, { members, meta } ) {
+            this.update( {
+                dataLoaded: true,
+                page,
+                members,
+                ...meta // is offset, limit & total
+            } );
+        }
+
+        _loadDataFail( { Messages = [ 'Fail load members list' ] } ) {
+            this.update( {
+                dataLoaded: true,
+                errors: Messages
+            } );
+        }
+    }
+
+    export default RoutesMembersPage;
+</script>

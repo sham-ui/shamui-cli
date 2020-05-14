@@ -4,7 +4,8 @@ export const { useStorage } = createStorage( {
     name: '',
     email: '',
     sessionValidated: false,
-    isAuthenticated: false
+    isAuthenticated: false,
+    isSuperuser: false
 }, {
     DI: 'session:storage'
 } );

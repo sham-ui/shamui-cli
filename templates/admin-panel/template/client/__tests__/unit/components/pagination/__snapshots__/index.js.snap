@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pages 1`] = `
+Object {
+  "Constructor": "PaginationIndex",
+  "Options": Object {
+    "ID": "component",
+    "currentPage": 1,
+    "dataLoaded": true,
+    "directives": Object {
+      "EventListener": [Function],
+      "disabled": [Function],
+      "onclick": [Function],
+      "oninput": [Function],
+      "onload": [Function],
+      "onresize": [Function],
+      "onscroll": [Function],
+      "onselect": [Function],
+      "onsubmit": [Function],
+      "ref": [Function],
+    },
+    "goToPage": [Function],
+    "limit": 20,
+    "offset": 40,
+    "pageArraySize": 3,
+    "total": 50,
+  },
+  "html": "
+<div class=\\"pagination\\">
+  <div class=\\"page-buttons\\">
+    <!--if-->
+    <button data-test-pagination-page=\\"1\\" disabled=\\"\\">1</button>
+    <!--if-->
+    <!--if-->
+    <button data-test-pagination-page=\\"2\\">2</button>
+    <!--if-->
+    <!--if-->
+    <button data-test-pagination-page=\\"3\\">3</button>
+    <!--if-->
+  </div>
+  <!--PaginationPages-->
+  <!--default-->
+  <!--if-->
+  <div class=\\"page-buttons\\">
+    <!--if-->
+    <button data-test-pagination-page=\\"1\\" disabled=\\"\\">1</button>
+    <!--if-->
+    <!--if-->
+    <button data-test-pagination-page=\\"2\\">2</button>
+    <!--if-->
+    <!--if-->
+    <button data-test-pagination-page=\\"3\\">3</button>
+    <!--if-->
+  </div>
+  <!--PaginationPages-->
+</div>
+",
+}
+`;
+
+exports[`renders correctly 1`] = `
+Object {
+  "Constructor": "PaginationIndex",
+  "Options": Object {
+    "ID": "component",
+    "currentPage": 1,
+    "dataLoaded": true,
+    "directives": Object {
+      "EventListener": [Function],
+      "disabled": [Function],
+      "onclick": [Function],
+      "oninput": [Function],
+      "onload": [Function],
+      "onresize": [Function],
+      "onscroll": [Function],
+      "onselect": [Function],
+      "onsubmit": [Function],
+      "ref": [Function],
+    },
+    "goToPage": [Function],
+    "limit": 50,
+    "pageArraySize": 3,
+    "total": 0,
+  },
+  "html": "
+<div class=\\"pagination\\">
+  <div class=\\"page-buttons\\">
+    <!--if-->
+    <button data-test-pagination-page=\\"1\\" disabled=\\"\\">1</button>
+    <!--if-->
+  </div>
+  <!--PaginationPages-->
+  <!--default-->
+  <!--if-->
+  <div class=\\"page-buttons\\">
+    <!--if-->
+    <button data-test-pagination-page=\\"1\\" disabled=\\"\\">1</button>
+    <!--if-->
+  </div>
+  <!--PaginationPages-->
+</div>
+",
+}
+`;

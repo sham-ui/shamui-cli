@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Object {
+  "Constructor": "PaginationPages",
+  "Options": Object {
+    "ID": "component",
+    "currentPage": 1,
+    "directives": Object {
+      "EventListener": [Function],
+      "disabled": [Function],
+      "onclick": [Function],
+      "oninput": [Function],
+      "onload": [Function],
+      "onresize": [Function],
+      "onscroll": [Function],
+      "onselect": [Function],
+      "onsubmit": [Function],
+      "ref": [Function],
+    },
+    "goToPage": [Function],
+    "pages": Array [],
+  },
+  "html": "<div class=\\"page-buttons\\"></div>",
+}
+`;

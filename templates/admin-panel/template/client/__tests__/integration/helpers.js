@@ -1,6 +1,7 @@
 import { start, DI } from 'sham-ui';
 import pretty from 'pretty';
 import initializer from '../../src/initializers/main';
+import RoutesMembersPage from '../../src/components/routes/members/page.sfc';
 
 export const app = {
     async start( waitRendering = true ) {
@@ -83,6 +84,6 @@ export default function() {
     clearBody();
     resetStorage();
     setupRouter();
-    setupLazyPageMocks();
+    setupLazyPageMocks( RoutesMembersPage );
     Object.defineProperty( window, 'CSS', { value: () => ( {} ) } );
 }

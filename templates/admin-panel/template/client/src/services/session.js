@@ -36,11 +36,12 @@ export default class Session {
     validateSession() {
         this.data.sessionValidated = false;
         return this.store.validSession().then(
-            ( { Email, Name } ) => {
+            ( { Email, Name, IsSuperuser } ) => {
                 this.data.sessionValidated = true;
                 this.data.isAuthenticated = true;
                 this.data.email = Email;
                 this.data.name = Name;
+                this.data.isSuperuser = IsSuperuser;
 
                 // Manual run sync for guaranteed update Layout
                 // component before promise resolved
@@ -52,6 +53,7 @@ export default class Session {
                 this.data.isAuthenticated = false;
                 this.data.email = '';
                 this.data.name = '';
+                this.data.isSuperuser = false;
                 this.data.sync();
                 return false;
             }

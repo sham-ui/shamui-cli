@@ -28,4 +28,4 @@ run_test:
 coverage:
 	wgo tool cover -html=coverage.out
 
-test: run_test coverage
+test: bind_dist run_test coverage

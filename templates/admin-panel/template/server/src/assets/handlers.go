@@ -3,6 +3,7 @@ package assets
 import (
 	"github.com/NYTimes/gziphandler"
 	"net/http"
+	"{{shortName}}/sessions"
 	"path/filepath"
 	"strings"
 )
@@ -40,6 +41,15 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		w.Write(f)
+	} else if strings.HasPrefix(cannonicalName, "dist/su_") {
+		session := sessions.GetSession(r)
+		if nil == session {
+			http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		} else if session.IsSuperuser {
+			http.FileServer(AssetFile()).ServeHTTP(w, r)
+		} else {
+			http.Error(w, "Forbidden", http.StatusForbidden)
+		}
 	} else {
 
 		// otherwise, use http.FileServer to serve the static dir

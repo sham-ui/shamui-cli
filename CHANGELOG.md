@@ -1,4 +1,4 @@
-## master
+## 4.1.0
 * Add support for lazy loaded page in `admin-panel` template
 * Add superuser member for `admin-panel` template
 * API endpoint for get members (only for superuser) in `admin-panel` template

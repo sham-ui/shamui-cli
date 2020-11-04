@@ -1,0 +1,182 @@
+<template>
+    {% import Page from '../../Page.sfc' %}
+    {% import ErrorsPanel from '../../ErrorsPanel.sht' %}
+
+    <Page dataLoaded=\{{dataLoaded}}>
+        {% block 'header' %}
+            Server information
+        {% endblock %}
+
+        {% block 'body' %}
+            <div class="server-info">
+                <ErrorsPanel errors=\{{errors}}/>
+                <div class="panel runtime">
+                    <h6>Runtime info</h6>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Host</td>
+                                <td>\{{host}}</td>
+                            </tr>
+                            <tr>
+                                <td>Num CPU</td>
+                                <td>\{{runtime.NumCPU}}</td>
+                            </tr>
+                            <tr>
+                                <td>Memory</td>
+                                <td>\{{runtime.Memory | fileSize}}</td>
+                            </tr>
+                            <tr>
+                                <td>Mem Sys</td>
+                                <td>\{{runtime.MemSys | fileSize}}</td>
+                            </tr>
+                            <tr>
+                                <td>Heap Alloc</td>
+                                <td>\{{runtime.HeapAlloc | fileSize}}</td>
+                            </tr>
+                            <tr>
+                                <td>Heap Sys</td>
+                                <td>\{{runtime.HeapSys | fileSize}}</td>
+                            </tr>
+                            <tr>
+                                <td>Heap Idle</td>
+                                <td>\{{runtime.HeapIdle | fileSize}}</td>
+                            </tr>
+                            <tr>
+                                <td>Heap Inuse</td>
+                                <td>\{{runtime.HeapInuse | fileSize}}</td>
+                            </tr>
+                            <tr>
+                                <td>Next GC</td>
+                                <td>\{{runtime.NextGC | fileSize}}</td>
+                            </tr>
+                            <tr>
+                                <td>Goroutines</td>
+                                <td>\{{runtime.Goroutines}}</td>
+                            </tr>
+                            <tr>
+                                <td>UpTime</td>
+                                <td>\{{runtime.UpTime | duration}}</td>
+                            </tr>
+                            <tr>
+                                <td>Time</td>
+                                <td>\{{runtime.Time}}</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="panel files">
+                    <h6>Asset files</h6>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>File</th>
+                                <th>Size</th>
+                                <th>Modification time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for file of files %}
+                                <tr>
+                                    <td>\{{file.Name}}</td>
+                                    <td>\{{file.Size | fileSize}}</td>
+                                    <td>\{{file.ModTime}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endblock %}
+    </Page>
+
+</template>
+
+<script>
+    import { mergeWithTemplate, options, inject } from 'sham-ui-macro/babel.macro';
+
+    function fileSize( bytes ) {
+        const thresh = 1000;
+        if ( isNaN( bytes ) || bytes === undefined ) {
+            bytes = 0;
+        }
+        if ( Math.abs( bytes ) < thresh ) {
+            return bytes + ' B';
+        }
+        const units = [
+            'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'
+        ];
+        let u = -1;
+        do {
+            bytes /= thresh;
+            ++u;
+        } while ( Math.abs( bytes ) >= thresh && u < units.length - 1 );
+        return bytes.toFixed( 1 ) + ' ' + units[ u ];
+    }
+
+    function duration( totalSeconds ) {
+        const days = Math.floor( totalSeconds / 86400 );
+        totalSeconds %= 86400;
+        const hours = Math.floor( totalSeconds / 3600 );
+        totalSeconds %= 3600;
+        const minutes = Math.floor( totalSeconds / 60 );
+        const seconds = totalSeconds % 60;
+        return `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
+    }
+
+
+    @mergeWithTemplate
+    class RoutesServerInfoPage extends Template {
+        constructor() {
+            super( ...arguments );
+            this.filters.fileSize = fileSize;
+            this.filters.duration = duration;
+        }
+
+        /** @type Store */
+        @inject store;
+
+        @options dataLoaded = false;
+        @options get errors() {
+            return [];
+        }
+        @options host = '';
+        @options runtime = {};
+        @options files = [];
+
+        didMount() {
+            this._loadData();
+        }
+
+        _loadData() {
+            this.update( {
+                dataLoaded: false
+            } );
+            this.store.axios.get( 'admin/server-info' ).then(
+                data => this._loadDataSuccess(
+                    this.store.constructor.extractData( data )
+                ),
+                ::this._loadDataFail
+            );
+        }
+
+        _loadDataSuccess( info ) {
+            this.update( {
+                host: info.Host,
+                runtime: info.Runtime,
+                files: info.Files,
+                dataLoaded: true
+            } );
+        }
+
+        _loadDataFail( { Messages = [ 'Fail load accounting info' ] } ) {
+            this.update( {
+                dataLoaded: true,
+                errors: Messages
+            } );
+        }
+    }
+
+    export default RoutesServerInfoPage;
+</script>

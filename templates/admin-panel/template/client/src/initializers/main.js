@@ -19,7 +19,8 @@ export default function() {
         directives: {
             ...directives,
             hrefto
-        }
+        },
+        filters: {}
     } );
 
     // Load token

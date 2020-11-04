@@ -39,7 +39,13 @@
     {
       "uid": "31972e4e9d080eaa796290349ae6c1fd",
       "css": "users",
-      "code": 59398,
+      "code": 128101,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "d59ff824282fc6edaeca991deab522aa",
+      "css": "server",
+      "code": 62003,
       "src": "fontawesome"
     }
   ]

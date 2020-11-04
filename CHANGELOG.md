@@ -1,3 +1,7 @@
+## master
+* Add page about server information in admin-panel template [#72](https://github.com/sham-ui/sham-ui-cli/issues/72)
+* Fix a tests in admin-panel golang tests
+
 ## 4.1.0
 * Add support for lazy loaded page in `admin-panel` template
 * Add superuser member for `admin-panel` template

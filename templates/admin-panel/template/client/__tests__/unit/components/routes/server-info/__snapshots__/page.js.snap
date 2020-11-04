@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`display errors 1`] = `
+Object {
+  "Constructor": "RoutesServerInfoPage",
+  "Options": Object {
+    "ID": "component",
+    "dataLoaded": true,
+    "directives": Object {
+      "EventListener": [Function],
+      "disabled": [Function],
+      "onclick": [Function],
+      "oninput": [Function],
+      "onload": [Function],
+      "onresize": [Function],
+      "onscroll": [Function],
+      "onselect": [Function],
+      "onsubmit": [Function],
+      "ref": [Function],
+    },
+    "errors": Array [
+      "Fail load accounting info",
+    ],
+    "files": Array [],
+    "filters": Object {
+      "duration": [Function],
+      "fileSize": [Function],
+    },
+    "host": "",
+    "runtime": Object {},
+  },
+  "html": "
+<h4 class=\\"page-header\\"> Server information
+  <!--header-->
+</h4>
+<div class=\\"page-body\\">
+  <div class=\\"server-info\\">
+    <ul class=\\"errors-panel\\">
+      <li>Fail load accounting info</li>
+    </ul>
+    <!--if-->
+    <!--ErrorsPanel-->
+    <div class=\\"panel runtime\\">
+      <h6>Runtime info</h6>
+      <table>
+        <tbody>
+          <tr>
+            <td>Host</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Num CPU</td>
+            <td>null</td>
+          </tr>
+          <tr>
+            <td>Memory</td>
+            <td>0 B</td>
+          </tr>
+          <tr>
+            <td>Mem Sys</td>
+            <td>0 B</td>
+          </tr>
+          <tr>
+            <td>Heap Alloc</td>
+            <td>0 B</td>
+          </tr>
+          <tr>
+            <td>Heap Sys</td>
+            <td>0 B</td>
+          </tr>
+          <tr>
+            <td>Heap Idle</td>
+            <td>0 B</td>
+          </tr>
+          <tr>
+            <td>Heap Inuse</td>
+            <td>0 B</td>
+          </tr>
+          <tr>
+            <td>Next GC</td>
+            <td>0 B</td>
+          </tr>
+          <tr>
+            <td>Goroutines</td>
+            <td>null</td>
+          </tr>
+          <tr>
+            <td>UpTime</td>
+            <td>NaN days NaN hours NaN minutes NaN seconds</td>
+          </tr>
+          <tr>
+            <td>Time</td>
+            <td>null</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class=\\"panel files\\">
+      <h6>Asset files</h6>
+      <table>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Size</th>
+            <th>Modification time</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  <!--body-->
+</div>
+<!--if-->
+<!--Page-->
+",
+}
+`;
+
+exports[`renders correctly 1`] = `
+Object {
+  "Constructor": "RoutesServerInfoPage",
+  "Options": Object {
+    "ID": "component",
+    "dataLoaded": false,
+    "directives": Object {
+      "EventListener": [Function],
+      "disabled": [Function],
+      "onclick": [Function],
+      "oninput": [Function],
+      "onload": [Function],
+      "onresize": [Function],
+      "onscroll": [Function],
+      "onselect": [Function],
+      "onsubmit": [Function],
+      "ref": [Function],
+    },
+    "errors": Array [],
+    "files": Array [],
+    "filters": Object {
+      "duration": [Function],
+      "fileSize": [Function],
+    },
+    "host": "",
+    "runtime": Object {},
+  },
+  "html": "
+<!--if-->
+<!--WithoutFlushLoader-->
+<!--if-->
+<!--Page-->
+",
+}
+`;

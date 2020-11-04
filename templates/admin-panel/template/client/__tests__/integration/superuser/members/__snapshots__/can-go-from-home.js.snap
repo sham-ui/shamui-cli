@@ -18,6 +18,11 @@ exports[`can go from home 1`] = `
           <i class=\\"icon-users menu-item-icon\\"></i><span class=\\"menu-item-label\\">Members</span>
         </div>
       </a>
+      <a href=\\"/server\\">
+        <div class=\\"menu-item\\">
+          <i class=\\"icon-server menu-item-icon\\"></i><span class=\\"menu-item-label\\">Server information</span>
+        </div>
+      </a>
       <!--if-->
     </div>
   </div>

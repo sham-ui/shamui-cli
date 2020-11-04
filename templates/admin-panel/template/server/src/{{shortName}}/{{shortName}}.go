@@ -16,6 +16,7 @@ import (
 	"{{ shortName }}/config"
 	"{{ shortName }}/members"
 	"{{ shortName }}/models"
+	"{{ shortName }}/serverinfo"
 	"{{ shortName }}/sessions"
 	"strconv"
 	"strings"
@@ -75,6 +76,7 @@ func startApplication(configPath string, n *negroni.Negroni) {
 
 	// Superuser sections
 	r.HandleFunc("/api/admin/members", members.Members).Methods("GET")
+	r.HandleFunc("/api/admin/server-info", serverinfo.InfoHandler).Methods("GET")
 
 	// Resources
 	spaHandler := assets.NewHandler()

@@ -16,6 +16,12 @@
                     <span class="menu-item-label">Members</span>
                 </div>
             </a>
+            <a :hrefto=\{{path("server-info")._useActiveClass()}}>
+                <div class="menu-item">
+                    <i class="icon-server menu-item-icon"></i>
+                    <span class="menu-item-label">Server information</span>
+                </div>
+            </a>
         {% endif %}
     </div>
 </template>

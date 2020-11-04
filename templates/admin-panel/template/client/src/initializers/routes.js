@@ -20,7 +20,19 @@ export default function() {
             '/members',
             'members/list',
             () => import(
-                /* webpackChunkName: "su_members_list" */ '../components/routes/members/page.sfc'
+
+                /* webpackChunkName: "su_members_list" */
+                '../components/routes/members/page.sfc'
+            ),
+            {}
+        )
+        .bindLazyPage(
+            '/server',
+            'server-info',
+            () => import(
+
+                /* webpackChunkName: "su_server_info" */
+                '../components/routes/server-info/page.sfc'
             ),
             {}
         )
@@ -47,7 +59,10 @@ export default function() {
                             routerResolve();
                         }
                     } else if (
-                        currentRoute.name.startsWith( 'members/' ) &&
+                        (
+                            currentRoute.name.startsWith( 'members/' ) ||
+                            'server-info' === currentRoute.name
+                        ) &&
                         !session.data.isSuperuser
                     ) {
 

@@ -215,7 +215,6 @@ func Members(w http.ResponseWriter, r *http.Request) {
 			Status:   "Expired session or cookie",
 			Messages: []string{"Session Expired.  Log out and log back in."},
 		}
-		w.WriteHeader(http.StatusForbidden)
 		json.NewEncoder(w).Encode(msg)
 		return
 	}
@@ -224,6 +223,7 @@ func Members(w http.ResponseWriter, r *http.Request) {
 			Status:   "Only superuser can get member list",
 			Messages: []string{"Only superuser can get member list"},
 		}
+		w.WriteHeader(http.StatusForbidden)
 		json.NewEncoder(w).Encode(msg)
 		return
 	}

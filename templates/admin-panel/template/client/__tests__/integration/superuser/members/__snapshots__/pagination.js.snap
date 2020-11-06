@@ -60,9 +60,9 @@ exports[`pagination work 1`] = `
     </h4>
     <div class=\\"page-body\\">
       <div class=\\"member-list\\">
+        <!--if-->
+        <!--ErrorsPanel-->
         <div class=\\"panel\\">
-          <!--if-->
-          <!--ErrorsPanel-->
           <div class=\\"pagination\\">
             <div class=\\"page-buttons\\">
               <!--if-->
@@ -115,7 +115,6 @@ exports[`pagination work 1`] = `
             </div>
             <!--PaginationPages-->
           </div>
-          <!--Pagination-->
         </div>
       </div>
       <!--body-->
@@ -191,9 +190,9 @@ exports[`pagination work 2`] = `
     </h4>
     <div class=\\"page-body\\">
       <div class=\\"member-list\\">
+        <!--if-->
+        <!--ErrorsPanel-->
         <div class=\\"panel\\">
-          <!--if-->
-          <!--ErrorsPanel-->
           <div class=\\"pagination\\">
             <div class=\\"page-buttons\\">
               <!--if-->
@@ -240,7 +239,6 @@ exports[`pagination work 2`] = `
             </div>
             <!--PaginationPages-->
           </div>
-          <!--Pagination-->
         </div>
       </div>
       <!--body-->

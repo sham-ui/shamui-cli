@@ -60,9 +60,9 @@ exports[`display page 1`] = `
     </h4>
     <div class=\\"page-body\\">
       <div class=\\"member-list\\">
+        <!--if-->
+        <!--ErrorsPanel-->
         <div class=\\"panel\\">
-          <!--if-->
-          <!--ErrorsPanel-->
           <div class=\\"pagination\\">
             <div class=\\"page-buttons\\">
               <!--if-->
@@ -109,7 +109,6 @@ exports[`display page 1`] = `
             </div>
             <!--PaginationPages-->
           </div>
-          <!--Pagination-->
         </div>
       </div>
       <!--body-->

@@ -10,8 +10,8 @@
 
         {% block 'body' %}
             <div class="member-list">
+                <ErrorsPanel errors=\{{errors}}/>
                 <div class="panel">
-                    <ErrorsPanel errors=\{{errors}}/>
                     <Pagination
                         dataLoaded=\{{dataLoaded}}
                         goToPage=\{{::this.loadData}}

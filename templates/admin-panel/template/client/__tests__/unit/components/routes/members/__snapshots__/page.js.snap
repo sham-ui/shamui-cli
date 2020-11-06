@@ -32,14 +32,12 @@ Object {
 </h4>
 <div class=\\"page-body\\">
   <div class=\\"member-list\\">
-    <div class=\\"panel\\">
-      <ul class=\\"errors-panel\\">
-        <li>Fail load members list</li>
-      </ul>
-      <!--if-->
-      <!--ErrorsPanel-->
-      <!--Pagination-->
-    </div>
+    <ul class=\\"errors-panel\\">
+      <li>Fail load members list</li>
+    </ul>
+    <!--if-->
+    <!--ErrorsPanel-->
+    <div class=\\"panel\\"></div>
   </div>
   <!--body-->
 </div>
@@ -79,11 +77,9 @@ Object {
 </h4>
 <div class=\\"page-body\\">
   <div class=\\"member-list\\">
-    <div class=\\"panel\\">
-      <!--if-->
-      <!--ErrorsPanel-->
-      <!--Pagination-->
-    </div>
+    <!--if-->
+    <!--ErrorsPanel-->
+    <div class=\\"panel\\"></div>
   </div>
   <!--body-->
 </div>

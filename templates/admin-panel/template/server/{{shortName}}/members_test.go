@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"{{ shortName }}/models"
 	"path"
-	"test_helpers"
+	"{{ shortName }}/test_helpers"
 	"testing"
 )
 

@@ -6,18 +6,14 @@
 1. Install [gvm](https://github.com/moovweb/gvm)
 2. Run 
    ```bash
-   gvm install go1.14
-   gvm use go1.14
+   gvm install go1.15.4
+   gvm use go1.15.4
    ```
-3. Install `wgo`
-    ```bash
-    got get github.com/skelterjohn/wgo
-    ```
-4. Go to `server` directory and run:
+3. Go to `server` directory and run:
    ```bash
    make install 
    ```
-5. Go to `client` directory and run:
+4. Go to `client` directory and run:
     ```bash
     yarn
     ```
@@ -29,7 +25,7 @@
    ```
 2. Run server from `server` directory:
    ```bash
-   ./bin/{{ shortName }}
+   ./bin/linux_amd64/{{ shortName }}
    ```
 3. In another terminal go to `client` directory and run:
    ```bash
@@ -48,7 +44,7 @@ Create new linux user
 ```bash
 sudo adduser {{ shortName }}
 ```
-Copy `server/bin/{{ shortName }}/` to `/home/{{ shortName }}/{{ name }}/{{ shortName }}` on server
+Copy `server/bin/linux_386/{{ shortName }}` to `/home/{{ shortName }}/{{ name }}/{{ shortName }}` on server
 
 Create DB & DB user:
 ```bash

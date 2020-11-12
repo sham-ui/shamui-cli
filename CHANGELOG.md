@@ -2,6 +2,8 @@
 * Add page about server information in admin-panel template [#72](https://github.com/sham-ui/sham-ui-cli/issues/72)
 * Fix a tests in admin-panel golang tests
 * Move ErrorPanel component from panel to page in members page in admin-panel template [#73](https://github.com/sham-ui/sham-ui-cli/issues/73)
+* Update go to latest version & migrate to go modules [#63](https://github.com/sham-ui/sham-ui-cli/issues/63)
+
 
 ## 4.1.0
 * Add support for lazy loaded page in `admin-panel` template

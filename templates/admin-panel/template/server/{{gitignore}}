@@ -1,4 +1,3 @@
-vendor/
 pkg/
 /config.cfg
 bin/

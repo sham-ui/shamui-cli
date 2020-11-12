@@ -4,7 +4,7 @@ import (
 	stdOS "os"
 	"path"
 	"strings"
-	"test_helpers"
+	"{{ shortName }}/test_helpers"
 	"testing"
 )
 

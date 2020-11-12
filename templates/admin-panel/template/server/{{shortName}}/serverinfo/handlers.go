@@ -1,7 +1,7 @@
 package serverinfo
 
 import (
-	"assets"
+	"{{ shortName }}/assets"
 	"encoding/json"
 	"net/http"
 	"os"

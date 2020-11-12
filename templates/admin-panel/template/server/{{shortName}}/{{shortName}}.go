@@ -1,7 +1,7 @@
 package main
 
 import (
-	"assets"
+	"{{ shortName }}/assets"
 	"flag"
 	"github.com/antonlindstrom/pgstore"
 	"github.com/gorilla/context"

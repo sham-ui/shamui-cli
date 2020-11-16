@@ -1,3 +1,6 @@
+## master
+* Add template for `styled-component` [#3](https://github.com/sham-ui/sham-ui-cli/issues/3)
+
 ## 4.2.0
 * Add page about server information in admin-panel template [#72](https://github.com/sham-ui/sham-ui-cli/issues/72)
 * Fix a tests in admin-panel golang tests

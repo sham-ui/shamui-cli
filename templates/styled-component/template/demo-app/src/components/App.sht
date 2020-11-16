@@ -1,0 +1,8 @@
+{% import {{ classifiedName }} from '../../../src/{{name}}.sfc' %}
+
+<main>
+    <pre>
+        {{ description }}
+    </pre>
+    <{{ classifiedName }}/>
+</main>

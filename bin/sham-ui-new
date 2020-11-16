@@ -10,6 +10,7 @@ const capitalize = require( '../src/utils/capitalize' );
 const VALID_TEMPLATES = [
     'app',
     'component',
+    'styled-component',
     'admin-panel'
 ];
 

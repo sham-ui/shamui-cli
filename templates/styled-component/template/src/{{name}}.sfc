@@ -1,0 +1,14 @@
+<template>
+
+</template>
+
+<script>
+    import { mergeWithTemplate } from 'sham-ui-macro/babel.macro';
+
+    @mergeWithTemplate
+    class {{classifiedName}} extends Template {
+
+    }
+
+    export default {{classifiedName}};
+</script>

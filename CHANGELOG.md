@@ -1,4 +1,4 @@
-## master
+## 4.3.0
 * Add template for `styled-component` [#3](https://github.com/sham-ui/sham-ui-cli/issues/3)
 
 ## 4.2.0

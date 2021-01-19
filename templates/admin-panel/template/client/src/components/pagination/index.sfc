@@ -4,10 +4,10 @@
     {% import PaginationPages from './pages.sfc' %}
 
     <div class="pagination">
-       <PaginationPages
-        pages=\{{this.pages( limit, total, currentPage, pageArraySize )}}
-        goToPage=\{{goToPage}}
-        currentPage=\{{currentPage}}
+        <PaginationPages
+            pages=\{{this.pages( limit, total, currentPage, pageArraySize )}}
+            goToPage=\{{goToPage}}
+            currentPage=\{{currentPage}}
         />
 
         {% if dataLoaded %}

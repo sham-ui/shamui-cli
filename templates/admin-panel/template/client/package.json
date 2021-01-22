@@ -63,10 +63,10 @@
     "axios": "^0.18.1",
     "core-js": "^3.2.1",
     "sham-ui": "^4.1.0",
-    "sham-ui-router": "^4.2.0",
+    "sham-ui-router": "^4.3.0",
     "sham-ui-without-flush-loader": "^1.1.0",
     "sham-ui-cube-animation": "^1.1.0",
-    "sham-ui-data-storage": "^1.1.0",
+    "sham-ui-data-storage": "^1.2.0",
     "sham-ui-directives": "^4.1.1",
     "sham-ui-dynamic-component": "^1.1.1"
   },

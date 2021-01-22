@@ -10090,10 +10090,10 @@ sham-ui-cube-animation@^1.1.0:
   dependencies:
     sham-ui "^4.1.0"
 
-sham-ui-data-storage@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/sham-ui-data-storage/-/sham-ui-data-storage-1.1.0.tgz#1de6bd284a969f7bc31882b7ffcfeed6d9c95694"
-  integrity sha512-ODtlYCanY4ps9DAYs6tr5yPOkRRiTFyviv7uo/dGMSDW1rEjgV71bcSsT3ojv2huFSBlN6fO+iEN4mMdfplqtQ==
+sham-ui-data-storage@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/sham-ui-data-storage/-/sham-ui-data-storage-1.2.0.tgz#c57a4f4b1e6abf0f0490cd09e82cf0ecba02d556"
+  integrity sha512-F+ckZ3GkPHMkENtNlzkJqvAa3KsvDXq/ttHxyP6SYPv6F8dmmQvRlni7bAdsyZavPOpWVywOqVL8U4SFGDp43w==
   dependencies:
     sham-ui "^4.1.0"
 
@@ -10126,14 +10126,14 @@ sham-ui-macro@^1.1.0:
     babel-macros "^1.0.2"
     babel-types "^6.26.0"
 
-sham-ui-router@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/sham-ui-router/-/sham-ui-router-4.2.0.tgz#226657f1c5995fc47eac44dde3cb13d50007bbee"
-  integrity sha512-ksNKi86IJ7sII1E2eH0lG8/evc8WLomJ7kW9i2WAtfFNtzopRohpnihVeYw1CWdw8G4ZcwK9ADGlM4OnM8NK/g==
+sham-ui-router@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/sham-ui-router/-/sham-ui-router-4.3.0.tgz#1941e18c90951d8205c629872afaafb437fe057f"
+  integrity sha512-xEC3Zh5slsb+cGlqsLNYhPH7D9W9cO7rwJBd0nAiOkCwltGgLMMGVE+DJ9u8hcRnPJHcdutLkMt8nlJbs4/6tQ==
   dependencies:
     navigo "^7.1.2"
     sham-ui "^4.1.0"
-    sham-ui-data-storage "^1.1.0"
+    sham-ui-data-storage "^1.2.0"
 
 sham-ui-templates-loader@^4.1.1:
   version "4.1.1"

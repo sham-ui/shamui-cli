@@ -153,10 +153,8 @@
             this.update( {
                 dataLoaded: false
             } );
-            this.store.axios.get( 'admin/server-info' ).then(
-                data => this._loadDataSuccess(
-                    this.store.constructor.extractData( data )
-                ),
+            this.store.api.request( { url: 'admin/server-info' } ).then(
+                ::this._loadDataSuccess,
                 ::this._loadDataFail
             );
         }

@@ -1,138 +1,82 @@
-import axios from 'axios';
 import { DI } from 'sham-ui';
 import { inject } from 'sham-ui-macro/babel.macro';
+import { API } from './store/api';
+
+const VALID_SESSION_URL = '/validsession';
 
 export default class Store {
     @inject session;
 
     constructor() {
         DI.bind( 'store', this );
+        this._setupAPI();
+    }
+
+    _setupAPI() {
         const baseURL = PRODUCTION ?
             `${document.location.protocol}//${document.location.host}/api/` :
             'http://localhost:3001/api/';
-        this.axios = axios.create( {
+        this.api = new API( {
             baseURL,
-            withCredentials: true
+            onUnauthorized: ::this._onAPIUnauthorized
         } );
-        this.axios.interceptors.request.use(
-            ::this._requestInterceptor
-        );
-        this.axios.interceptors.response.use(
-            ( response ) => response,
-            ::this._responseFailInterceptor
-        );
     }
 
-    _requestInterceptor( request ) {
-        if ( !this._isCSRFToken( request ) ) {
-            request.headers[ 'X-CSRF-Token' ] = this.token;
-        }
-        if ( this.session.data.isAuthenticated || (
-            this._isCSRFToken( request ) ||
-            this._isLoginRequest( request ) ||
-            this._isSignupRequest( request ) ||
-            this._isValidSession( request ) ||
-            this._isLogout( request )
-        ) ) {
-            return request;
-        }
-    }
+    _onAPIUnauthorized( { url } ) {
+        if ( url !== VALID_SESSION_URL ) {
 
-    _responseFailInterceptor( error ) {
-        const { response, config } = error;
-        const request = {
-            url: config.url.replace( config.baseURL, '/' ),
-            method: config.method
-        };
-        if (
-            this.session.data.isAuthenticated &&
-            response &&
-            401 === response.status &&
-            !this._isValidSession( request )
-        ) {
-
-            // Logout
+            // Logout if server response with 401 for any request,
+            // exclude VALID_SESSION_URL
             requestAnimationFrame(
                 () => this.session.logout()
             );
-            return Promise.reject( error );
         }
-        if (
-            this._isCSRFToken( request ) ||
-            this._isValidSession( request ) ||
-            this._isLogout( request )
-        ) {
-            return Promise.reject( error );
-        }
-        return Promise.reject(
-            this.constructor.extractErrors( error )
-        );
-    }
-
-    static extractErrors( error ) {
-        return error && error.response && error.response.data ?
-            error.response.data :
-            {};
-    }
-
-    static extractData( { data } ) {
-        return data;
-    }
-
-    csrftoken() {
-        return this.axios.get( '/csrftoken' ).then(
-            response => response.headers[ 'x-csrf-token' ]
-        ).then( token => {
-            this.token = token;
-        } );
     }
 
     validSession() {
-        return this.axios.get( '/validsession' ).then(
-            this.constructor.extractData
-        );
+        return this.api.request( { url: VALID_SESSION_URL } );
+    }
+
+    csrftoken() {
+        return this.api.request( { url: '/csrftoken' } );
     }
 
     signUp( data ) {
-        return this.axios.post( '/members', data );
+        return this.api.request( {
+            url: '/members',
+            method: 'post',
+            data
+        } );
     }
 
     login( data ) {
-        return this.axios.post( '/login', data ).then( response => {
-            this.token = response.headers[ 'x-csrf-token' ];
-            return this.constructor.extractData( response );
+        return this.api.request( {
+            url: '/login',
+            method: 'post',
+            data
         } );
     }
 
     logout() {
-        return this.axios.post( '/logout' );
+        return this.api.request( {
+            url: '/logout',
+            method: 'post'
+        } );
     }
 
     updateMemberName( data ) {
-        return this.axios.put( '/members/name', data );
+        return this.api.request( {
+            url: '/members/name',
+            method: 'put',
+            data
+        } );
     }
 
     updateMemberEmail( data ) {
-        return this.axios.put( '/members/email', data );
-    }
-
-    _isLoginRequest( request ) {
-        return '/login' === request.url && 'post' === request.method;
-    }
-
-    _isSignupRequest( request ) {
-        return '/members' === request.url && 'post' === request.method;
-    }
-
-    _isCSRFToken( request ) {
-        return '/csrftoken' === request.url && 'get' === request.method;
-    }
-
-    _isValidSession( request ) {
-        return '/validsession' === request.url && 'get' === request.method;
-    }
-
-    _isLogout( request ) {
-        return '/logout' === request.url && 'post' === request.method;
+        return this.api.request( {
+            url: '/members/email',
+            method: 'put',
+            data
+        } );
     }
 }

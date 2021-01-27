@@ -2,7 +2,7 @@
 
 exports[`renders correctly 1`] = `
 Object {
-  "Constructor": "Page",
+  "Constructor": "",
   "Options": Object {
     "ID": "component",
     "dataLoaded": true,

@@ -8,13 +8,10 @@ it( 'renders correctly', () => {
 
     const getMock = jest.fn();
     DI.bind( 'store', {
-        axios: {
-            get: getMock.mockReturnValueOnce(
+        api: {
+            request: getMock.mockReturnValueOnce(
                 Promise.resolve( { } )
             )
-        },
-        constructor: {
-            extractData: x => x
         }
     } );
 
@@ -28,13 +25,10 @@ it( 'renders correctly', () => {
 it( 'display errors', async() => {
     DI.resolve( 'session:storage' ).sessionValidated = true;
     DI.bind( 'store', {
-        axios: {
-            get: jest.fn().mockReturnValueOnce(
+        api: {
+            request: jest.fn().mockReturnValueOnce(
                 Promise.reject( {} )
             )
-        },
-        constructor: {
-            extractData: x => x
         }
     } );
     const meta = renderer( RoutesServerInfoPage, {

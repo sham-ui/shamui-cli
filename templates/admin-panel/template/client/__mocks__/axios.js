@@ -69,8 +69,15 @@ export default {
     defaultMocksData: defaultMocksData,
     mocks: MOCKS,
     create: jest.fn().mockImplementation( () => {
-        return {
+        const instance  = {
             ...MOCKS,
+            request( { url, method = 'get', data } ) {
+                const args = [ url ];
+                if ( undefined !== data ) {
+                    args.push( data );
+                }
+                return instance[ method ].apply( null, args );
+            },
             interceptors: {
                 request: {
                     use( interceptor ) {
@@ -87,6 +94,7 @@ export default {
                 }
             }
         };
+        return instance;
     } ),
     use( method, url, data, status = 200, headers = {} ) {
         if ( !METHODS.includes( method ) ) {

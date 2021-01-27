@@ -76,16 +76,14 @@
             this.update( {
                 dataLoaded: false
             } );
-            this.store.axios.get( 'admin/members', {
+            this.store.api.request( {
+                url: 'admin/members',
                 params: {
                     offset: this.offsetByPage( page, this.options.limit ),
                     limit: this.options.limit
                 }
             } ).then(
-                data => this._loadDataSuccess(
-                    page,
-                    this.store.constructor.extractData( data )
-                ),
+                data => this._loadDataSuccess( page, data ),
                 ::this._loadDataFail
             );
         }

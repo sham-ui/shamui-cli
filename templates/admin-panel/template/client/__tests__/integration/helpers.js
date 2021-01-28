@@ -3,6 +3,7 @@ import pretty from 'pretty';
 import initializer from '../../src/initializers/main';
 import RoutesMembersPage from '../../src/components/routes/members/page.sfc';
 import RoutesServerInfoPage from '../../src/components/routes/server-info/page.sfc';
+import SettingsPage from '../../src/components/routes/settings/page.sfc';
 
 export const app = {
     async start( waitRendering = true ) {
@@ -85,6 +86,6 @@ export default function() {
     clearBody();
     resetStorage();
     setupRouter();
-    setupLazyPageMocks( RoutesMembersPage, RoutesServerInfoPage );
+    setupLazyPageMocks( SettingsPage, RoutesMembersPage, RoutesServerInfoPage );
     Object.defineProperty( window, 'CSS', { value: () => ( {} ) } );
 }

@@ -3,7 +3,6 @@ import Router from 'sham-ui-router';
 import SignupPage from '../components/routes/signup/page.sfc';
 import LoginPage from '../components/routes/login/page.sfc';
 import HomePage from '../components/routes/home/page.sfc';
-import SettingsPage from '../components/routes/settings/page.sfc';
 
 export default function() {
     const router = new Router( document.location.origin + '/' );
@@ -15,7 +14,16 @@ export default function() {
     router
         .bindPage( '/signup', 'signup', SignupPage, {} )
         .bindPage( '/login', 'login', LoginPage, {} )
-        .bindPage( '/settings', 'settings', SettingsPage, {} )
+        .bindLazyPage(
+            '/settings',
+            'settings',
+            () => import(
+
+                /* webpackChunkName: "settings" */
+                '../components/routes/settings/page.sfc'
+            ),
+            {}
+        )
         .bindLazyPage(
             '/members',
             'members/list',

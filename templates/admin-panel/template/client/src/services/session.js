@@ -1,32 +1,29 @@
 import { DI } from 'sham-ui';
 import { inject } from 'sham-ui-macro/babel.macro';
+import { storage as sessionStorage } from '../storages/session';
+import { storage as appStorage } from '../storages/app';
 
 export default class Session {
     @inject router;
     @inject store;
-    @inject( 'session:storage' ) data;
-    @inject( 'app:storage' ) app;
 
     constructor() {
+        this.app = appStorage;
+        this.data = sessionStorage;
         DI.bind( 'session', this );
     }
 
     login( email, password ) {
         return this.store.login( { email, password } ).then( ( { Email, Name } ) => {
-            this.data.email = Email;
-            this.data.name = Name;
+            Object.assign( this.data, {
+                email: Email,
+                name: Name
+            } );
         } ).then(
             ::this.resetSessionValidation
         ).then(
-            () => this.validateSessionPromise
+            ::this.validateSession
         );
-    }
-
-    get validateSessionPromise() {
-        if ( undefined === this._validateSessionPromise ) {
-            this._validateSessionPromise = this.validateSession();
-        }
-        return this._validateSessionPromise;
     }
 
     resetSessionValidation() {
@@ -34,27 +31,33 @@ export default class Session {
     }
 
     validateSession() {
+        if ( undefined === this._validateSessionPromise ) {
+            this._validateSessionPromise = this._validateSession();
+        }
+        return this._validateSessionPromise;
+    }
+
+    _validateSession() {
         this.data.sessionValidated = false;
         return this.store.validSession().then(
             ( { Email, Name, IsSuperuser } ) => {
-                this.data.sessionValidated = true;
-                this.data.isAuthenticated = true;
-                this.data.email = Email;
-                this.data.name = Name;
-                this.data.isSuperuser = IsSuperuser;
-
-                // Manual run sync for guaranteed update Layout
-                // component before promise resolved
-                this.data.sync();
+                Object.assign( this.data, {
+                    sessionValidated: true,
+                    isAuthenticated: true,
+                    email: Email,
+                    name: Name,
+                    isSuperuser: IsSuperuser
+                } ).sync();
                 return true;
             },
             () => {
-                this.data.sessionValidated = true;
-                this.data.isAuthenticated = false;
-                this.data.email = '';
-                this.data.name = '';
-                this.data.isSuperuser = false;
-                this.data.sync();
+                Object.assign( this.data, {
+                    sessionValidated: true,
+                    isAuthenticated: false,
+                    email: '',
+                    name: '',
+                    isSuperuser: false
+                } ).sync();
                 return false;
             }
         );
@@ -65,8 +68,9 @@ export default class Session {
             () => {
 
                 // Reset router
-                this.app.routerResolved = false;
-                this.app.sync();
+                Object.assign( this.app, {
+                    routerResolved: false
+                } ).sync();
 
                 // Reset cached session
                 this.resetSessionValidation();

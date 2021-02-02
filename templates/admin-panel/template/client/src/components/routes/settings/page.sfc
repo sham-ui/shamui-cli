@@ -39,6 +39,7 @@
         @inject session;
 
         onUpdateSessionData( done ) {
+            this.session.resetSessionValidation();
             this.session.validateSession().then( done );
         }
     }

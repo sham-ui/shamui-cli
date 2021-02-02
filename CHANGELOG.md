@@ -3,6 +3,7 @@
 * Refactoring store service in admin-panel [#84](https://github.com/sham-ui/sham-ui-cli/issues/84) 
 * Fix a tests
 * Make `settings` page in admin panel lazy
+* Refactoring session service in admin-panel
 
 ## 4.3.0
 * Add template for `styled-component` [#3](https://github.com/sham-ui/sham-ui-cli/issues/3)

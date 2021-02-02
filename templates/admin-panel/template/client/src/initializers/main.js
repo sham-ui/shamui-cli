@@ -27,13 +27,11 @@ export default function() {
     store.csrftoken().then( () => {
         appState.tokenLoaded = true;
         appState.sync();
-        return (
 
-            // Validate session (get session data)
-            session.validateSessionPromise && // Operator `&&` - is hack for no-unused-expressions
+        // Validate session (get session data)
+        session.validateSession();
 
-            // Init router
-            startRouter()
-        );
+        // Init router
+        startRouter();
     } );
 }

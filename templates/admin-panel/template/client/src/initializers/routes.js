@@ -56,7 +56,7 @@ export default function() {
                     return;
                 }
                 const session = DI.resolve( 'session' );
-                session.validateSessionPromise.then( isAuthenticated => {
+                session.validateSession().then( isAuthenticated => {
                     if ( [ 'signup', 'login' ].includes( currentRoute.name ) ) {
                         done( !isAuthenticated );
                         if ( isAuthenticated ) {

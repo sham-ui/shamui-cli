@@ -95,6 +95,7 @@ Object {
         </tbody>
       </table>
     </div>
+    <!--RuntimePanel-->
     <div class=\\"panel files\\">
       <h6>Asset files</h6>
       <table>
@@ -108,6 +109,7 @@ Object {
         <tbody></tbody>
       </table>
     </div>
+    <!--AssetsPanel-->
   </div>
   <!--body-->
 </div>
@@ -137,10 +139,7 @@ Object {
     },
     "errors": Array [],
     "files": Array [],
-    "filters": Object {
-      "duration": [Function],
-      "fileSize": [Function],
-    },
+    "filters": Object {},
     "host": "",
     "runtime": Object {},
   },

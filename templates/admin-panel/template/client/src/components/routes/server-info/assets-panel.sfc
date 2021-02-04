@@ -1,0 +1,40 @@
+<template>
+    <div class="panel files">
+        <h6>Asset files</h6>
+        <table>
+            <thead>
+                <tr>
+                    <th>File</th>
+                    <th>Size</th>
+                    <th>Modification time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file of files %}
+                    <tr>
+                        <td>\{{file.Name}}</td>
+                        <td>\{{file.Size | fileSize}}</td>
+                        <td>\{{file.ModTime}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</template>
+
+<script>
+    import { mergeWithTemplate, options } from 'sham-ui-macro/babel.macro';
+    import { fileSize } from './filters';
+
+    @mergeWithTemplate
+    class AssetsPanel extends Template {
+        constructor() {
+            super( ...arguments );
+            this.filters.fileSize = fileSize;
+        }
+
+        @options files = [];
+    }
+
+    export default AssetsPanel;
+</script>

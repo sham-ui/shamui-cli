@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`save name without change 1`] = `
+exports[`success edit password 1`] = `
 "<div class=\\"\\">
   <div class=\\"logo\\">
     <a href=\\"\\"><span>[</span> {{ logoText }} <span>]</span></a>
@@ -54,23 +54,6 @@ exports[`save name without change 1`] = `
         <p class=\\"mg-b-30\\">John Smith<a>
             <i class=\\"icon-pencil\\"></i>
           </a>
-          <form class=\\"form-layout\\">
-            <!--header-->
-            <!--if-->
-            <!--ErrorsPanel-->
-            <div class=\\"form-group\\">
-              <label> Name: </label>
-              <input name=\\"name\\" type=\\"text\\" autofocus=\\"\\">
-            </div>
-            <!--default-->
-            <button type=\\"submit\\">
-              <!--if-->Update
-              <!--submit-->
-            </button>
-            <!--footer-->
-          </form>
-          <!--FormContainer-->
-          <!--DynamicComponent-->
           <!--if-->
         </p>
         <!--Paragraph-->
@@ -85,6 +68,27 @@ exports[`save name without change 1`] = `
         <p class=\\"mg-b-0\\">******<a>
             <i class=\\"icon-pencil\\"></i>
           </a>
+          <form class=\\"form-layout\\">
+            <!--header-->
+            <!--if-->
+            <!--ErrorsPanel-->
+            <div class=\\"form-group\\">
+              <label> Enter your password: </label>
+              <input name=\\"pass1\\" type=\\"password\\" autofocus=\\"\\">
+            </div>
+            <div class=\\"form-group\\">
+              <label> Confirm your password: </label>
+              <input name=\\"pass2\\" type=\\"password\\">
+            </div>
+            <!--default-->
+            <button type=\\"submit\\">
+              <!--if-->Update
+              <!--submit-->
+            </button>
+            <!--footer-->
+          </form>
+          <!--FormContainer-->
+          <!--DynamicComponent-->
           <!--if-->
         </p>
         <!--Paragraph-->
@@ -102,7 +106,7 @@ exports[`save name without change 1`] = `
 <!--if-->"
 `;
 
-exports[`save name without change 2`] = `
+exports[`success edit password 2`] = `
 "<div class=\\"\\">
   <div class=\\"logo\\">
     <a href=\\"\\"><span>[</span> {{ logoText }} <span>]</span></a>

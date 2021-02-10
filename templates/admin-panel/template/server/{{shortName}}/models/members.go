@@ -46,6 +46,7 @@ func CreateMember(m *NewMember) error {
 	hashedPw, hashErr := hashPassword(m.Password)
 	if hashErr != nil {
 		log.Warn("Error hashing password: ", hashErr)
+		return hashErr
 	}
 	_, err := Db.Query("INSERT INTO members(name, email, password, is_superuser) VALUES ($1,$2, $3, $4)", m.Name, m.Email, hashedPw, m.IsSuperuser)
 	if err != nil {
@@ -89,6 +90,24 @@ func UpdateMemberEmail(id string, email string) bool {
 	}
 	if sqlErr != nil {
 		log.Println(sqlErr)
+		return false
+	}
+	return true
+}
+
+// UpdateMemberEmail uses the member ID to insert a new password
+func UpdateMemberPassword(id string, password string) bool {
+	hashedPw, err := hashPassword(password)
+	if err != nil {
+		log.Warn("Error hashing password: ", err)
+		return false
+	}
+	_, err = Db.Query("UPDATE members SET password = $2 WHERE id = $1", id, hashedPw)
+	if err == sql.ErrNoRows {
+		return false
+	}
+	if err != nil {
+		log.Warn(err)
 		return false
 	}
 	return true

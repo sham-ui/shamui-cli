@@ -3,6 +3,7 @@
     {% import Paragraph from './paragraph.sfc' %}
     {% import NameForm from './form/name.sfc' %}
     {% import EmailForm from './form/email.sfc' %}
+    {% import PasswordForm from './form/password.sfc' %}
 
     <Page>
         {% block 'header' %}
@@ -20,10 +21,17 @@
                 />
 
                 <Paragraph
+                    paragraphClassName="mg-b-30"
                     title="Email"
                     value=\{{sessionData.email}}
                     form=\{{EmailForm}}
                     onUpdateValue=\{{::this.onUpdateSessionData}}
+                />
+
+                <Paragraph
+                    title="Password"
+                    value="******"
+                    form=\{{PasswordForm}}
                 />
             </div>
         {% endblock %}

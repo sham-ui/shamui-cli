@@ -208,6 +208,72 @@ func UpdateMemberName(w http.ResponseWriter, r *http.Request) {
 	log.Info(msg)
 }
 
+// UpdateMemberPassword allows the user to update member information and returns an error or the newly made member name
+func UpdateMemberPassword(w http.ResponseWriter, r *http.Request) {
+	session := sessions.GetSession(r)
+	if session == nil {
+		msg := resDetails{
+			Status:   "Expired session or cookie",
+			Messages: []string{"Session Expired.  Log out and log back in."},
+		}
+		json.NewEncoder(w).Encode(msg)
+		return
+	}
+
+	var msg resDetails
+
+	type updatePassword struct {
+		NewPassword1 string
+		NewPassword2 string
+	}
+
+	var data updatePassword
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		log.WithError(err).Warn("Error decoding body")
+	}
+
+
+	// Check for bad email length
+	if len(data.NewPassword1) <= 0 || len(data.NewPassword2) <= 0 {
+		msg := resDetails{
+			Status:   "Bad Password",
+			Messages: append(msg.Messages, "Password must have more than 0 characters."),
+		}
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(msg)
+		return
+	}
+
+	if passwordsMatch(data.NewPassword1, data.NewPassword2) != true {
+		msg := resDetails{
+			Status:   "Bad Password",
+			Messages: append(msg.Messages, "Passwords don't match."),
+		}
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(msg)
+		return
+	}
+
+	if len(data.NewPassword1) >= 1 || len(data.NewPassword2) >= 1 {
+		if models.UpdateMemberPassword(session.ID, data.NewPassword1) == true {
+			msg.Status = "OK"
+			json.NewEncoder(w).Encode(msg)
+		} else {
+			msg := resDetails{
+				Status:   "Fail update password",
+				Messages: append(msg.Messages, "Fail update password"),
+			}
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(msg)
+			return
+		}
+	}
+	log.Info("Update password, member's ID: ", session.ID)
+	log.Info(msg)
+}
+
+
 func Members(w http.ResponseWriter, r *http.Request) {
 	session := sessions.GetSession(r)
 	if session == nil {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fail edit name 1`] = `
+exports[`fail edit password 1`] = `
 "<div class=\\"\\">
   <div class=\\"logo\\">
     <a href=\\"\\"><span>[</span> {{ logoText }} <span>]</span></a>
@@ -54,26 +54,6 @@ exports[`fail edit name 1`] = `
         <p class=\\"mg-b-30\\">John Smith<a>
             <i class=\\"icon-pencil\\"></i>
           </a>
-          <form class=\\"form-layout\\">
-            <!--header-->
-            <ul class=\\"errors-panel\\">
-              <li>Name must have more than 0 characters.</li>
-            </ul>
-            <!--if-->
-            <!--ErrorsPanel-->
-            <div class=\\"form-group\\">
-              <label> Name: </label>
-              <input name=\\"name\\" type=\\"text\\" autofocus=\\"\\">
-            </div>
-            <!--default-->
-            <button type=\\"submit\\">
-              <!--if-->Update
-              <!--submit-->
-            </button>
-            <!--footer-->
-          </form>
-          <!--FormContainer-->
-          <!--DynamicComponent-->
           <!--if-->
         </p>
         <!--Paragraph-->
@@ -88,6 +68,30 @@ exports[`fail edit name 1`] = `
         <p class=\\"mg-b-0\\">******<a>
             <i class=\\"icon-pencil\\"></i>
           </a>
+          <form class=\\"form-layout\\">
+            <!--header-->
+            <ul class=\\"errors-panel\\">
+              <li>Passwords don't match.</li>
+            </ul>
+            <!--if-->
+            <!--ErrorsPanel-->
+            <div class=\\"form-group\\">
+              <label> Enter your password: </label>
+              <input name=\\"pass1\\" type=\\"password\\" autofocus=\\"\\">
+            </div>
+            <div class=\\"form-group\\">
+              <label> Confirm your password: </label>
+              <input name=\\"pass2\\" type=\\"password\\">
+            </div>
+            <!--default-->
+            <button type=\\"submit\\">
+              <!--if-->Update
+              <!--submit-->
+            </button>
+            <!--footer-->
+          </form>
+          <!--FormContainer-->
+          <!--DynamicComponent-->
           <!--if-->
         </p>
         <!--Paragraph-->

@@ -79,4 +79,12 @@ export default class Store {
             data
         } );
     }
+
+    updateMemberPassword( data ) {
+        return this.api.request( {
+            url: '/members/password',
+            method: 'put',
+            data
+        } );
+    }
 }

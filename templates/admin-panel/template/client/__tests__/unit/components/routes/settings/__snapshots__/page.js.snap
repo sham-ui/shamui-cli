@@ -39,7 +39,14 @@ Object {
     </p>
     <!--Paragraph-->
     <h6>Email</h6>
-    <p class=\\"mg-b-0\\">test@test.com<a>
+    <p class=\\"mg-b-30\\">test@test.com<a>
+        <i class=\\"icon-pencil\\"></i>
+      </a>
+      <!--if-->
+    </p>
+    <!--Paragraph-->
+    <h6>Password</h6>
+    <p class=\\"mg-b-0\\">******<a>
         <i class=\\"icon-pencil\\"></i>
       </a>
       <!--if-->

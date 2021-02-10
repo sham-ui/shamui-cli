@@ -272,3 +272,137 @@ func TestUpdateEmailNotUnique(t *testing.T) {
 	body, _ = test_helpers.UnmarshalJSON(response.Body.Bytes())
 	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": false}, body)
 }
+
+func TestUpdatePasswordSuccess(t *testing.T) {
+	test_helpers.DisableLogger()
+	n := negroni.New()
+	startApplication(path.Join("testdata", "config.cfg"), n)
+	test_helpers.ClearDB(models.Db)
+	insertTestUser(models.Db)
+	payload, _ := json.Marshal(map[string]interface{}{
+		"Email":    "email",
+		"Password": "password",
+	})
+	loginReq, _ := http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
+	test_helpers.SetCSRFToken(n, loginReq)
+	loginResponse := test_helpers.ExecuteRequest(n, loginReq)
+	test_helpers.Equals(t, http.StatusOK, loginResponse.Code)
+
+	payload, _ = json.Marshal(map[string]interface{}{
+		"NewPassword1": "newpass",
+		"NewPassword2": "newpass",
+	})
+	req, _ := http.NewRequest("PUT", "/api/members/password", bytes.NewBuffer(payload))
+	req.Header.Set("Cookie", test_helpers.MergeCookies(loginReq, loginResponse))
+	req.Header.Set("X-CSRF-Token", loginResponse.Header().Get("X-CSRF-Token"))
+	response := test_helpers.ExecuteRequest(n, req)
+	test_helpers.Equals(t, http.StatusOK, response.Code)
+	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
+	test_helpers.Equals(t, map[string]interface{}{"Status": "OK", "Messages": nil}, body)
+
+	payload, _ = json.Marshal(map[string]interface{}{
+		"Email":    "email",
+		"Password": "password",
+	})
+	loginReq, _ = http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
+	test_helpers.SetCSRFToken(n, loginReq)
+	loginResponse = test_helpers.ExecuteRequest(n, loginReq)
+	test_helpers.Equals(t, http.StatusUnauthorized, loginResponse.Code)
+	body, _ = test_helpers.UnmarshalJSON(loginResponse.Body.Bytes())
+	test_helpers.Equals(t, map[string]interface{}{"Status": "Failed to authenticate", "Messages": []interface{}{"Incorrect username or password"}}, body)
+
+	payload, _ = json.Marshal(map[string]interface{}{
+		"Email":    "email",
+		"Password": "newpass",
+	})
+	loginReq, _ = http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
+	test_helpers.SetCSRFToken(n, loginReq)
+	loginResponse = test_helpers.ExecuteRequest(n, loginReq)
+	test_helpers.Equals(t, http.StatusOK, loginResponse.Code)
+}
+
+func TestUpdatePasswordUnauthtorized(t *testing.T) {
+	test_helpers.DisableLogger()
+	n := negroni.New()
+	startApplication(path.Join("testdata", "config.cfg"), n)
+	test_helpers.ClearDB(models.Db)
+	insertTestUser(models.Db)
+	payload, _ := json.Marshal(map[string]interface{}{
+		"NewPassword1": "newpass",
+		"NewPassword2": "newpass",
+	})
+	req, _ := http.NewRequest("PUT", "/api/members/password", bytes.NewBuffer(payload))
+	test_helpers.SetCSRFToken(n, req)
+	response := test_helpers.ExecuteRequest(n, req)
+	test_helpers.Equals(t, http.StatusOK, response.Code)
+	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
+	test_helpers.Equals(t, map[string]interface{}{"Status": "Expired session or cookie", "Messages": []interface{}{"Session Expired.  Log out and log back in."}}, body)
+}
+
+func TestUpdatePasswordShort(t *testing.T) {
+	test_helpers.DisableLogger()
+	n := negroni.New()
+	startApplication(path.Join("testdata", "config.cfg"), n)
+	test_helpers.ClearDB(models.Db)
+	insertTestUser(models.Db)
+	payload, _ := json.Marshal(map[string]interface{}{
+		"Email":    "email",
+		"Password": "password",
+	})
+	loginReq, _ := http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
+	test_helpers.SetCSRFToken(n, loginReq)
+	loginResponse := test_helpers.ExecuteRequest(n, loginReq)
+	test_helpers.Equals(t, http.StatusOK, loginResponse.Code)
+
+	payload, _ = json.Marshal(map[string]interface{}{
+		"NewPassword1": "",
+		"NewPassword2": "newpass",
+	})
+	req, _ := http.NewRequest("PUT", "/api/members/password", bytes.NewBuffer(payload))
+	req.Header.Set("Cookie", test_helpers.MergeCookies(loginReq, loginResponse))
+	req.Header.Set("X-CSRF-Token", loginResponse.Header().Get("X-CSRF-Token"))
+	response := test_helpers.ExecuteRequest(n, req)
+	test_helpers.Equals(t, http.StatusBadRequest, response.Code)
+	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
+	test_helpers.Equals(t, map[string]interface{}{"Status": "Bad Password", "Messages": []interface{}{"Password must have more than 0 characters."}}, body)
+
+	payload, _ = json.Marshal(map[string]interface{}{
+		"NewPassword1": "newpass",
+		"NewPassword2": "",
+	})
+	req, _ = http.NewRequest("PUT", "/api/members/password", bytes.NewBuffer(payload))
+	req.Header.Set("Cookie", test_helpers.MergeCookies(loginReq, loginResponse))
+	req.Header.Set("X-CSRF-Token", loginResponse.Header().Get("X-CSRF-Token"))
+	response = test_helpers.ExecuteRequest(n, req)
+	test_helpers.Equals(t, http.StatusBadRequest, response.Code)
+	body, _ = test_helpers.UnmarshalJSON(response.Body.Bytes())
+	test_helpers.Equals(t, map[string]interface{}{"Status": "Bad Password", "Messages": []interface{}{"Password must have more than 0 characters."}}, body)
+}
+
+func TestUpdatePasswordNotMatch(t *testing.T) {
+	test_helpers.DisableLogger()
+	n := negroni.New()
+	startApplication(path.Join("testdata", "config.cfg"), n)
+	test_helpers.ClearDB(models.Db)
+	insertTestUser(models.Db)
+	payload, _ := json.Marshal(map[string]interface{}{
+		"Email":    "email",
+		"Password": "password",
+	})
+	loginReq, _ := http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
+	test_helpers.SetCSRFToken(n, loginReq)
+	loginResponse := test_helpers.ExecuteRequest(n, loginReq)
+	test_helpers.Equals(t, http.StatusOK, loginResponse.Code)
+
+	payload, _ = json.Marshal(map[string]interface{}{
+		"NewPassword1": "newpass1",
+		"NewPassword2": "newpass2",
+	})
+	req, _ := http.NewRequest("PUT", "/api/members/password", bytes.NewBuffer(payload))
+	req.Header.Set("Cookie", test_helpers.MergeCookies(loginReq, loginResponse))
+	req.Header.Set("X-CSRF-Token", loginResponse.Header().Get("X-CSRF-Token"))
+	response := test_helpers.ExecuteRequest(n, req)
+	test_helpers.Equals(t, http.StatusBadRequest, response.Code)
+	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
+	test_helpers.Equals(t, map[string]interface{}{"Status": "Bad Password", "Messages": []interface{}{"Passwords don't match."}}, body)
+}

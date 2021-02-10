@@ -73,6 +73,7 @@ func startApplication(configPath string, n *negroni.Negroni) {
 	r.HandleFunc("/api/members", members.SignupMember).Methods("POST")
 	r.HandleFunc("/api/members/email", members.UpdateMemberEmail).Methods("PUT")
 	r.HandleFunc("/api/members/name", members.UpdateMemberName).Methods("PUT")
+	r.HandleFunc("/api/members/password", members.UpdateMemberPassword).Methods("PUT")
 
 	// Superuser sections
 	r.HandleFunc("/api/admin/members", members.Members).Methods("GET")

@@ -58,7 +58,7 @@ exports[`fail edit email 1`] = `
         </p>
         <!--Paragraph-->
         <h6>Email</h6>
-        <p class=\\"mg-b-0\\">j.smith@example.com<a>
+        <p class=\\"mg-b-30\\">j.smith@example.com<a>
             <i class=\\"icon-pencil\\"></i>
           </a>
           <form class=\\"form-layout\\">
@@ -85,6 +85,13 @@ exports[`fail edit email 1`] = `
           </form>
           <!--FormContainer-->
           <!--DynamicComponent-->
+          <!--if-->
+        </p>
+        <!--Paragraph-->
+        <h6>Password</h6>
+        <p class=\\"mg-b-0\\">******<a>
+            <i class=\\"icon-pencil\\"></i>
+          </a>
           <!--if-->
         </p>
         <!--Paragraph-->

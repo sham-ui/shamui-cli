@@ -27,6 +27,7 @@ Object {
       "fileSize": [Function],
     },
     "host": "",
+    "pageTitle": "Server information",
     "runtime": Object {},
   },
   "html": "
@@ -141,6 +142,7 @@ Object {
     "files": Array [],
     "filters": Object {},
     "host": "",
+    "pageTitle": "Server information",
     "runtime": Object {},
   },
   "html": "

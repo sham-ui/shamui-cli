@@ -6,6 +6,8 @@
 * Refactoring session service in admin-panel
 * Refactoring `server-info` page component in admin-panel
 * Reset password in admin-panel [#86](https://github.com/sham-ui/sham-ui-cli/issues/86)
+* Add page title in admin-panel [#87](https://github.com/sham-ui/sham-ui-cli/issues/87)
+
 
 ## 4.3.0
 * Add template for `styled-component` [#3](https://github.com/sham-ui/sham-ui-cli/issues/3)

@@ -4,6 +4,9 @@ import RoutesMembersPage  from '../../../../../src/components/routes/members/pag
 import renderer from 'sham-ui-test-helpers';
 
 it( 'renders correctly', () => {
+    DI.bind( 'title', {
+        change() {}
+    } );
     DI.resolve( 'session:storage' ).sessionValidated = true;
 
     const getMock = jest.fn();
@@ -22,6 +25,9 @@ it( 'renders correctly', () => {
 } );
 
 it( 'display errors', async() => {
+    DI.bind( 'title', {
+        change() {}
+    } );
     DI.resolve( 'session:storage' ).sessionValidated = true;
     DI.bind( 'store', {
         api: {

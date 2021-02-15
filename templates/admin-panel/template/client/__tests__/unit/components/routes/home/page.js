@@ -8,6 +8,9 @@ afterEach( () => {
 
 
 it( 'renders correctly', () => {
+    DI.bind( 'title', {
+        change() {}
+    } );
     DI.resolve( 'session:storage' ).sessionValidated = true;
 
     const meta = renderer( RoutesHomePage, {} );

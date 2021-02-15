@@ -6,7 +6,7 @@
 
     <Page dataLoaded=\{{dataLoaded}}>
         {% block 'header' %}
-            Server information
+            \{{pageTitle}}
         {% endblock %}
 
         {% block 'body' %}
@@ -36,6 +36,10 @@
         /** @type Store */
         @inject store;
 
+        /** @type Title */
+        @inject title;
+
+        @options pageTitle = 'Server information';
         @options dataLoaded = false;
         @options get errors() {
             return [];
@@ -45,6 +49,7 @@
         @options files = [];
 
         didMount() {
+            this.title.change( this.options.pageTitle );
             this._loadData();
         }
 

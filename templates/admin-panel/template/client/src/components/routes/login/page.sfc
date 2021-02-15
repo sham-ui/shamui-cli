@@ -43,6 +43,13 @@
         @inject session;
         @inject router;
 
+        /** @type Title */
+        @inject title;
+
+        didMount() {
+            this.title.change( 'Login' );
+        }
+
         _submitForm( formData ) {
             return this.session.login(
                 formData.get( 'email' ).trim(),

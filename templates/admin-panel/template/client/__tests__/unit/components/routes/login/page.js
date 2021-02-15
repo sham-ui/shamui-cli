@@ -9,6 +9,9 @@ afterEach( () => {
 } );
 
 it( 'renders correctly', () => {
+    DI.bind( 'title', {
+        change() {}
+    } );
     DI.bind( 'router', {
         generate: jest.fn().mockReturnValueOnce( '/' ),
         activePageComponent: compile``,
@@ -27,6 +30,9 @@ it( 'renders correctly', () => {
 } );
 
 it( 'display errors', async() => {
+    DI.bind( 'title', {
+        change() {}
+    } );
     DI.bind( 'router', {
         generate: jest.fn().mockReturnValueOnce( '/' ),
         activePageComponent: compile``,

@@ -5,7 +5,7 @@
 
     <Page>
         {% block 'header' %}
-            Members
+            \{{pageTitle}}
         {% endblock %}
 
         {% block 'body' %}
@@ -54,6 +54,10 @@
         /** @type Store */
         @inject store;
 
+        /** @type {Title} */
+        @inject title;
+
+        @options pageTitle = 'Members';
         @options dataLoaded = false;
         @options errors = [];
         @options offset = 0;
@@ -62,6 +66,7 @@
         @options members = [];
 
         didMount() {
+            this.title.change( this.options.pageTitle );
             this.loadData( 1 );
         }
 

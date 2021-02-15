@@ -8,6 +8,9 @@ afterEach( () => {
 } );
 
 it( 'renders correctly', () => {
+    DI.bind( 'title', {
+        change() {}
+    } );
     const storage = DI.resolve( 'session:storage' );
     storage.name = 'Test member';
     storage.email = 'test@test.com';

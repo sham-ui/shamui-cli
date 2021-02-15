@@ -17,6 +17,7 @@ Object {
       "onsubmit": [Function],
       "ref": [Function],
     },
+    "pageTitle": "Profile settings",
     "sessionData": Object {
       "email": "test@test.com",
       "isAuthenticated": false,

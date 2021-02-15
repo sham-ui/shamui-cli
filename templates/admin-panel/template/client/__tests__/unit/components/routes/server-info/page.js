@@ -4,6 +4,9 @@ import { DI } from 'sham-ui';
 import * as directives from 'sham-ui-directives';
 
 it( 'renders correctly', () => {
+    DI.bind( 'title', {
+        change() {}
+    } );
     DI.resolve( 'session:storage' ).sessionValidated = true;
 
     const getMock = jest.fn();
@@ -23,6 +26,9 @@ it( 'renders correctly', () => {
 } );
 
 it( 'display errors', async() => {
+    DI.bind( 'title', {
+        change() {}
+    } );
     DI.resolve( 'session:storage' ).sessionValidated = true;
     DI.bind( 'store', {
         api: {

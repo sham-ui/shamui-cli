@@ -50,6 +50,13 @@
         @inject router;
         @inject session;
 
+        /** @type Title */
+        @inject title;
+
+        didMount() {
+            this.title.change( 'Sing Up' );
+        }
+
         _submitForm( formData ) {
             return this.store.signUp( {
                 name: formData.get( 'name' ).trim(),

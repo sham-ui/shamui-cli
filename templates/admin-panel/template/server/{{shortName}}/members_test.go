@@ -1,408 +1,249 @@
 package main
 
 import (
-	"bytes"
-	"encoding/json"
-	"github.com/urfave/negroni"
 	"net/http"
-	"{{ shortName }}/models"
-	"path"
 	"{{ shortName }}/test_helpers"
+	"{{ shortName }}/test_helpers/asserts"
 	"testing"
 )
 
 func TestUpdateNameSuccess(t *testing.T) {
-	test_helpers.DisableLogger()
-	n := negroni.New()
-	startApplication(path.Join("testdata", "config.cfg"), n)
-	test_helpers.ClearDB(models.Db)
-	insertTestUser(models.Db)
-	payload, _ := json.Marshal(map[string]interface{}{
-		"Email":    "email",
-		"Password": "password",
-	})
-	loginReq, _ := http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
-	test_helpers.SetCSRFToken(n, loginReq)
-	loginResponse := test_helpers.ExecuteRequest(n, loginReq)
-	test_helpers.Equals(t, http.StatusOK, loginResponse.Code)
+	env := test_helpers.NewTestEnv()
+	revert := env.Default()
+	defer revert()
+	env.CreateUser()
+	env.API.GetCSRF()
+	env.API.Login()
 
-	payload, _ = json.Marshal(map[string]interface{}{
+	resp := env.API.Request("PUT", "/api/members/name", map[string]interface{}{
 		"NewName": "edited test name",
 	})
-	req, _ := http.NewRequest("PUT", "/api/members/name", bytes.NewBuffer(payload))
-	req.Header.Set("Cookie", test_helpers.MergeCookies(loginReq, loginResponse))
-	req.Header.Set("X-CSRF-Token", loginResponse.Header().Get("X-CSRF-Token"))
-	response := test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusOK, response.Code)
-	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Status": "OK", "Messages": []interface{}{"edited test name"}}, body)
+	asserts.Equals(t, http.StatusOK, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "Name updated"}, resp.JSON())
 
-	req, _ = http.NewRequest("GET", "/api/validsession", nil)
-	req.Header.Set("Cookie", loginResponse.Header().Get("Set-Cookie"))
-	req.Header.Set("X-Csrf-Token", loginResponse.Header().Get("X-Csrf-Token"))
-	response = test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusOK, response.Code)
-	body, _ = test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Name": "edited test name", "Email": "email", "IsSuperuser": false}, body)
+	resp = env.API.Request("GET", "/api/validsession", nil)
+	asserts.Equals(t, http.StatusOK, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Name": "edited test name", "Email": "email", "IsSuperuser": false}, resp.JSON())
 }
 
 func TestUpdateNameUnauthtorized(t *testing.T) {
-	test_helpers.DisableLogger()
-	n := negroni.New()
-	startApplication(path.Join("testdata", "config.cfg"), n)
-	test_helpers.ClearDB(models.Db)
-	insertTestUser(models.Db)
-	payload, _ := json.Marshal(map[string]interface{}{
+	env := test_helpers.NewTestEnv()
+	revert := env.Default()
+	defer revert()
+	env.CreateUser()
+	env.API.GetCSRF()
+
+	resp := env.API.Request("PUT", "/api/members/name", map[string]interface{}{
 		"NewName": "edited test name",
 	})
-	req, _ := http.NewRequest("PUT", "/api/members/name", bytes.NewBuffer(payload))
-	test_helpers.SetCSRFToken(n, req)
-	response := test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusOK, response.Code)
-	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Status": "Expired session or cookie", "Messages": []interface{}{"Session Expired.  Log out and log back in."}}, body)
+	asserts.Equals(t, http.StatusUnauthorized, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "Unauthorized", "Messages": []interface{}{"Session Expired. Log out and log back in."}}, resp.JSON())
 }
 
 func TestUpdateNameShortName(t *testing.T) {
-	test_helpers.DisableLogger()
-	n := negroni.New()
-	startApplication(path.Join("testdata", "config.cfg"), n)
-	test_helpers.ClearDB(models.Db)
-	insertTestUser(models.Db)
-	payload, _ := json.Marshal(map[string]interface{}{
-		"Email":    "email",
-		"Password": "password",
-	})
-	loginReq, _ := http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
-	test_helpers.SetCSRFToken(n, loginReq)
-	loginResponse := test_helpers.ExecuteRequest(n, loginReq)
-	test_helpers.Equals(t, http.StatusOK, loginResponse.Code)
+	env := test_helpers.NewTestEnv()
+	revert := env.Default()
+	defer revert()
+	env.CreateUser()
+	env.API.GetCSRF()
+	env.API.Login()
 
-	payload, _ = json.Marshal(map[string]interface{}{
+	resp := env.API.Request("PUT", "/api/members/name", map[string]interface{}{
 		"NewName": "",
 	})
-	req, _ := http.NewRequest("PUT", "/api/members/name", bytes.NewBuffer(payload))
-	req.Header.Set("Cookie", test_helpers.MergeCookies(loginReq, loginResponse))
-	req.Header.Set("X-CSRF-Token", loginResponse.Header().Get("X-CSRF-Token"))
-	response := test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusBadRequest, response.Code)
-	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Status": "Bad Name", "Messages": []interface{}{"Name must have more than 0 characters."}}, body)
+	asserts.Equals(t, http.StatusBadRequest, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request", "Messages": []interface{}{"Name must have more than 0 characters."}}, resp.JSON())
 
-	req, _ = http.NewRequest("GET", "/api/validsession", nil)
-	req.Header.Set("Cookie", loginResponse.Header().Get("Set-Cookie"))
-	req.Header.Set("X-Csrf-Token", loginResponse.Header().Get("X-Csrf-Token"))
-	response = test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusOK, response.Code)
-	body, _ = test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": false}, body)
+	resp = env.API.Request("GET", "/api/validsession", nil)
+	asserts.Equals(t, http.StatusOK, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": false}, resp.JSON())
 }
 
 func TestUpdateEmailSuccess(t *testing.T) {
-	test_helpers.DisableLogger()
-	n := negroni.New()
-	startApplication(path.Join("testdata", "config.cfg"), n)
-	test_helpers.ClearDB(models.Db)
-	insertTestUser(models.Db)
-	payload, _ := json.Marshal(map[string]interface{}{
-		"Email":    "email",
-		"Password": "password",
-	})
-	loginReq, _ := http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
-	test_helpers.SetCSRFToken(n, loginReq)
-	loginResponse := test_helpers.ExecuteRequest(n, loginReq)
-	test_helpers.Equals(t, http.StatusOK, loginResponse.Code)
+	env := test_helpers.NewTestEnv()
+	revert := env.Default()
+	defer revert()
+	env.CreateUser()
+	env.API.GetCSRF()
+	env.API.Login()
 
-	payload, _ = json.Marshal(map[string]interface{}{
+	resp := env.API.Request("PUT", "/api/members/email", map[string]interface{}{
 		"NewEmail1": "newemail@test.com",
 		"NewEmail2": "newemail@test.com",
 	})
-	req, _ := http.NewRequest("PUT", "/api/members/email", bytes.NewBuffer(payload))
-	req.Header.Set("Cookie", test_helpers.MergeCookies(loginReq, loginResponse))
-	req.Header.Set("X-CSRF-Token", loginResponse.Header().Get("X-CSRF-Token"))
-	response := test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusOK, response.Code)
-	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Status": "OK", "Messages": []interface{}{"newemail@test.com"}}, body)
+	asserts.Equals(t, http.StatusOK, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "Email updated"}, resp.JSON())
 
-	req, _ = http.NewRequest("GET", "/api/validsession", nil)
-	req.Header.Set("Cookie", loginResponse.Header().Get("Set-Cookie"))
-	req.Header.Set("X-Csrf-Token", loginResponse.Header().Get("X-Csrf-Token"))
-	response = test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusOK, response.Code)
-	body, _ = test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "newemail@test.com", "IsSuperuser": false}, body)
+	resp = env.API.Request("GET", "/api/validsession", nil)
+	asserts.Equals(t, http.StatusOK, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Name": "test", "Email": "newemail@test.com", "IsSuperuser": false}, resp.JSON())
 }
 
 func TestUpdateEmailUnauthtorized(t *testing.T) {
-	test_helpers.DisableLogger()
-	n := negroni.New()
-	startApplication(path.Join("testdata", "config.cfg"), n)
-	test_helpers.ClearDB(models.Db)
-	insertTestUser(models.Db)
-	payload, _ := json.Marshal(map[string]interface{}{
+	env := test_helpers.NewTestEnv()
+	revert := env.Default()
+	defer revert()
+	env.CreateUser()
+	env.API.GetCSRF()
+
+	resp := env.API.Request("PUT", "/api/members/email", map[string]interface{}{
 		"NewEmail1": "newemail@test.com",
 		"NewEmail2": "newemail@test.com",
 	})
-	req, _ := http.NewRequest("PUT", "/api/members/email", bytes.NewBuffer(payload))
-	test_helpers.SetCSRFToken(n, req)
-	response := test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusOK, response.Code)
-	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Status": "Expired session or cookie", "Messages": []interface{}{"Session Expired.  Log out and log back in."}}, body)
+	asserts.Equals(t, http.StatusUnauthorized, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "Unauthorized", "Messages": []interface{}{"Session Expired. Log out and log back in."}}, resp.JSON())
 }
 
 func TestUpdateEmailShort(t *testing.T) {
-	test_helpers.DisableLogger()
-	n := negroni.New()
-	startApplication(path.Join("testdata", "config.cfg"), n)
-	test_helpers.ClearDB(models.Db)
-	insertTestUser(models.Db)
-	payload, _ := json.Marshal(map[string]interface{}{
-		"Email":    "email",
-		"Password": "password",
-	})
-	loginReq, _ := http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
-	test_helpers.SetCSRFToken(n, loginReq)
-	loginResponse := test_helpers.ExecuteRequest(n, loginReq)
-	test_helpers.Equals(t, http.StatusOK, loginResponse.Code)
+	env := test_helpers.NewTestEnv()
+	revert := env.Default()
+	defer revert()
+	env.CreateUser()
+	env.API.GetCSRF()
+	env.API.Login()
 
-	payload, _ = json.Marshal(map[string]interface{}{
+	resp := env.API.Request("PUT", "/api/members/email", map[string]interface{}{
 		"NewEmail1": "",
 		"NewEmail2": "newemail@test.com",
 	})
-	req, _ := http.NewRequest("PUT", "/api/members/email", bytes.NewBuffer(payload))
-	req.Header.Set("Cookie", test_helpers.MergeCookies(loginReq, loginResponse))
-	req.Header.Set("X-CSRF-Token", loginResponse.Header().Get("X-CSRF-Token"))
-	response := test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusBadRequest, response.Code)
-	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Status": "Bad Email", "Messages": []interface{}{"Email must have more than 0 characters."}}, body)
+	asserts.Equals(t, http.StatusBadRequest, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request", "Messages": []interface{}{"Email must have more than 0 characters.", "Emails don't match."}}, resp.JSON())
 
-	payload, _ = json.Marshal(map[string]interface{}{
+	resp = env.API.Request("PUT", "/api/members/email", map[string]interface{}{
 		"NewEmail1": "newemail@test.com",
 		"NewEmail2": "",
 	})
-	req, _ = http.NewRequest("PUT", "/api/members/email", bytes.NewBuffer(payload))
-	req.Header.Set("Cookie", test_helpers.MergeCookies(loginReq, loginResponse))
-	req.Header.Set("X-CSRF-Token", loginResponse.Header().Get("X-CSRF-Token"))
-	response = test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusBadRequest, response.Code)
-	body, _ = test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Status": "Bad Email", "Messages": []interface{}{"Email must have more than 0 characters."}}, body)
+	asserts.Equals(t, http.StatusBadRequest, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request", "Messages": []interface{}{"Email must have more than 0 characters.", "Emails don't match."}}, resp.JSON())
 
-	req, _ = http.NewRequest("GET", "/api/validsession", nil)
-	req.Header.Set("Cookie", loginResponse.Header().Get("Set-Cookie"))
-	req.Header.Set("X-Csrf-Token", loginResponse.Header().Get("X-Csrf-Token"))
-	response = test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusOK, response.Code)
-	body, _ = test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": false}, body)
+	resp = env.API.Request("GET", "/api/validsession", nil)
+	asserts.Equals(t, http.StatusOK, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": false}, resp.JSON())
 }
 
 func TestUpdateEmailNotMatch(t *testing.T) {
-	test_helpers.DisableLogger()
-	n := negroni.New()
-	startApplication(path.Join("testdata", "config.cfg"), n)
-	test_helpers.ClearDB(models.Db)
-	insertTestUser(models.Db)
-	payload, _ := json.Marshal(map[string]interface{}{
-		"Email":    "email",
-		"Password": "password",
-	})
-	loginReq, _ := http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
-	test_helpers.SetCSRFToken(n, loginReq)
-	loginResponse := test_helpers.ExecuteRequest(n, loginReq)
-	test_helpers.Equals(t, http.StatusOK, loginResponse.Code)
+	env := test_helpers.NewTestEnv()
+	revert := env.Default()
+	defer revert()
+	env.CreateUser()
+	env.API.GetCSRF()
+	env.API.Login()
 
-	payload, _ = json.Marshal(map[string]interface{}{
+	resp := env.API.Request("PUT", "/api/members/email", map[string]interface{}{
 		"NewEmail1": "email1",
 		"NewEmail2": "email2",
 	})
-	req, _ := http.NewRequest("PUT", "/api/members/email", bytes.NewBuffer(payload))
-	req.Header.Set("Cookie", test_helpers.MergeCookies(loginReq, loginResponse))
-	req.Header.Set("X-CSRF-Token", loginResponse.Header().Get("X-CSRF-Token"))
-	response := test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusBadRequest, response.Code)
-	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Status": "Bad Email", "Messages": []interface{}{"Emails don't match."}}, body)
+	asserts.Equals(t, http.StatusBadRequest, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request", "Messages": []interface{}{"Emails don't match."}}, resp.JSON())
 
-	req, _ = http.NewRequest("GET", "/api/validsession", nil)
-	req.Header.Set("Cookie", loginResponse.Header().Get("Set-Cookie"))
-	req.Header.Set("X-Csrf-Token", loginResponse.Header().Get("X-Csrf-Token"))
-	response = test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusOK, response.Code)
-	body, _ = test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": false}, body)
+	resp = env.API.Request("GET", "/api/validsession", nil)
+	asserts.Equals(t, http.StatusOK, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": false}, resp.JSON())
 }
 
 func TestUpdateEmailNotUnique(t *testing.T) {
-	test_helpers.DisableLogger()
-	n := negroni.New()
-	startApplication(path.Join("testdata", "config.cfg"), n)
-	test_helpers.ClearDB(models.Db)
-	insertTestUser(models.Db)
-	models.Db.Exec("INSERT INTO public.members (id, name, email, password) VALUES (2, 'test', 'email1', '$2a$14$QMQH3E2UyfIKTFvLfguQPOmai96AncIV.1bLbcd5huTG8gZxNfAyO')")
-	payload, _ := json.Marshal(map[string]interface{}{
-		"Email":    "email",
-		"Password": "password",
-	})
-	loginReq, _ := http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
-	test_helpers.SetCSRFToken(n, loginReq)
-	loginResponse := test_helpers.ExecuteRequest(n, loginReq)
-	test_helpers.Equals(t, http.StatusOK, loginResponse.Code)
+	env := test_helpers.NewTestEnv()
+	revert := env.Default()
+	defer revert()
+	env.CreateUser()
+	env.DB.DB.Exec("INSERT INTO public.members (id, name, email, password) VALUES (2, 'test', 'email1', '$2a$14$QMQH3E2UyfIKTFvLfguQPOmai96AncIV.1bLbcd5huTG8gZxNfAyO')")
+	env.API.GetCSRF()
+	env.API.Login()
 
-	payload, _ = json.Marshal(map[string]interface{}{
+	resp := env.API.Request("PUT", "/api/members/email", map[string]interface{}{
 		"NewEmail1": "email1",
 		"NewEmail2": "email1",
 	})
-	req, _ := http.NewRequest("PUT", "/api/members/email", bytes.NewBuffer(payload))
-	req.Header.Set("Cookie", test_helpers.MergeCookies(loginReq, loginResponse))
-	req.Header.Set("X-CSRF-Token", loginResponse.Header().Get("X-CSRF-Token"))
-	response := test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusBadRequest, response.Code)
-	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Status": "Fail update email", "Messages": []interface{}{"Fail update email"}}, body)
+	asserts.Equals(t, http.StatusBadRequest, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request", "Messages": []interface{}{"Email is already in use."}}, resp.JSON())
 
-	req, _ = http.NewRequest("GET", "/api/validsession", nil)
-	req.Header.Set("Cookie", loginResponse.Header().Get("Set-Cookie"))
-	req.Header.Set("X-Csrf-Token", loginResponse.Header().Get("X-Csrf-Token"))
-	response = test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusOK, response.Code)
-	body, _ = test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": false}, body)
+	resp = env.API.Request("GET", "/api/validsession", nil)
+	asserts.Equals(t, http.StatusOK, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": false}, resp.JSON())
 }
 
 func TestUpdatePasswordSuccess(t *testing.T) {
-	test_helpers.DisableLogger()
-	n := negroni.New()
-	startApplication(path.Join("testdata", "config.cfg"), n)
-	test_helpers.ClearDB(models.Db)
-	insertTestUser(models.Db)
-	payload, _ := json.Marshal(map[string]interface{}{
-		"Email":    "email",
-		"Password": "password",
-	})
-	loginReq, _ := http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
-	test_helpers.SetCSRFToken(n, loginReq)
-	loginResponse := test_helpers.ExecuteRequest(n, loginReq)
-	test_helpers.Equals(t, http.StatusOK, loginResponse.Code)
+	env := test_helpers.NewTestEnv()
+	revert := env.Default()
+	defer revert()
+	env.CreateUser()
+	env.API.GetCSRF()
+	env.API.Login()
 
-	payload, _ = json.Marshal(map[string]interface{}{
+	resp := env.API.Request("PUT", "/api/members/password", map[string]interface{}{
 		"NewPassword1": "newpass",
 		"NewPassword2": "newpass",
 	})
-	req, _ := http.NewRequest("PUT", "/api/members/password", bytes.NewBuffer(payload))
-	req.Header.Set("Cookie", test_helpers.MergeCookies(loginReq, loginResponse))
-	req.Header.Set("X-CSRF-Token", loginResponse.Header().Get("X-CSRF-Token"))
-	response := test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusOK, response.Code)
-	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Status": "OK", "Messages": nil}, body)
+	asserts.Equals(t, http.StatusOK, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "Password updated"}, resp.JSON())
 
-	payload, _ = json.Marshal(map[string]interface{}{
+	env.API.ResetCSRF()
+	env.API.ResetCookies()
+	env.API.GetCSRF()
+
+	resp = env.API.Request("POST", "/api/login", map[string]interface{}{
 		"Email":    "email",
 		"Password": "password",
 	})
-	loginReq, _ = http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
-	test_helpers.SetCSRFToken(n, loginReq)
-	loginResponse = test_helpers.ExecuteRequest(n, loginReq)
-	test_helpers.Equals(t, http.StatusUnauthorized, loginResponse.Code)
-	body, _ = test_helpers.UnmarshalJSON(loginResponse.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Status": "Failed to authenticate", "Messages": []interface{}{"Incorrect username or password"}}, body)
+	asserts.Equals(t, http.StatusBadRequest, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request", "Messages": []interface{}{"Incorrect username or password"}}, resp.JSON())
 
-	payload, _ = json.Marshal(map[string]interface{}{
+	resp = env.API.Request("POST", "/api/login", map[string]interface{}{
 		"Email":    "email",
 		"Password": "newpass",
 	})
-	loginReq, _ = http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
-	test_helpers.SetCSRFToken(n, loginReq)
-	loginResponse = test_helpers.ExecuteRequest(n, loginReq)
-	test_helpers.Equals(t, http.StatusOK, loginResponse.Code)
+	asserts.Equals(t, http.StatusOK, resp.Response.Code)
 }
 
 func TestUpdatePasswordUnauthtorized(t *testing.T) {
-	test_helpers.DisableLogger()
-	n := negroni.New()
-	startApplication(path.Join("testdata", "config.cfg"), n)
-	test_helpers.ClearDB(models.Db)
-	insertTestUser(models.Db)
-	payload, _ := json.Marshal(map[string]interface{}{
+	env := test_helpers.NewTestEnv()
+	revert := env.Default()
+	defer revert()
+	env.API.GetCSRF()
+
+	resp := env.API.Request("PUT", "/api/members/password", map[string]interface{}{
 		"NewPassword1": "newpass",
 		"NewPassword2": "newpass",
 	})
-	req, _ := http.NewRequest("PUT", "/api/members/password", bytes.NewBuffer(payload))
-	test_helpers.SetCSRFToken(n, req)
-	response := test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusOK, response.Code)
-	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Status": "Expired session or cookie", "Messages": []interface{}{"Session Expired.  Log out and log back in."}}, body)
+	asserts.Equals(t, http.StatusUnauthorized, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "Unauthorized", "Messages": []interface{}{"Session Expired. Log out and log back in."}}, resp.JSON())
 }
 
 func TestUpdatePasswordShort(t *testing.T) {
-	test_helpers.DisableLogger()
-	n := negroni.New()
-	startApplication(path.Join("testdata", "config.cfg"), n)
-	test_helpers.ClearDB(models.Db)
-	insertTestUser(models.Db)
-	payload, _ := json.Marshal(map[string]interface{}{
-		"Email":    "email",
-		"Password": "password",
-	})
-	loginReq, _ := http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
-	test_helpers.SetCSRFToken(n, loginReq)
-	loginResponse := test_helpers.ExecuteRequest(n, loginReq)
-	test_helpers.Equals(t, http.StatusOK, loginResponse.Code)
+	env := test_helpers.NewTestEnv()
+	revert := env.Default()
+	defer revert()
+	env.CreateUser()
+	env.API.GetCSRF()
+	env.API.Login()
 
-	payload, _ = json.Marshal(map[string]interface{}{
+	resp := env.API.Request("PUT", "/api/members/password", map[string]interface{}{
 		"NewPassword1": "",
 		"NewPassword2": "newpass",
 	})
-	req, _ := http.NewRequest("PUT", "/api/members/password", bytes.NewBuffer(payload))
-	req.Header.Set("Cookie", test_helpers.MergeCookies(loginReq, loginResponse))
-	req.Header.Set("X-CSRF-Token", loginResponse.Header().Get("X-CSRF-Token"))
-	response := test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusBadRequest, response.Code)
-	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Status": "Bad Password", "Messages": []interface{}{"Password must have more than 0 characters."}}, body)
+	asserts.Equals(t, http.StatusBadRequest, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request", "Messages": []interface{}{"Password must have more than 0 characters.", "Passwords don't match."}}, resp.JSON())
 
-	payload, _ = json.Marshal(map[string]interface{}{
+	resp = env.API.Request("PUT", "/api/members/password", map[string]interface{}{
 		"NewPassword1": "newpass",
 		"NewPassword2": "",
 	})
-	req, _ = http.NewRequest("PUT", "/api/members/password", bytes.NewBuffer(payload))
-	req.Header.Set("Cookie", test_helpers.MergeCookies(loginReq, loginResponse))
-	req.Header.Set("X-CSRF-Token", loginResponse.Header().Get("X-CSRF-Token"))
-	response = test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusBadRequest, response.Code)
-	body, _ = test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Status": "Bad Password", "Messages": []interface{}{"Password must have more than 0 characters."}}, body)
+	asserts.Equals(t, http.StatusBadRequest, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request", "Messages": []interface{}{"Password must have more than 0 characters.", "Passwords don't match."}}, resp.JSON())
 }
 
 func TestUpdatePasswordNotMatch(t *testing.T) {
-	test_helpers.DisableLogger()
-	n := negroni.New()
-	startApplication(path.Join("testdata", "config.cfg"), n)
-	test_helpers.ClearDB(models.Db)
-	insertTestUser(models.Db)
-	payload, _ := json.Marshal(map[string]interface{}{
-		"Email":    "email",
-		"Password": "password",
-	})
-	loginReq, _ := http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
-	test_helpers.SetCSRFToken(n, loginReq)
-	loginResponse := test_helpers.ExecuteRequest(n, loginReq)
-	test_helpers.Equals(t, http.StatusOK, loginResponse.Code)
+	env := test_helpers.NewTestEnv()
+	revert := env.Default()
+	defer revert()
+	env.CreateUser()
+	env.API.GetCSRF()
+	env.API.Login()
 
-	payload, _ = json.Marshal(map[string]interface{}{
+	resp := env.API.Request("PUT", "/api/members/password", map[string]interface{}{
 		"NewPassword1": "newpass1",
 		"NewPassword2": "newpass2",
 	})
-	req, _ := http.NewRequest("PUT", "/api/members/password", bytes.NewBuffer(payload))
-	req.Header.Set("Cookie", test_helpers.MergeCookies(loginReq, loginResponse))
-	req.Header.Set("X-CSRF-Token", loginResponse.Header().Get("X-CSRF-Token"))
-	response := test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusBadRequest, response.Code)
-	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Status": "Bad Password", "Messages": []interface{}{"Passwords don't match."}}, body)
+	asserts.Equals(t, http.StatusBadRequest, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request", "Messages": []interface{}{"Passwords don't match."}}, resp.JSON())
 }

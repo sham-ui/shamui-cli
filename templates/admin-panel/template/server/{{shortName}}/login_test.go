@@ -1,82 +1,63 @@
 package main
 
 import (
-	"bytes"
-	"database/sql"
-	"encoding/json"
-	"github.com/urfave/negroni"
 	"net/http"
-	"{{ shortName }}/models"
-	"path"
 	"{{ shortName }}/test_helpers"
+	"{{ shortName }}/test_helpers/asserts"
 	"testing"
 )
 
-func insertTestUser(db *sql.DB) {
-	db.Exec("INSERT INTO public.members (id, name, email, password) VALUES (1, 'test', 'email', '$2a$14$QMQH3E2UyfIKTFvLfguQPOmai96AncIV.1bLbcd5huTG8gZxNfAyO')")
-}
-
 func TestLoginInvalidCSRF(t *testing.T) {
-	test_helpers.DisableLogger()
-	n := negroni.New()
-	startApplication(path.Join("testdata", "config.cfg"), n)
-	test_helpers.ClearDB(models.Db)
-	req, _ := http.NewRequest("POST", "/api/login", bytes.NewBuffer([]byte{}))
-	response := test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusForbidden, response.Code)
-	test_helpers.Equals(t, "Forbidden - CSRF token invalid\n", response.Body.String())
+	env := test_helpers.NewTestEnv()
+	revert := env.Default()
+	defer revert()
+
+	resp := env.API.Request("POST", "/api/login", nil)
+	asserts.Equals(t, http.StatusForbidden, resp.Response.Code)
+	asserts.Equals(t, "Forbidden - CSRF token invalid\n", resp.Text())
 }
 
 func TestLoginSuccess(t *testing.T) {
-	test_helpers.DisableLogger()
-	n := negroni.New()
-	startApplication(path.Join("testdata", "config.cfg"), n)
-	test_helpers.ClearDB(models.Db)
-	insertTestUser(models.Db)
-	payload, _ := json.Marshal(map[string]interface{}{
+	env := test_helpers.NewTestEnv()
+	revert := env.Default()
+	defer revert()
+	env.CreateUser()
+	env.API.GetCSRF()
+
+	resp := env.API.Request("POST", "/api/login", map[string]interface{}{
 		"Email":    "email",
 		"Password": "password",
 	})
-	req, _ := http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
-	test_helpers.SetCSRFToken(n, req)
-	response := test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusOK, response.Code)
-	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"ID": "1", "Status": "OK", "Name": "test", "Email": "email"}, body)
+	asserts.Equals(t, http.StatusOK, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "OK", "IsSuperuser": false, "Name": "test", "Email": "email"}, resp.JSON())
 }
 
 func TestLoginIncorrectPassword(t *testing.T) {
-	test_helpers.DisableLogger()
-	n := negroni.New()
-	startApplication(path.Join("testdata", "config.cfg"), n)
-	test_helpers.ClearDB(models.Db)
-	insertTestUser(models.Db)
-	payload, _ := json.Marshal(map[string]interface{}{
+	env := test_helpers.NewTestEnv()
+	revert := env.Default()
+	defer revert()
+	env.CreateUser()
+	env.API.GetCSRF()
+
+	resp := env.API.Request("POST", "/api/login", map[string]interface{}{
 		"Email":    "email",
 		"Password": "incorrectPassword",
 	})
-	req, _ := http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
-	test_helpers.SetCSRFToken(n, req)
-	response := test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusUnauthorized, response.Code)
-	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Status": "Failed to authenticate", "Messages": []interface{}{"Incorrect username or password"}}, body)
+	asserts.Equals(t, http.StatusBadRequest, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request", "Messages": []interface{}{"Incorrect username or password"}}, resp.JSON())
 }
 
 func TestLoginIncorrectEmail(t *testing.T) {
-	test_helpers.DisableLogger()
-	n := negroni.New()
-	startApplication(path.Join("testdata", "config.cfg"), n)
-	test_helpers.ClearDB(models.Db)
-	insertTestUser(models.Db)
-	payload, _ := json.Marshal(map[string]interface{}{
+	env := test_helpers.NewTestEnv()
+	revert := env.Default()
+	defer revert()
+	env.CreateUser()
+	env.API.GetCSRF()
+
+	resp := env.API.Request("POST", "/api/login", map[string]interface{}{
 		"Email":    "incorrectemail",
 		"Password": "password",
 	})
-	req, _ := http.NewRequest("POST", "/api/login", bytes.NewBuffer(payload))
-	test_helpers.SetCSRFToken(n, req)
-	response := test_helpers.ExecuteRequest(n, req)
-	test_helpers.Equals(t, http.StatusUnauthorized, response.Code)
-	body, _ := test_helpers.UnmarshalJSON(response.Body.Bytes())
-	test_helpers.Equals(t, map[string]interface{}{"Status": "Failed to authenticate", "Messages": []interface{}{"Incorrect username or password"}}, body)
+	asserts.Equals(t, http.StatusBadRequest, resp.Response.Code)
+	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request", "Messages": nil}, resp.JSON())
 }

@@ -1,12 +1,61 @@
 package config
 
 import (
+	"github.com/sirupsen/logrus"
+	stdIoutil "io/ioutil"
+	"log"
 	stdOS "os"
+	"{{shortName}}/test_helpers/asserts"
 	"path"
 	"strings"
-	"{{ shortName }}/test_helpers"
 	"testing"
 )
+
+func disableLogger() {
+	log.SetOutput(stdIoutil.Discard)
+	logrus.SetLevel(logrus.FatalLevel)
+}
+
+type callsStore map[string]*functionCall
+
+type functionsCallsStorage struct {
+	callsByFunctionName callsStore
+}
+
+type fnArgs []interface{}
+type fnCallArgs []fnArgs
+type functionCall struct {
+	calls fnCallArgs
+}
+
+func (storage *functionsCallsStorage) For(name string) *functionCall {
+	call, ok := storage.callsByFunctionName[name]
+	if !ok {
+		call = &functionCall{
+			calls: fnCallArgs{},
+		}
+		storage.callsByFunctionName[name] = call
+	}
+	return call
+}
+
+func (fc *functionCall) Add(args ...interface{}) {
+	fc.calls = append(fc.calls, args)
+}
+
+func (fc *functionCall) Count() int {
+	return len(fc.calls)
+}
+
+func (fc *functionCall) ArgsAt(index int) []interface{} {
+	return fc.calls[index]
+}
+
+func newMockFunctionCalls() *functionsCallsStorage {
+	return &functionsCallsStorage{
+		callsByFunctionName: make(callsStore),
+	}
+}
 
 type mockedFileInfo struct {
 	stdOS.FileInfo
@@ -14,7 +63,7 @@ type mockedFileInfo struct {
 
 type mockedOS struct {
 	reportErr bool
-	calls     *test_helpers.FunctionsCallsStorage
+	calls     *functionsCallsStorage
 }
 
 func (mockedOS) IsNotExist(err error) bool { return stdOS.IsNotExist(err) }
@@ -28,7 +77,7 @@ func (m mockedOS) Stat(name string) (stdOS.FileInfo, error) {
 }
 
 type mockedIOutil struct {
-	calls *test_helpers.FunctionsCallsStorage
+	calls *functionsCallsStorage
 }
 
 func (m mockedIOutil) WriteFile(filename string, data []byte, perm stdOS.FileMode) error {
@@ -37,16 +86,16 @@ func (m mockedIOutil) WriteFile(filename string, data []byte, perm stdOS.FileMod
 }
 
 func TestCreateConfigIfNotExists(t *testing.T) {
-	test_helpers.DisableLogger()
+	disableLogger()
 	oldOs := os
 	mos := &mockedOS{
 		reportErr: true,
-		calls:     test_helpers.NewMockFunctionCalls(),
+		calls:     newMockFunctionCalls(),
 	}
 	os = mos
 	oldIoUtil := ioutil
 	moutil := &mockedIOutil{
-		calls: test_helpers.NewMockFunctionCalls(),
+		calls: newMockFunctionCalls(),
 	}
 	ioutil = moutil
 	configFilename := path.Join("testdata", "config.cfg")
@@ -57,22 +106,22 @@ func TestCreateConfigIfNotExists(t *testing.T) {
 
 	LoadConfiguration(configFilename)
 
-	test_helpers.Equals(t, 1, mos.calls.For("Stat").Count())
-	test_helpers.Equals(t, 1, moutil.calls.For("WriteFile").Count())
-	test_helpers.Equals(t, configFilename, moutil.calls.For("WriteFile").ArgsAt(0)[0])
-	test_helpers.Equals(t, []byte(strings.TrimSpace(defaultConfig)), moutil.calls.For("WriteFile").ArgsAt(0)[1])
+	asserts.Equals(t, 1, mos.calls.For("Stat").Count())
+	asserts.Equals(t, 1, moutil.calls.For("WriteFile").Count())
+	asserts.Equals(t, configFilename, moutil.calls.For("WriteFile").ArgsAt(0)[0])
+	asserts.Equals(t, []byte(strings.TrimSpace(defaultConfig)), moutil.calls.For("WriteFile").ArgsAt(0)[1])
 }
 
 func TestNotCreateConfigIfExists(t *testing.T) {
-	test_helpers.DisableLogger()
+	disableLogger()
 	oldOs := os
 	mos := &mockedOS{
-		calls: test_helpers.NewMockFunctionCalls(),
+		calls: newMockFunctionCalls(),
 	}
 	os = mos
 	oldIoUtil := ioutil
 	moutil := &mockedIOutil{
-		calls: test_helpers.NewMockFunctionCalls(),
+		calls: newMockFunctionCalls(),
 	}
 	ioutil = moutil
 	configFilename := path.Join("testdata", "config.cfg")
@@ -83,17 +132,17 @@ func TestNotCreateConfigIfExists(t *testing.T) {
 
 	LoadConfiguration(configFilename)
 
-	test_helpers.Equals(t, 1, mos.calls.For("Stat").Count())
-	test_helpers.Equals(t, 0, moutil.calls.For("WriteFile").Count())
+	asserts.Equals(t, 1, mos.calls.For("Stat").Count())
+	asserts.Equals(t, 0, moutil.calls.For("WriteFile").Count())
 }
 
 func TestReadConfig(t *testing.T) {
-	test_helpers.DisableLogger()
+	disableLogger()
 	configFilename := path.Join("testdata", "config.cfg")
 	LoadConfiguration(configFilename)
 
-	test_helpers.Equals(t, server{Port: 3001, AllowedDomains: []string{"http://127.0.0.1:3000", "http://localhost:3000"}}, Server)
-	test_helpers.Equals(t, dataBaseConfig{Host: "127.0.0.1", Port: 5432, Name: "dbname", User: "dbuser", Pass: "dbuserpassword"}, DataBase)
-	test_helpers.Equals(t, session{Secret: "secret-key"}, Session)
-	test_helpers.Equals(t, "postgres://dbuser:dbuserpassword@127.0.0.1:5432/dbname", DataBase.GetURL())
+	asserts.Equals(t, server{Port: 3001, AllowedDomains: []string{"http://127.0.0.1:3000", "http://localhost:3000"}}, Server)
+	asserts.Equals(t, dataBaseConfig{Host: "127.0.0.1", Port: 5432, Name: "dbname", User: "dbuser", Pass: "dbuserpassword"}, DataBase)
+	asserts.Equals(t, session{Secret: "secret-key"}, Session)
+	asserts.Equals(t, "postgres://dbuser:dbuserpassword@127.0.0.1:5432/dbname", DataBase.GetURL())
 }

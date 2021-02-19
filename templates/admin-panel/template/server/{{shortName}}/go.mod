@@ -8,7 +8,7 @@ require (
 	github.com/gorilla/context v1.1.1
 	github.com/gorilla/csrf v1.7.0
 	github.com/gorilla/mux v1.8.0
-	github.com/gorilla/sessions v1.2.1 // indirect
+	github.com/gorilla/sessions v1.2.1
 	github.com/lib/pq v1.8.0
 	github.com/rs/cors v1.7.0
 	github.com/sirupsen/logrus v1.7.0

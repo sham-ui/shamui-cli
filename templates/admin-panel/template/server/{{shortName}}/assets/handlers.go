@@ -2,13 +2,16 @@ package assets
 
 import (
 	"github.com/NYTimes/gziphandler"
+	log "github.com/sirupsen/logrus"
 	"net/http"
-	"{{shortName}}/sessions"
+	"{{shortName}}/core/sessions"
 	"path/filepath"
 	"strings"
 )
 
-type Handler struct{}
+type Handler struct {
+	sessionStore *sessions.Store
+}
 
 // ServeHTTP inspects the URL path to locate a file within the static dir
 // on the SPA handler. If a file is found, it will be served. If not, the
@@ -36,13 +39,22 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		// file does not exist, serve index.html
 		w.Header().Set("Content-Type", "text/html")
 		f, err := Asset("index.html")
-		if err != nil {
+		if nil != err {
+			log.Errorf("can't get asset index.html: %s", err)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		w.Write(f)
+		_, err = w.Write(f)
+		if nil != err {
+			log.Errorf("can't write index.html asset: %s", err)
+		}
 	} else if strings.HasPrefix(cannonicalName, "dist/su_") {
-		session := sessions.GetSession(r)
+		session, err := h.sessionStore.GetSession(r)
+		if nil != err {
+			log.Errorf("can't get session: %s", err)
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
 		if nil == session {
 			http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		} else if session.IsSuperuser {
@@ -57,6 +69,8 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func NewHandler() http.Handler {
-	return gziphandler.GzipHandler(Handler{})
+func NewHandler(sessionStore *sessions.Store) http.Handler {
+	return gziphandler.GzipHandler(Handler{
+		sessionStore: sessionStore,
+	})
 }

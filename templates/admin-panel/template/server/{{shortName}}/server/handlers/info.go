@@ -1,11 +1,11 @@
-package serverinfo
+package handlers
 
 import (
-	"{{ shortName }}/assets"
-	"encoding/json"
 	"net/http"
 	"os"
-	"{{ shortName }}/sessions"
+	"{{shortName}}/assets"
+	"{{shortName}}/core/handler"
+	"{{shortName}}/core/sessions"
 	"runtime"
 	"sort"
 	"time"
@@ -15,43 +15,14 @@ var (
 	startTime = time.Now()
 )
 
-type resDetails struct {
-	Status   string
-	Messages []string
-}
-
-func InfoHandler(w http.ResponseWriter, r *http.Request) {
-	session := sessions.GetSession(r)
-	if session == nil {
-		msg := resDetails{
-			Status:   "Expired session or cookie",
-			Messages: []string{"Session Expired.  Log out and log back in."},
-		}
-		json.NewEncoder(w).Encode(msg)
-		return
-	}
-	if !session.IsSuperuser {
-		msg := resDetails{
-			Status:   "Only superuser can get server info",
-			Messages: []string{"Only superuser can get server info"},
-		}
-		w.WriteHeader(http.StatusForbidden)
-		json.NewEncoder(w).Encode(msg)
-		return
-	}
-	info := newInfo()
-	json.NewEncoder(w).Encode(info)
-	w.WriteHeader(http.StatusOK)
-}
-
 type info struct {
 	Host    string       `json:"Host"`
-	Runtime *RuntimeInfo `json:"Runtime"`
-	Files   []FileInfo   `json:"Files"`
+	Runtime *runtimeInfo `json:"Runtime"`
+	Files   []fileInfo   `json:"Files"`
 }
 
-// RuntimeInfo defines runtime part of service information
-type RuntimeInfo struct {
+// runtimeInfo defines runtime part of service information
+type runtimeInfo struct {
 	NumCPU       int    `json:"NumCPU"`
 	Memory       uint64 `json:"Memory"`
 	MemSys       uint64 `json:"MemSys"`
@@ -66,17 +37,17 @@ type RuntimeInfo struct {
 	Time         string `json:"Time"`
 }
 
-type FileInfo struct {
-	Name string `json:"Name"`
-	Size int64  `string:"Size"`
+type fileInfo struct {
+	Name    string `json:"Name"`
+	Size    int64  `string:"Size"`
 	ModTime string `string:"ModTime"`
 }
 
-func newInfo() *info {
+func infoHandler(_ *handler.Context, _ interface{}) (interface{}, error) {
 	host, _ := os.Hostname()
 	memory := &runtime.MemStats{}
 	runtime.ReadMemStats(memory)
-	rt := &RuntimeInfo{
+	rt := &runtimeInfo{
 		NumCPU:       runtime.NumCPU(),
 		Memory:       memory.Alloc,
 		MemSys:       memory.Sys / 1024,
@@ -91,11 +62,11 @@ func newInfo() *info {
 		Time:         time.Now().Format(time.RFC1123Z),
 	}
 
-	var files []FileInfo
+	var files []fileInfo
 	names := assets.AssetNames()
 	sort.Strings(names)
 	for _, name := range names {
-		fileInfo := FileInfo{
+		fileInfo := fileInfo{
 			Name: name,
 		}
 		assetInfo, err := assets.AssetInfo(name)
@@ -110,5 +81,9 @@ func newInfo() *info {
 		Host:    host,
 		Runtime: rt,
 		Files:   files,
-	}
+	}, nil
+}
+
+func NewInfoHandler(sessionStore *sessions.Store) http.HandlerFunc {
+	return handler.CreateFromProcessFunc(infoHandler, handler.WithOnlyForSuperuser(sessionStore))
 }

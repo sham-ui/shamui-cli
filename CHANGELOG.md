@@ -7,6 +7,7 @@
 * Refactoring `server-info` page component in admin-panel
 * Reset password in admin-panel [#86](https://github.com/sham-ui/sham-ui-cli/issues/86)
 * Add page title in admin-panel [#87](https://github.com/sham-ui/sham-ui-cli/issues/87)
+* Refactoring server code in admin-panel [#88](https://github.com/sham-ui/sham-ui-cli/issues/88)
 
 
 ## 4.3.0

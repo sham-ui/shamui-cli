@@ -9,7 +9,7 @@ beforeEach( () => {
 } );
 
 it( 'success edit name', async() => {
-    expect.assertions( 5 );
+    expect.assertions( 6 );
 
     axios.useDefaultMocks();
 
@@ -33,6 +33,11 @@ it( 'success edit name', async() => {
 
     app.form.fill( 'name', formData.newName );
     await app.form.submit();
+
+    app.checkBody();
+
+    app.click( '[data-test-modal] [data-test-ok-button]' );
+    await app.waitRendering();
 
     expect( axios.mocks.put ).toHaveBeenCalledTimes( 1 );
     expect( axios.mocks.put.mock.calls[ 0 ][ 0 ] ).toBe( '/members/name' );

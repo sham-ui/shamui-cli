@@ -1,12 +1,12 @@
 <template>
-    {% import FormContainer from '../../../FormContainer.sfc' %}
+    {% import FormWithConfirmModal from '../../../FormWithConfirmModal.sfc' %}
 
-    <FormContainer
-        formClass="form-layout"
-        submitText="Update"
-        submit=\{{::this._submitForm}}
-        success=\{{::this._updateMemberNameSuccess}}
+    <FormWithConfirmModal
+        saveData=\{{::this._saveData}}
+        onSuccess=\{{onUpdateSuccess}}
         getErrors=\{{::this._getErrors}}
+        confirmTitle="Change name"
+        confirmText="Are you sure you want to change your name?"
     >
         <div class="form-group">
             <label>
@@ -14,7 +14,7 @@
             </label>
             <input name="name" type="text" value=\{{value}} autofocus>
         </div>
-    </FormContainer>
+    </FormWithConfirmModal>
 </template>
 
 <script>
@@ -22,19 +22,17 @@
 
     @mergeWithTemplate
     class RoutesSettingsFormName extends Template {
+
+        /** @type {Store} */
         @inject store;
 
         @options value = '';
         @options onUpdateSuccess() {}
 
-        _submitForm( formData ) {
+        _saveData( formData ) {
             return this.store.updateMemberName( {
                 newName: formData.get( 'name' ).trim()
             } );
-        }
-
-        _updateMemberNameSuccess() {
-            this.options.onUpdateSuccess();
         }
 
         _getErrors( { Messages = [ 'Update member name fail' ] } ) {

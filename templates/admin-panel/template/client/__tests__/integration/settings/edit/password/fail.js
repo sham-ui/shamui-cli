@@ -31,5 +31,8 @@ it( 'fail edit password', async() => {
     app.form.fill( 'pass2', formData.newPass2 );
     await app.form.submit();
 
+    app.click( '[data-test-modal] [data-test-ok-button]' );
+    await app.waitRendering();
+
     app.checkBody();
 } );

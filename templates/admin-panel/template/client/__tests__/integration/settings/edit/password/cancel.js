@@ -8,27 +8,24 @@ beforeEach( () => {
     setup();
 } );
 
-it( 'save email without change', async() => {
+it( 'cancel edit password', async() => {
     expect.assertions( 3 );
 
     axios.useDefaultMocks();
 
     history.pushState( {}, '', 'http://client.example.com/settings/' );
     await app.start();
-    app.click( '.panel.settings p:nth-of-type(2) .icon-pencil' );
+    app.click( '.panel.settings p:nth-of-type(3) .icon-pencil' );
     app.checkBody();
 
-    axios
-        .use( 'put', '/members/email', {
-            'Status': 'OK',
-            'Messages': [ axios.defaultMocksData.user.Email ]
-        }, 200 );
-
+    app.form.fill( 'pass1', '' );
+    app.form.fill( 'pass2', '' );
     await app.form.submit();
 
-    app.click( '[data-test-modal] [data-test-ok-button]' );
+    app.click( '[data-test-modal] [data-test-cancel-button]' );
+
     await app.waitRendering();
 
-    expect( axios.mocks.put ).toHaveBeenCalledTimes( 1 );
+    expect( axios.mocks.put ).toHaveBeenCalledTimes( 0 );
     app.checkBody();
 } );

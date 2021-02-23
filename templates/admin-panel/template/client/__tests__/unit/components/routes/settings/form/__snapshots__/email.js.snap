@@ -37,6 +37,7 @@ Object {
     <input name=\\"email2\\" type=\\"text\\">
   </div>
   <!--default-->
+  <!--default-->
   <button type=\\"submit\\">
     <!--if-->Update
     <!--submit-->
@@ -44,6 +45,8 @@ Object {
   <!--footer-->
 </form>
 <!--FormContainer-->
+<!--if-->
+<!--FormWithConfirmModal-->
 ",
 }
 `;
@@ -82,6 +85,7 @@ Object {
     <input name=\\"email2\\" type=\\"text\\">
   </div>
   <!--default-->
+  <!--default-->
   <button type=\\"submit\\">
     <!--if-->Update
     <!--submit-->
@@ -89,6 +93,8 @@ Object {
   <!--footer-->
 </form>
 <!--FormContainer-->
+<!--if-->
+<!--FormWithConfirmModal-->
 ",
 }
 `;

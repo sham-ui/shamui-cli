@@ -29,5 +29,8 @@ it( 'fail edit name', async() => {
     app.form.fill( 'name', formData.name );
     await app.form.submit();
 
+    app.click( '[data-test-modal] [data-test-ok-button]' );
+    await app.waitRendering();
+
     app.checkBody();
 } );

@@ -1,5 +1,52 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`display errors 1`] = `
+Object {
+  "Constructor": "RoutesSettingsFormName",
+  "Options": Object {
+    "ID": "component",
+    "directives": Object {
+      "EventListener": [Function],
+      "disabled": [Function],
+      "onclick": [Function],
+      "oninput": [Function],
+      "onload": [Function],
+      "onresize": [Function],
+      "onscroll": [Function],
+      "onselect": [Function],
+      "onsubmit": [Function],
+      "ref": [Function],
+    },
+    "onUpdateSuccess": [Function],
+    "value": "",
+  },
+  "html": "
+<form class=\\"form-layout\\">
+  <!--header-->
+  <ul class=\\"errors-panel\\">
+    <li>Update member name fail</li>
+  </ul>
+  <!--if-->
+  <!--ErrorsPanel-->
+  <div class=\\"form-group\\">
+    <label> Name: </label>
+    <input name=\\"name\\" type=\\"text\\" autofocus=\\"\\">
+  </div>
+  <!--default-->
+  <!--default-->
+  <button type=\\"submit\\">
+    <!--if-->Update
+    <!--submit-->
+  </button>
+  <!--footer-->
+</form>
+<!--FormContainer-->
+<!--if-->
+<!--FormWithConfirmModal-->
+",
+}
+`;
+
 exports[`renders correctly 1`] = `
 Object {
   "Constructor": "RoutesSettingsFormName",
@@ -30,6 +77,7 @@ Object {
     <input name=\\"name\\" type=\\"text\\" autofocus=\\"\\">
   </div>
   <!--default-->
+  <!--default-->
   <button type=\\"submit\\">
     <!--if-->Update
     <!--submit-->
@@ -37,6 +85,8 @@ Object {
   <!--footer-->
 </form>
 <!--FormContainer-->
+<!--if-->
+<!--FormWithConfirmModal-->
 ",
 }
 `;

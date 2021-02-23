@@ -84,6 +84,7 @@ exports[`fail edit password 1`] = `
               <input name=\\"pass2\\" type=\\"password\\">
             </div>
             <!--default-->
+            <!--default-->
             <button type=\\"submit\\">
               <!--if-->Update
               <!--submit-->
@@ -91,6 +92,8 @@ exports[`fail edit password 1`] = `
             <!--footer-->
           </form>
           <!--FormContainer-->
+          <!--if-->
+          <!--FormWithConfirmModal-->
           <!--DynamicComponent-->
           <!--if-->
         </p>

@@ -32,6 +32,12 @@ it( 'logout from settings page', async() => {
 
     app.form.fill( 'name', formData.name );
     await app.form.submit();
+    app.click( '[data-test-modal] [data-test-ok-button]' );
+
+    // Wait request handling
+    await app.waitRendering();
+
+    // Wait requestAnimationFrame & logout
     await app.waitRendering();
 
     expect( axios.mocks.post ).toHaveBeenCalledTimes( 1 );

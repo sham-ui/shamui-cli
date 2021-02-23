@@ -31,5 +31,9 @@ it( 'fail edit email', async() => {
     app.form.fill( 'email2', formData.newEmail2 );
     await app.form.submit();
 
+    app.click( '[data-test-modal] [data-test-ok-button]' );
+
+    await app.waitRendering();
+
     app.checkBody();
 } );

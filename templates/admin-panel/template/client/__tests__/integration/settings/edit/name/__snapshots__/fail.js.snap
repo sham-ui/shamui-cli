@@ -66,6 +66,7 @@ exports[`fail edit name 1`] = `
               <input name=\\"name\\" type=\\"text\\" autofocus=\\"\\">
             </div>
             <!--default-->
+            <!--default-->
             <button type=\\"submit\\">
               <!--if-->Update
               <!--submit-->
@@ -73,6 +74,8 @@ exports[`fail edit name 1`] = `
             <!--footer-->
           </form>
           <!--FormContainer-->
+          <!--if-->
+          <!--FormWithConfirmModal-->
           <!--DynamicComponent-->
           <!--if-->
         </p>

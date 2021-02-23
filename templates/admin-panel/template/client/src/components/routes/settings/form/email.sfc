@@ -1,12 +1,12 @@
 <template>
-    {% import FormContainer from '../../../FormContainer.sfc' %}
+    {% import FormWithConfirmModal from '../../../FormWithConfirmModal.sfc' %}
 
-    <FormContainer
-        formClass="form-layout"
-        submitText="Update"
-        submit=\{{::this._submitForm}}
-        success=\{{::this._updateEmailSuccess}}
+    <FormWithConfirmModal
+        saveData=\{{::this._saveData}}
+        onSuccess=\{{onUpdateSuccess}}
         getErrors=\{{::this._getErrors}}
+        confirmTitle="Change email"
+        confirmText="Are you sure you want to change your email?"
     >
         <div class="form-group">
             <label>
@@ -20,7 +20,7 @@
             </label>
             <input name="email2" type="text" value=\{{value}}>
         </div>
-    </FormContainer>
+    </FormWithConfirmModal>
 </template>
 
 <script>
@@ -28,20 +28,18 @@
 
     @mergeWithTemplate
     class RoutesSettingsFormEmail extends Template {
+
+        /** @type {Store} */
         @inject store;
 
         @options value = '';
         @options onUpdateSuccess() {}
 
-        _submitForm( formData ) {
+        _saveData( formData ) {
             return this.store.updateMemberEmail( {
                 newEmail1: formData.get( 'email1' ).trim(),
                 newEmail2: formData.get( 'email2' ).trim()
             } );
-        }
-
-        _updateEmailSuccess() {
-            this.options.onUpdateSuccess();
         }
 
         _getErrors( { Messages = [ 'Update email fail' ] } ) {

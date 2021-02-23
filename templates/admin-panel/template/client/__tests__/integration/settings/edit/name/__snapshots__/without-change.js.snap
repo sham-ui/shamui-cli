@@ -63,6 +63,7 @@ exports[`save name without change 1`] = `
               <input name=\\"name\\" type=\\"text\\" autofocus=\\"\\">
             </div>
             <!--default-->
+            <!--default-->
             <button type=\\"submit\\">
               <!--if-->Update
               <!--submit-->
@@ -70,6 +71,8 @@ exports[`save name without change 1`] = `
             <!--footer-->
           </form>
           <!--FormContainer-->
+          <!--if-->
+          <!--FormWithConfirmModal-->
           <!--DynamicComponent-->
           <!--if-->
         </p>

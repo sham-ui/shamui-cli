@@ -35,6 +35,7 @@ it( 'display errors', async() => {
     component.container.querySelector( '[name="pass1"]' ).value = formData.pass1;
     component.container.querySelector( '[name="pass2"]' ).value = formData.pass2;
     component.container.querySelector( '[type="submit"]' ).click();
+    component.container.querySelector( '[data-test-modal] [data-test-ok-button]' ).click();
 
     await new Promise( resolve => setImmediate( resolve ) );
 

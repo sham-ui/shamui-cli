@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Object {
+  "Constructor": "ModalWindow",
+  "Options": Object {
+    "ID": "component",
+    "cancelText": "Cancel",
+    "dataSaving": false,
+    "directives": Object {
+      "EventListener": [Function],
+      "disabled": [Function],
+      "onclick": [Function],
+      "oninput": [Function],
+      "onload": [Function],
+      "onresize": [Function],
+      "onscroll": [Function],
+      "onselect": [Function],
+      "onsubmit": [Function],
+      "ref": [Function],
+    },
+    "okText": "Ok",
+    "onClose": [Function],
+    "onOk": [Function],
+    "text": "",
+    "title": "",
+  },
+  "html": "
+<div class=\\"modal\\" data-test-modal=\\"\\"><span class=\\"close\\" title=\\"Close Modal\\" data-test-close-button=\\"\\">×</span>
+  <!--if-->
+  <div class=\\"modal-content\\">
+    <div class=\\"container\\">
+      <h4></h4>
+      <p class=\\"content\\"></p>
+      <div class=\\"footer\\">
+        <button data-test-ok-button=\\"\\">Ok</button>
+        <button class=\\"btn-secondary\\" data-test-cancel-button=\\"\\">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+",
+}
+`;

@@ -77,6 +77,7 @@ exports[`fail edit email 1`] = `
               <input name=\\"email2\\" type=\\"text\\">
             </div>
             <!--default-->
+            <!--default-->
             <button type=\\"submit\\">
               <!--if-->Update
               <!--submit-->
@@ -84,6 +85,8 @@ exports[`fail edit email 1`] = `
             <!--footer-->
           </form>
           <!--FormContainer-->
+          <!--if-->
+          <!--FormWithConfirmModal-->
           <!--DynamicComponent-->
           <!--if-->
         </p>

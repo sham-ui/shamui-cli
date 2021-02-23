@@ -26,6 +26,9 @@ it( 'save name without change', async() => {
 
     await app.form.submit();
 
+    app.click( '[data-test-modal] [data-test-ok-button]' );
+    await app.waitRendering();
+
     expect( axios.mocks.put ).toHaveBeenCalledTimes( 1 );
     app.checkBody();
 } );

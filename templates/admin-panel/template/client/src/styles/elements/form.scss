@@ -36,6 +36,10 @@
         border-color: #55a6f8;
         outline: 0;
       }
+      &[type="checkbox"] {
+        width: auto;
+        margin-right: .65rem;
+      }
     }
   }
   button {
@@ -68,18 +72,21 @@
       min-height: 1px;
       padding-right: 15px;
       padding-left: 15px;
+      &.checkbox {
+        padding-left: 0;
+      }
     }
   }
 }
 
 @media (min-width: 576px) {
   .form-layout .form-group {
-    label {
+    label:not(.checkbox) {
       justify-content: flex-end;
       flex: 0 0 33.3333333333%;
       max-width: 33.3333333333%;
     }
-    input {
+    input:not([type="checkbox"]), label.checkbox {
       flex: 0 0 66.6666666667%;
       max-width: 66.6666666667%;
     }

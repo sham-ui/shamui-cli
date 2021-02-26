@@ -3,12 +3,15 @@ package client
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"github.com/urfave/negroni"
 	"io"
 	"log"
 	"net/http"
 	"net/http/httptest"
+	"{{shortName}}/test_helpers/asserts"
 	"strings"
+	"testing"
 )
 
 type ApiClient struct {
@@ -80,6 +83,19 @@ func (c *ApiClient) setupCookies(req *http.Request) {
 		}
 	}
 	req.Header.Set("Cookie", strings.Join(chunks, separator))
+}
+
+func (c *ApiClient) ExecuteTestCases(t *testing.T, testCases []TestCase) {
+	for _, test := range testCases {
+		resp := c.Request(test.Method, test.URL, test.Data)
+		nameChunks := []string{test.Method, test.URL}
+		if "" != test.Message {
+			nameChunks = append(nameChunks, fmt.Sprintf("(%s)", test.Message))
+		}
+		testName := strings.Join(nameChunks, " ")
+		asserts.Equals(t, test.ExpectedResponseStatusCode, resp.Response.Code, "code for "+testName)
+		asserts.Equals(t, test.ExpectedResponseJSON, resp.JSON(), "body for "+testName)
+	}
 }
 
 func NewApiClient(n *negroni.Negroni) *ApiClient {

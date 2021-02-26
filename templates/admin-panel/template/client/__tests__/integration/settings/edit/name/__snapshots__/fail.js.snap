@@ -62,7 +62,7 @@ exports[`fail edit name 1`] = `
             <!--if-->
             <!--ErrorsPanel-->
             <div class=\\"form-group\\">
-              <label> Name: </label>
+              <label>Name:</label>
               <input name=\\"name\\" type=\\"text\\" autofocus=\\"\\">
             </div>
             <!--default-->

@@ -13,9 +13,9 @@ func TestCsrfToken(t *testing.T) {
 	defer revert()
 
 	resp := env.API.Request("GET", "/api/csrftoken", nil)
-	asserts.Equals(t, http.StatusOK, resp.Response.Code)
-	asserts.Equals(t, "", resp.Text())
-	asserts.Equals(t, 88, len(resp.Response.Header().Get("X-CSRF-Token")))
+	asserts.Equals(t, http.StatusOK, resp.Response.Code, "code")
+	asserts.Equals(t, "", resp.Text(), "text")
+	asserts.Equals(t, 88, len(resp.Response.Header().Get("X-CSRF-Token")), "token")
 }
 
 func TestSessionNotExists(t *testing.T) {
@@ -25,8 +25,8 @@ func TestSessionNotExists(t *testing.T) {
 	env.API.GetCSRF()
 
 	resp := env.API.Request("GET", "/api/validsession", nil)
-	asserts.Equals(t, http.StatusUnauthorized, resp.Response.Code)
-	asserts.Equals(t, map[string]interface{}{"Status": "Unauthorized", "Messages": []interface{}{"Session Expired. Log out and log back in."}}, resp.JSON())
+	asserts.Equals(t, http.StatusUnauthorized, resp.Response.Code, "code")
+	asserts.Equals(t, map[string]interface{}{"Status": "Unauthorized", "Messages": []interface{}{"Session Expired. Log out and log back in."}}, resp.JSON(), "body")
 }
 
 func TestSessionExists(t *testing.T) {
@@ -38,8 +38,8 @@ func TestSessionExists(t *testing.T) {
 	env.API.Login()
 
 	resp := env.API.Request("GET", "/api/validsession", nil)
-	asserts.Equals(t, http.StatusOK, resp.Response.Code)
-	asserts.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": false}, resp.JSON())
+	asserts.Equals(t, http.StatusOK, resp.Response.Code, "code")
+	asserts.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": false}, resp.JSON(), "body")
 }
 
 func TestSuperuserSession(t *testing.T) {
@@ -51,6 +51,6 @@ func TestSuperuserSession(t *testing.T) {
 	env.API.Login()
 
 	resp := env.API.Request("GET", "/api/validsession", nil)
-	asserts.Equals(t, http.StatusOK, resp.Response.Code)
-	asserts.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": true}, resp.JSON())
+	asserts.Equals(t, http.StatusOK, resp.Response.Code, "code")
+	asserts.Equals(t, map[string]interface{}{"Name": "test", "Email": "email", "IsSuperuser": true}, resp.JSON(), "body")
 }

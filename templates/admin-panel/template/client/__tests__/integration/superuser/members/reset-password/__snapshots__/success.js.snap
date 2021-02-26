@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`success reset member password 1`] = `
+"<h4 class=\\"page-header\\"> Members
+  <!--header-->
+</h4>
+<div class=\\"page-body\\">
+  <div class=\\"members-page\\">
+    <!--if-->
+    <!--ErrorsPanel-->
+    <div class=\\"container\\">
+      <button data-test-toggle-create-form=\\"\\" class=\\"mg-b-30\\">Show create new member form</button>
+      <!--if-->
+    </div>
+    <div class=\\"container\\">
+      <div class=\\"members-list\\">
+        <div class=\\"panel\\">
+          <div class=\\"pagination\\">
+            <div class=\\"page-buttons\\">
+              <!--if-->
+              <button data-test-pagination-page=\\"1\\" disabled=\\"\\">1</button>
+              <!--if-->
+            </div>
+            <!--PaginationPages-->
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Is superuser?</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class=\\"selected\\">
+                  <td>2</td>
+                  <td>John Smith#1</td>
+                  <td>john.smith.1@test.com</td>
+                  <td class=\\"text-center\\">No</td>
+                  <td class=\\"actions\\">
+                    <button data-test-update-button=\\"2\\"> Edit </button>
+                    <button class=\\"btn-danger\\" data-test-delete-button=\\"2\\"> Delete </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!--if-->
+            <!--MembersTable-->
+            <!--default-->
+            <!--if-->
+            <div class=\\"page-buttons\\">
+              <!--if-->
+              <button data-test-pagination-page=\\"1\\" disabled=\\"\\">1</button>
+              <!--if-->
+            </div>
+            <!--PaginationPages-->
+          </div>
+        </div>
+      </div>
+      <div class=\\"member-detail\\">
+        <div class=\\"panel\\">
+          <h6>Member data</h6>
+          <form class=\\"form-layout\\">
+            <!--header-->
+            <!--if-->
+            <!--ErrorsPanel-->
+            <div class=\\"form-group\\">
+              <label>Name:</label>
+              <input name=\\"name\\" type=\\"text\\" autofocus=\\"\\">
+            </div>
+            <div class=\\"form-group\\">
+              <label>Email:</label>
+              <input name=\\"email\\" type=\\"text\\">
+            </div>
+            <div class=\\"form-group\\">
+              <label></label>
+              <label class=\\"checkbox\\">
+                <input name=\\"is_superuser\\" type=\\"checkbox\\" value=\\"false\\"><span>Is Superuser</span></label>
+            </div>
+            <!--default-->
+            <!--default-->
+            <button type=\\"submit\\">
+              <!--if-->Update
+              <!--submit-->
+            </button>
+            <!--footer-->
+          </form>
+          <!--FormContainer-->
+          <!--if-->
+          <!--FormWithConfirmModal-->
+          <!--UpdateDataForm-->
+          <h6 class=\\"mg-t-30\\">Member password</h6>
+          <form class=\\"form-layout\\">
+            <!--header-->
+            <!--if-->
+            <!--ErrorsPanel-->
+            <div class=\\"form-group\\">
+              <label>Password:</label>
+              <input name=\\"pass1\\" type=\\"password\\" autofocus=\\"\\">
+            </div>
+            <div class=\\"form-group\\">
+              <label>Confirm password:</label>
+              <input name=\\"pass2\\" type=\\"password\\">
+            </div>
+            <!--default-->
+            <!--default-->
+            <button type=\\"submit\\">
+              <!--if-->Update
+              <!--submit-->
+            </button>
+            <!--footer-->
+          </form>
+          <!--FormContainer-->
+          <!--if-->
+          <!--FormWithConfirmModal-->
+          <!--UpdatePasswordForm-->
+        </div>
+      </div>
+      <!--if-->
+    </div>
+  </div>
+  <!--body-->
+</div>
+<!--if-->
+<!--Page-->
+<!--ActivePageContainer-->"
+`;
+
+exports[`success reset member password 2`] = `
+"<h4 class=\\"page-header\\"> Members
+  <!--header-->
+</h4>
+<div class=\\"page-body\\">
+  <div class=\\"members-page\\">
+    <!--if-->
+    <!--ErrorsPanel-->
+    <div class=\\"container\\">
+      <button data-test-toggle-create-form=\\"\\" class=\\"mg-b-30\\">Show create new member form</button>
+      <!--if-->
+    </div>
+    <div class=\\"container\\">
+      <div class=\\"members-list\\">
+        <div class=\\"panel\\">
+          <div class=\\"pagination\\">
+            <div class=\\"page-buttons\\">
+              <!--if-->
+              <button data-test-pagination-page=\\"1\\" disabled=\\"\\">1</button>
+              <!--if-->
+            </div>
+            <!--PaginationPages-->
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Is superuser?</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class=\\"\\">
+                  <td>2</td>
+                  <td>John Smith#1</td>
+                  <td>john.smith.1@test.com</td>
+                  <td class=\\"text-center\\">No</td>
+                  <td class=\\"actions\\">
+                    <button data-test-update-button=\\"2\\"> Edit </button>
+                    <button class=\\"btn-danger\\" data-test-delete-button=\\"2\\"> Delete </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!--if-->
+            <!--MembersTable-->
+            <!--default-->
+            <!--if-->
+            <div class=\\"page-buttons\\">
+              <!--if-->
+              <button data-test-pagination-page=\\"1\\" disabled=\\"\\">1</button>
+              <!--if-->
+            </div>
+            <!--PaginationPages-->
+          </div>
+        </div>
+      </div>
+      <!--if-->
+    </div>
+  </div>
+  <!--body-->
+</div>
+<!--if-->
+<!--Page-->
+<!--ActivePageContainer-->"
+`;

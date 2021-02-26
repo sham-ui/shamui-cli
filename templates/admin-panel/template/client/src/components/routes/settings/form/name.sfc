@@ -9,9 +9,7 @@
         confirmText="Are you sure you want to change your name?"
     >
         <div class="form-group">
-            <label>
-                Name:
-            </label>
+            <label>Name:</label>
             <input name="name" type="text" value=\{{value}} autofocus>
         </div>
     </FormWithConfirmModal>

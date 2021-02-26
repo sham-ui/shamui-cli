@@ -13,8 +13,8 @@ func TestLoginInvalidCSRF(t *testing.T) {
 	defer revert()
 
 	resp := env.API.Request("POST", "/api/login", nil)
-	asserts.Equals(t, http.StatusForbidden, resp.Response.Code)
-	asserts.Equals(t, "Forbidden - CSRF token invalid\n", resp.Text())
+	asserts.Equals(t, http.StatusForbidden, resp.Response.Code, "code")
+	asserts.Equals(t, "Forbidden - CSRF token invalid\n", resp.Text(), "body")
 }
 
 func TestLoginSuccess(t *testing.T) {
@@ -28,8 +28,8 @@ func TestLoginSuccess(t *testing.T) {
 		"Email":    "email",
 		"Password": "password",
 	})
-	asserts.Equals(t, http.StatusOK, resp.Response.Code)
-	asserts.Equals(t, map[string]interface{}{"Status": "OK", "IsSuperuser": false, "Name": "test", "Email": "email"}, resp.JSON())
+	asserts.Equals(t, http.StatusOK, resp.Response.Code, "code")
+	asserts.Equals(t, map[string]interface{}{"Status": "OK", "IsSuperuser": false, "Name": "test", "Email": "email"}, resp.JSON(), "body")
 }
 
 func TestLoginIncorrectPassword(t *testing.T) {
@@ -43,8 +43,8 @@ func TestLoginIncorrectPassword(t *testing.T) {
 		"Email":    "email",
 		"Password": "incorrectPassword",
 	})
-	asserts.Equals(t, http.StatusBadRequest, resp.Response.Code)
-	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request", "Messages": []interface{}{"Incorrect username or password"}}, resp.JSON())
+	asserts.Equals(t, http.StatusBadRequest, resp.Response.Code, "code")
+	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request", "Messages": []interface{}{"Incorrect username or password"}}, resp.JSON(), "body")
 }
 
 func TestLoginIncorrectEmail(t *testing.T) {
@@ -58,6 +58,6 @@ func TestLoginIncorrectEmail(t *testing.T) {
 		"Email":    "incorrectemail",
 		"Password": "password",
 	})
-	asserts.Equals(t, http.StatusBadRequest, resp.Response.Code)
-	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request", "Messages": nil}, resp.JSON())
+	asserts.Equals(t, http.StatusBadRequest, resp.Response.Code, "code")
+	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request", "Messages": nil}, resp.JSON(), "body")
 }

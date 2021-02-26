@@ -59,7 +59,7 @@ exports[`success edit name 1`] = `
             <!--if-->
             <!--ErrorsPanel-->
             <div class=\\"form-group\\">
-              <label> Name: </label>
+              <label>Name:</label>
               <input name=\\"name\\" type=\\"text\\" autofocus=\\"\\">
             </div>
             <!--default-->
@@ -164,7 +164,7 @@ exports[`success edit name 2`] = `
             <!--if-->
             <!--ErrorsPanel-->
             <div class=\\"form-group\\">
-              <label> Name: </label>
+              <label>Name:</label>
               <input name=\\"name\\" type=\\"text\\" autofocus=\\"\\">
             </div>
             <!--default-->
@@ -195,7 +195,7 @@ exports[`success edit name 2`] = `
                 <h4>Change name</h4>
                 <p class=\\"content\\">Are you sure you want to change your name?</p>
                 <div class=\\"footer\\">
-                  <button data-test-ok-button=\\"\\">Ok</button>
+                  <button data-test-ok-button=\\"\\" class=\\"\\">Ok</button>
                   <button class=\\"btn-secondary\\" data-test-cancel-button=\\"\\">Cancel</button>
                 </div>
               </div>

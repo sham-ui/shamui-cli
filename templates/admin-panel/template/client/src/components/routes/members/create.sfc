@@ -1,0 +1,64 @@
+<template>
+    {% import FormWithConfirmModal from '../../FormWithConfirmModal.sfc' %}
+
+    <FormWithConfirmModal
+        saveData=\{{::this._saveData}}
+        onSuccess=\{{onCreateSuccess}}
+        getErrors=\{{::this._getErrors}}
+        submitText="Create"
+        confirmTitle="Create new member"
+        confirmText="Are you sure you want to create new member?"
+    >
+        <div class="form-group">
+            <label>Name:</label>
+            <input name="name" type="text" autofocus>
+        </div>
+        <div class="form-group">
+            <label>Email:</label>
+            <input name="email" type="text">
+        </div>
+        <div class="form-group">
+            <label></label>
+            <label class="checkbox">
+                <input name="is_superuser" type="checkbox" value="false">
+                <span>Is Superuser</span>
+            </label>
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input name="pass" type="password">
+        </div>
+    </FormWithConfirmModal>
+</template>
+
+<script>
+    import { mergeWithTemplate, options, inject } from 'sham-ui-macro/babel.macro';
+
+    @mergeWithTemplate
+    class MembersCreate extends Template {
+
+        /** @type {Store} */
+        @inject store;
+
+        @options onCreateSuccess() {}
+
+        _saveData( formData ) {
+            return this.store.api.request( {
+                url: 'admin/members',
+                method: 'post',
+                data: {
+                    name: formData.get( 'name' ).trim(),
+                    email: formData.get( 'email' ).trim(),
+                    is_superuser: null !== formData.get( 'is_superuser' ),
+                    password: formData.get( 'pass' )
+                }
+            } );
+        }
+
+        _getErrors( { Messages = [ 'Create member fail' ] } ) {
+            return Messages;
+        }
+    }
+
+    export default MembersCreate;
+</script>

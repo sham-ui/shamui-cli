@@ -5,6 +5,8 @@ import { storage as appStorage } from '../storages/app';
 
 export default class Session {
     @inject router;
+
+    /** @type Store */
     @inject store;
 
     constructor() {

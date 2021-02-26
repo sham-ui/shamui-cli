@@ -46,6 +46,7 @@
 
     @mergeWithTemplate
     class RoutesSignupPage extends Template {
+        /** @type Store */
         @inject store;
         @inject router;
         @inject session;

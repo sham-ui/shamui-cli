@@ -26,6 +26,13 @@ export const app = {
             } ),
         ).toMatchSnapshot();
     },
+    checkMainPanel() {
+        expect(
+            pretty( document.querySelector( '.mainpanel' ).innerHTML, {
+                inline: [ 'code', 'pre', 'em', 'strong', 'span' ]
+            } ),
+        ).toMatchSnapshot();
+    },
     form: {
         fill( field, value ) {
             document.querySelector( `[name="${field}"]` ).value = value;

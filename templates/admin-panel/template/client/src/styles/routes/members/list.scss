@@ -1,7 +1,28 @@
-.member-list {
-  width: 60%;
+.members-page {
+  width: 100%;
+  .container {
+    width: 100%;
+
+    .create-member {
+      width: 40%;
+    }
+
+    .members-list {
+      display: inline-block;
+      width: 60%;
+    }
+
+    .member-detail {
+      display: inline-block;
+      width: 40%;
+      padding-left: 30px;
+    }
+  }
+
   .panel {
     width: 100%;
+    display: inline-block;
+    vertical-align: top;
     overflow-x: auto;
     .pagination {
       table {
@@ -33,6 +54,20 @@
             &:first-child {
               border-left-width: 0;
             }
+            &.text-center {
+              text-align: center;
+            }
+            &.actions {
+              text-align: center;
+              button {
+                display: inline-block;
+                margin: 0 5px 0 5px;
+              }
+            }
+          }
+          &.selected td {
+            background-color: #d0e6fd;
+            color: #043364;
           }
           &:last-child > td {
             border-bottom-width: 0
@@ -45,7 +80,14 @@
 
 
 @media (max-width: 992px) {
-  .member-list {
+  .members-page .container .create-member,
+  .members-page .container .members-list,
+  .members-page .container .member-detail {
     width: 100%;
+    padding: 0;
+    margin-bottom: 30px;
+    .pagination table td.actions button {
+      margin: 5px 0 !important;
+    }
   }
 }

@@ -1,0 +1,59 @@
+<template>
+    {% import FormWithConfirmModal from '../../../FormWithConfirmModal.sfc' %}
+
+    <FormWithConfirmModal
+        saveData=\{{::this._saveData}}
+        onSuccess=\{{onUpdateSuccess}}
+        getErrors=\{{::this._getErrors}}
+        confirmTitle="Change member data"
+        confirmText="Are you sure you want to change member data?"
+    >
+        <div class="form-group">
+            <label>Name:</label>
+            <input name="name" type="text" value=\{{member.Name}} autofocus>
+        </div>
+        <div class="form-group">
+            <label>Email:</label>
+            <input name="email" type="text" value=\{{member.Email}}>
+        </div>
+        <div class="form-group">
+            <label></label>
+            <label class="checkbox">
+                <input name="is_superuser" type="checkbox" value=\{{member.IsSuperuser}} checked=\{{member.IsSuperuser ? "checked": ""}}>
+                <span>Is Superuser</span>
+            </label>
+        </div>
+    </FormWithConfirmModal>
+</template>
+
+<script>
+    import { mergeWithTemplate, options, inject } from 'sham-ui-macro/babel.macro';
+
+    @mergeWithTemplate
+    class UpdateDataForm extends Template {
+
+        /** @type {Store} */
+        @inject store;
+
+        @options member = {};
+        @options onUpdateSuccess() {}
+
+        _saveData( formData ) {
+            return this.store.api.request( {
+                url: `admin/members/${this.options.member.ID}`,
+                method: 'put',
+                data: {
+                    name: formData.get( 'name' ).trim(),
+                    email: formData.get( 'email' ).trim(),
+                    is_superuser:  null !== formData.get( 'is_superuser' )
+                }
+            } );
+        }
+
+        _getErrors( { Messages = [ 'Update member data fail' ] } ) {
+            return Messages;
+        }
+    }
+
+    export default UpdateDataForm;
+</script>

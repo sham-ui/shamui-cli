@@ -1,0 +1,28 @@
+<template>
+    {% import UpdateDataForm from './detail/update-data-form.sfc' %}
+    {% import UpdatePasswordForm from './detail/update-password-form.sfc' %}
+
+    <h6>Member data</h6>
+    <UpdateDataForm
+        member=\{{member}}
+        onUpdateSuccess=\{{onUpdateSuccess}}
+    />
+
+    <h6 class="mg-t-30">Member password</h6>
+    <UpdatePasswordForm
+        member=\{{member}}
+        onUpdateSuccess=\{{onUpdateSuccess}}
+    />
+</template>
+
+<script>
+    import { mergeWithTemplate, options } from 'sham-ui-macro/babel.macro';
+
+    @mergeWithTemplate
+    class MembersDetail extends Template {
+        @options onUpdateSuccess() {}
+        @options member = {};
+    }
+
+    export default MembersDetail;
+</script>

@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestGetMembers(t *testing.T) {
+func TestMembers(t *testing.T) {
 	env := test_helpers.NewTestEnv()
 	revert := env.Default()
 	defer revert()
@@ -15,37 +15,309 @@ func TestGetMembers(t *testing.T) {
 	env.API.GetCSRF()
 	env.API.Login()
 
-	resp := env.API.Request("GET", "/api/admin/members?limit=20", nil)
-	asserts.Equals(t, http.StatusOK, resp.Response.Code)
-	asserts.Equals(t, map[string]interface{}{
-		"members": []interface{}{
-			map[string]interface{}{
-				"Email":       "email",
-				"ID":          "1",
-				"IsSuperuser": true,
-				"Name":        "test",
+	env.API.ExecuteTestCases(t, []client.TestCase{
+		{
+			Method:                     http.MethodGet,
+			URL:                        "/api/admin/members?limit=20",
+			ExpectedResponseStatusCode: http.StatusOK,
+			ExpectedResponseJSON: map[string]interface{}{
+				"members": []interface{}{
+					map[string]interface{}{
+						"Email":       "email",
+						"ID":          "1",
+						"IsSuperuser": true,
+						"Name":        "test",
+					},
+				},
+				"meta": map[string]interface{}{
+					"limit":  float64(20),
+					"offset": float64(0),
+					"total":  float64(1),
+				},
 			},
 		},
-		"meta": map[string]interface{}{
-			"limit":  float64(20),
-			"offset": float64(0),
-			"total":  float64(1),
+		{
+			Method: http.MethodPost,
+			URL:    "/api/admin/members",
+			Data: map[string]interface{}{
+				"name":         "new_user",
+				"email":        "new_user@email.com",
+				"is_superuser": true,
+				"password":     "test",
+			},
+			ExpectedResponseStatusCode: http.StatusOK,
+			ExpectedResponseJSON:       map[string]interface{}{"Status": "Member created"},
 		},
-	}, resp.JSON())
+		{
+			Message: "Empty email",
+			Method:  http.MethodPost,
+			URL:     "/api/admin/members",
+			Data: map[string]interface{}{
+				"name":         "new_user",
+				"email":        "",
+				"is_superuser": true,
+				"password":     "test",
+			},
+			ExpectedResponseStatusCode: http.StatusBadRequest,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Status":   "Bad Request",
+				"Messages": []interface{}{"Email must not be empty"},
+			},
+		},
+		{
+			Message: "Empty name",
+			Method:  http.MethodPost,
+			URL:     "/api/admin/members",
+			Data: map[string]interface{}{
+				"name":         "",
+				"email":        "new_user1@email.com",
+				"is_superuser": true,
+				"password":     "test",
+			},
+			ExpectedResponseStatusCode: http.StatusBadRequest,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Status":   "Bad Request",
+				"Messages": []interface{}{"Name must not be empty."},
+			},
+		},
+		{
+			Message: "Not unique email",
+			Method:  http.MethodPost,
+			URL:     "/api/admin/members",
+			Data: map[string]interface{}{
+				"name":         "name",
+				"email":        "email",
+				"is_superuser": true,
+				"password":     "test",
+			},
+			ExpectedResponseStatusCode: http.StatusBadRequest,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Status":   "Bad Request",
+				"Messages": []interface{}{"Email is already in use."},
+			},
+		},
+		{
+			Method: http.MethodPut,
+			URL:    "/api/admin/members/1",
+			Data: map[string]interface{}{
+				"name":         "new_user2",
+				"email":        "new_user2@email.com",
+				"is_superuser": false,
+			},
+			ExpectedResponseStatusCode: http.StatusOK,
+			ExpectedResponseJSON:       map[string]interface{}{"Status": "Member updated"},
+		},
+		{
+			Message: "Only email",
+			Method:  http.MethodPut,
+			URL:     "/api/admin/members/1",
+			Data: map[string]interface{}{
+				"name":         "new_user3",
+				"email":        "new_user2@email.com",
+				"is_superuser": false,
+			},
+			ExpectedResponseStatusCode: http.StatusOK,
+			ExpectedResponseJSON:       map[string]interface{}{"Status": "Member updated"},
+		},
+		{
+			Message: "Empty email",
+			Method:  http.MethodPut,
+			URL:     "/api/admin/members/1",
+			Data: map[string]interface{}{
+				"name":         "new_user2",
+				"email":        "",
+				"is_superuser": false,
+			},
+			ExpectedResponseStatusCode: http.StatusBadRequest,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Status":   "Bad Request",
+				"Messages": []interface{}{"Email must not be empty"},
+			},
+		},
+		{
+			Message: "Empty name",
+			Method:  http.MethodPut,
+			URL:     "/api/admin/members/1",
+			Data: map[string]interface{}{
+				"name":         "",
+				"email":        "new_user2@email.com",
+				"is_superuser": false,
+			},
+			ExpectedResponseStatusCode: http.StatusBadRequest,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Status":   "Bad Request",
+				"Messages": []interface{}{"Name must not be empty."},
+			},
+		},
+		{
+			Method: http.MethodPut,
+			URL:    "/api/admin/members/1/password",
+			Data: map[string]interface{}{
+				"pass1": "pass1",
+				"pass2": "pass1",
+			},
+			ExpectedResponseStatusCode: http.StatusOK,
+			ExpectedResponseJSON:       map[string]interface{}{"Status": "Password updated"},
+		},
+		{
+			Message: "Empty pass1",
+			Method:  http.MethodPut,
+			URL:     "/api/admin/members/1/password",
+			Data: map[string]interface{}{
+				"pass1": "",
+				"pass2": "pass2",
+			},
+			ExpectedResponseStatusCode: http.StatusBadRequest,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Status": "Bad Request",
+				"Messages": []interface{}{
+					"Password must have more than 0 characters.",
+					"Passwords don't match.",
+				},
+			},
+		},
+		{
+			Message: "empty pass2",
+			Method:  http.MethodPut,
+			URL:     "/api/admin/members/1/password",
+			Data: map[string]interface{}{
+				"pass1": "pass1",
+				"pass2": "",
+			},
+			ExpectedResponseStatusCode: http.StatusBadRequest,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Status": "Bad Request",
+				"Messages": []interface{}{
+					"Password must have more than 0 characters.",
+					"Passwords don't match.",
+				},
+			},
+		},
+		{
+			Message: "passwords don't match",
+			Method:  http.MethodPut,
+			URL:     "/api/admin/members/1/password",
+			Data: map[string]interface{}{
+				"pass1": "pass1",
+				"pass2": "pass2",
+			},
+			ExpectedResponseStatusCode: http.StatusBadRequest,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Status": "Bad Request",
+				"Messages": []interface{}{
+					"Passwords don't match.",
+				},
+			},
+		},
+		{
+			Message:                    "delete success",
+			Method:                     http.MethodDelete,
+			URL:                        "/api/admin/members/1",
+			ExpectedResponseStatusCode: http.StatusOK,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Status": "Member deleted",
+			},
+		},
+		{
+			Message:                    "member not found",
+			Method:                     http.MethodDelete,
+			URL:                        "/api/admin/members/0",
+			ExpectedResponseStatusCode: http.StatusBadRequest,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Status": "Bad Request",
+				"Messages": []interface{}{
+					"Member not exists.",
+				},
+			},
+		},
+	})
 }
 
-func TestGetMembersNonAutorized(t *testing.T) {
+func TestUpdateMemberEmailNotUnique(t *testing.T) {
+	env := test_helpers.NewTestEnv()
+	revert := env.Default()
+	defer revert()
+	env.CreateSuperUser()
+	env.API.GetCSRF()
+	env.API.Login()
+
+	env.DB.DB.Exec("INSERT INTO public.members (name, email, password, is_superuser) VALUES ('test', 'email2', '$2a$14$QMQH3E2UyfIKTFvLfguQPOmai96AncIV.1bLbcd5huTG8gZxNfAyO', TRUE)")
+
+	env.API.ExecuteTestCases(t, []client.TestCase{
+
+		{
+			Method: http.MethodPut,
+			URL:    "/api/admin/members/1",
+			Data: map[string]interface{}{
+				"name":         "new_user2",
+				"email":        "email2",
+				"is_superuser": false,
+			},
+			ExpectedResponseStatusCode: http.StatusBadRequest,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Status":   "Bad Request",
+				"Messages": []interface{}{"Email is already in use."},
+			},
+		},
+	})
+}
+
+func TestMembersNonAuthorized(t *testing.T) {
 	env := test_helpers.NewTestEnv()
 	revert := env.Default()
 	defer revert()
 	env.API.GetCSRF()
 
-	resp := env.API.Request("GET", "/api/admin/members", nil)
-	asserts.Equals(t, http.StatusUnauthorized, resp.Response.Code)
-	asserts.Equals(t, map[string]interface{}{"Status": "Unauthorized", "Messages": []interface{}{"Session Expired. Log out and log back in."}}, resp.JSON())
+	env.API.ExecuteTestCases(t, []client.TestCase{
+		{
+			Method:                     http.MethodGet,
+			URL:                        "/api/admin/members",
+			ExpectedResponseStatusCode: http.StatusUnauthorized,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Status":   "Unauthorized",
+				"Messages": []interface{}{"Session Expired. Log out and log back in."},
+			},
+		},
+		{
+			Method:                     http.MethodPost,
+			URL:                        "/api/admin/members",
+			ExpectedResponseStatusCode: http.StatusUnauthorized,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Status":   "Unauthorized",
+				"Messages": []interface{}{"Session Expired. Log out and log back in."},
+			},
+		},
+		{
+			Method:                     http.MethodPut,
+			URL:                        "/api/admin/members/1",
+			ExpectedResponseStatusCode: http.StatusUnauthorized,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Status":   "Unauthorized",
+				"Messages": []interface{}{"Session Expired. Log out and log back in."},
+			},
+		},
+		{
+			Method:                     http.MethodPut,
+			URL:                        "/api/admin/members/1/password",
+			ExpectedResponseStatusCode: http.StatusUnauthorized,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Status":   "Unauthorized",
+				"Messages": []interface{}{"Session Expired. Log out and log back in."},
+			},
+		},
+		{
+			Method:                     http.MethodDelete,
+			URL:                        "/api/admin/members/1",
+			ExpectedResponseStatusCode: http.StatusUnauthorized,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Status":   "Unauthorized",
+				"Messages": []interface{}{"Session Expired. Log out and log back in."},
+			},
+		},
+	})
 }
 
-func TestGetMembersForNonSuperuser(t *testing.T) {
+func TestMembersForNonSuperuser(t *testing.T) {
 	env := test_helpers.NewTestEnv()
 	revert := env.Default()
 	defer revert()
@@ -53,10 +325,51 @@ func TestGetMembersForNonSuperuser(t *testing.T) {
 	env.API.GetCSRF()
 	env.API.Login()
 
-	resp := env.API.Request("GET", "/api/admin/members", nil)
-	asserts.Equals(t, http.StatusForbidden, resp.Response.Code)
-	asserts.Equals(t, map[string]interface{}{
-		"Messages": []interface{}{"Allowed only for superuser"},
-		"Status":   "Forbidden",
-	}, resp.JSON())
+	env.API.ExecuteTestCases(t, []client.TestCase{
+		{
+			Method:                     http.MethodGet,
+			URL:                        "/api/admin/members",
+			ExpectedResponseStatusCode: http.StatusForbidden,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Messages": []interface{}{"Allowed only for superuser"},
+				"Status":   "Forbidden",
+			},
+		},
+		{
+			Method:                     http.MethodPost,
+			URL:                        "/api/admin/members",
+			ExpectedResponseStatusCode: http.StatusForbidden,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Messages": []interface{}{"Allowed only for superuser"},
+				"Status":   "Forbidden",
+			},
+		},
+		{
+			Method:                     http.MethodPut,
+			URL:                        "/api/admin/members/1",
+			ExpectedResponseStatusCode: http.StatusForbidden,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Messages": []interface{}{"Allowed only for superuser"},
+				"Status":   "Forbidden",
+			},
+		},
+		{
+			Method:                     http.MethodPut,
+			URL:                        "/api/admin/members/1/password",
+			ExpectedResponseStatusCode: http.StatusForbidden,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Messages": []interface{}{"Allowed only for superuser"},
+				"Status":   "Forbidden",
+			},
+		},
+		{
+			Method:                     http.MethodDelete,
+			URL:                        "/api/admin/members/1",
+			ExpectedResponseStatusCode: http.StatusForbidden,
+			ExpectedResponseJSON: map[string]interface{}{
+				"Messages": []interface{}{"Allowed only for superuser"},
+				"Status":   "Forbidden",
+			},
+		},
+	})
 }

@@ -5,6 +5,7 @@ Object {
   "Constructor": "RoutesMembersPage",
   "Options": Object {
     "ID": "component",
+    "createFormVisible": false,
     "dataLoaded": true,
     "directives": Object {
       "EventListener": [Function],
@@ -25,6 +26,7 @@ Object {
     "members": Array [],
     "offset": 0,
     "pageTitle": "Members",
+    "selectedMember": null,
     "total": 0,
   },
   "html": "
@@ -32,13 +34,22 @@ Object {
   <!--header-->
 </h4>
 <div class=\\"page-body\\">
-  <div class=\\"member-list\\">
+  <div class=\\"members-page\\">
     <ul class=\\"errors-panel\\">
       <li>Fail load members list</li>
     </ul>
     <!--if-->
     <!--ErrorsPanel-->
-    <div class=\\"panel\\"></div>
+    <div class=\\"container\\">
+      <button data-test-toggle-create-form=\\"\\" class=\\"mg-b-30\\">Show create new member form</button>
+      <!--if-->
+    </div>
+    <div class=\\"container\\">
+      <div class=\\"members-list\\">
+        <div class=\\"panel\\"></div>
+      </div>
+      <!--if-->
+    </div>
   </div>
   <!--body-->
 </div>
@@ -53,6 +64,7 @@ Object {
   "Constructor": "RoutesMembersPage",
   "Options": Object {
     "ID": "component",
+    "createFormVisible": false,
     "dataLoaded": false,
     "directives": Object {
       "EventListener": [Function],
@@ -71,6 +83,7 @@ Object {
     "members": Array [],
     "offset": 0,
     "pageTitle": "Members",
+    "selectedMember": null,
     "total": 0,
   },
   "html": "
@@ -78,10 +91,19 @@ Object {
   <!--header-->
 </h4>
 <div class=\\"page-body\\">
-  <div class=\\"member-list\\">
+  <div class=\\"members-page\\">
     <!--if-->
     <!--ErrorsPanel-->
-    <div class=\\"panel\\"></div>
+    <div class=\\"container\\">
+      <button data-test-toggle-create-form=\\"\\" class=\\"mg-b-30\\">Show create new member form</button>
+      <!--if-->
+    </div>
+    <div class=\\"container\\">
+      <div class=\\"members-list\\">
+        <div class=\\"panel\\"></div>
+      </div>
+      <!--if-->
+    </div>
   </div>
   <!--body-->
 </div>

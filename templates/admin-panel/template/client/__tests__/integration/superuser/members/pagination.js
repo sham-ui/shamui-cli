@@ -33,7 +33,7 @@ it( 'pagination work', async() => {
     await app.start();
 
     app.click( '[data-test-pagination-page="1"]' );
-    app.checkBody();
+    app.checkMainPanel();
 
     axios
         .use( 'get', 'admin/members', {
@@ -49,5 +49,5 @@ it( 'pagination work', async() => {
         } );
     app.click( '[data-test-pagination-page="2"]' );
     await app.waitRendering();
-    app.checkBody();
+    app.checkMainPanel();
 } );

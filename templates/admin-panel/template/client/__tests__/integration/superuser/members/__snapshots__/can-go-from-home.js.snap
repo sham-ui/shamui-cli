@@ -59,37 +59,49 @@ exports[`can go from home 1`] = `
       <!--header-->
     </h4>
     <div class=\\"page-body\\">
-      <div class=\\"member-list\\">
+      <div class=\\"members-page\\">
         <!--if-->
         <!--ErrorsPanel-->
-        <div class=\\"panel\\">
-          <div class=\\"pagination\\">
-            <div class=\\"page-buttons\\">
-              <!--if-->
-              <button data-test-pagination-page=\\"1\\" disabled=\\"\\">1</button>
-              <!--if-->
+        <div class=\\"container\\">
+          <button data-test-toggle-create-form=\\"\\" class=\\"mg-b-30\\">Show create new member form</button>
+          <!--if-->
+        </div>
+        <div class=\\"container\\">
+          <div class=\\"members-list\\">
+            <div class=\\"panel\\">
+              <div class=\\"pagination\\">
+                <div class=\\"page-buttons\\">
+                  <!--if-->
+                  <button data-test-pagination-page=\\"1\\" disabled=\\"\\">1</button>
+                  <!--if-->
+                </div>
+                <!--PaginationPages-->
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Is superuser?</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+                <!--if-->
+                <!--MembersTable-->
+                <!--default-->
+                <!--if-->
+                <div class=\\"page-buttons\\">
+                  <!--if-->
+                  <button data-test-pagination-page=\\"1\\" disabled=\\"\\">1</button>
+                  <!--if-->
+                </div>
+                <!--PaginationPages-->
+              </div>
             </div>
-            <!--PaginationPages-->
-            <table>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Is superuser?</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-            <!--default-->
-            <!--if-->
-            <div class=\\"page-buttons\\">
-              <!--if-->
-              <button data-test-pagination-page=\\"1\\" disabled=\\"\\">1</button>
-              <!--if-->
-            </div>
-            <!--PaginationPages-->
           </div>
+          <!--if-->
         </div>
       </div>
       <!--body-->

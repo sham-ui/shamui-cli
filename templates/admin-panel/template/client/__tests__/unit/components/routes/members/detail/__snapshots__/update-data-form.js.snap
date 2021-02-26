@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Object {
+  "Constructor": "UpdateDataForm",
+  "Options": Object {
+    "ID": "component",
+    "directives": Object {
+      "EventListener": [Function],
+      "disabled": [Function],
+      "onclick": [Function],
+      "oninput": [Function],
+      "onload": [Function],
+      "onresize": [Function],
+      "onscroll": [Function],
+      "onselect": [Function],
+      "onsubmit": [Function],
+      "ref": [Function],
+    },
+    "member": Object {},
+    "onUpdateSuccess": [Function],
+  },
+  "html": "
+<form class=\\"form-layout\\">
+  <!--header-->
+  <!--if-->
+  <!--ErrorsPanel-->
+  <div class=\\"form-group\\">
+    <label>Name:</label>
+    <input name=\\"name\\" type=\\"text\\" autofocus=\\"\\">
+  </div>
+  <div class=\\"form-group\\">
+    <label>Email:</label>
+    <input name=\\"email\\" type=\\"text\\">
+  </div>
+  <div class=\\"form-group\\">
+    <label></label>
+    <label class=\\"checkbox\\">
+      <input name=\\"is_superuser\\" type=\\"checkbox\\" value=\\"undefined\\"><span>Is Superuser</span></label>
+  </div>
+  <!--default-->
+  <!--default-->
+  <button type=\\"submit\\">
+    <!--if-->Update
+    <!--submit-->
+  </button>
+  <!--footer-->
+</form>
+<!--FormContainer-->
+<!--if-->
+<!--FormWithConfirmModal-->
+",
+}
+`;

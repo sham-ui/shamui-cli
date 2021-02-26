@@ -14,7 +14,7 @@
                     {% if dataSaving %}
                         <CubeAnimation />
                     {% else %}
-                        <button :onclick=\{{::this._okClick}} data-test-ok-button>
+                        <button :onclick=\{{::this._okClick}} data-test-ok-button class=\{{isDanger ? "btn-danger" : ""}}>
                             \{{okText}}
                         </button>
                         <button class="btn-secondary" :onclick=\{{::this._closeClick}} data-test-cancel-button>
@@ -36,6 +36,7 @@
         @options text = '';
         @options cancelText = 'Cancel';
         @options okText = 'Ok';
+        @options isDanger = false;
         @options dataSaving = false;
 
         @options onOk() {}

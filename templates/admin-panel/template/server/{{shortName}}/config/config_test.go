@@ -106,10 +106,10 @@ func TestCreateConfigIfNotExists(t *testing.T) {
 
 	LoadConfiguration(configFilename)
 
-	asserts.Equals(t, 1, mos.calls.For("Stat").Count())
-	asserts.Equals(t, 1, moutil.calls.For("WriteFile").Count())
-	asserts.Equals(t, configFilename, moutil.calls.For("WriteFile").ArgsAt(0)[0])
-	asserts.Equals(t, []byte(strings.TrimSpace(defaultConfig)), moutil.calls.For("WriteFile").ArgsAt(0)[1])
+	asserts.Equals(t, 1, mos.calls.For("Stat").Count(), "stat")
+	asserts.Equals(t, 1, moutil.calls.For("WriteFile").Count(), "writeFile")
+	asserts.Equals(t, configFilename, moutil.calls.For("WriteFile").ArgsAt(0)[0], "file name")
+	asserts.Equals(t, []byte(strings.TrimSpace(defaultConfig)), moutil.calls.For("WriteFile").ArgsAt(0)[1], "content")
 }
 
 func TestNotCreateConfigIfExists(t *testing.T) {
@@ -132,8 +132,8 @@ func TestNotCreateConfigIfExists(t *testing.T) {
 
 	LoadConfiguration(configFilename)
 
-	asserts.Equals(t, 1, mos.calls.For("Stat").Count())
-	asserts.Equals(t, 0, moutil.calls.For("WriteFile").Count())
+	asserts.Equals(t, 1, mos.calls.For("Stat").Count(), "stat")
+	asserts.Equals(t, 0, moutil.calls.For("WriteFile").Count(), "write file")
 }
 
 func TestReadConfig(t *testing.T) {
@@ -141,8 +141,8 @@ func TestReadConfig(t *testing.T) {
 	configFilename := path.Join("testdata", "config.cfg")
 	LoadConfiguration(configFilename)
 
-	asserts.Equals(t, server{Port: 3001, AllowedDomains: []string{"http://127.0.0.1:3000", "http://localhost:3000"}}, Server)
-	asserts.Equals(t, dataBaseConfig{Host: "127.0.0.1", Port: 5432, Name: "dbname", User: "dbuser", Pass: "dbuserpassword"}, DataBase)
-	asserts.Equals(t, session{Secret: "secret-key"}, Session)
-	asserts.Equals(t, "postgres://dbuser:dbuserpassword@127.0.0.1:5432/dbname", DataBase.GetURL())
+	asserts.Equals(t, server{Port: 3001, AllowedDomains: []string{"http://127.0.0.1:3000", "http://localhost:3000"}}, Server, "server")
+	asserts.Equals(t, dataBaseConfig{Host: "127.0.0.1", Port: 5432, Name: "dbname", User: "dbuser", Pass: "dbuserpassword"}, DataBase, "database")
+	asserts.Equals(t, session{Secret: "secret-key"}, Session, "session")
+	asserts.Equals(t, "postgres://dbuser:dbuserpassword@127.0.0.1:5432/dbname", DataBase.GetURL(), "db url")
 }

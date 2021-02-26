@@ -2,6 +2,9 @@
     {% import ErrorsPanel from '../../ErrorsPanel.sht' %}
     {% import Page from '../../Page.sfc' %}
     {% import Pagination from '../../pagination/index.sfc' %}
+    {% import MembersCreate from './create.sfc' %}
+    {% import MembersTable from './table.sfc' %}
+    {% import MembersDetail from './detail.sfc' %}
 
     <Page>
         {% block 'header' %}
@@ -9,37 +12,59 @@
         {% endblock %}
 
         {% block 'body' %}
-            <div class="member-list">
+            <div class="members-page">
                 <ErrorsPanel errors=\{{errors}}/>
-                <div class="panel">
-                    <Pagination
-                        dataLoaded=\{{dataLoaded}}
-                        goToPage=\{{::this.loadData}}
-                        currentPage=\{{page}}
-                        limit=\{{limit}}
-                        total=\{{total}}
+
+                <div class="container">
+                    <button
+                        data-test-toggle-create-form
+                        class="mg-b-30"
+                        :onclick=\{{::this._toggleCreateForm}}
                     >
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Is superuser?</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for member of members %}
-                                    <tr>
-                                        <td>\{{member.ID}}</td>
-                                        <td>\{{member.Name}}</td>
-                                        <td>\{{member.Email}}</td>
-                                        <td class="text-center">\{{member.IsSuperuser ? 'Yes' : 'No'}}</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </Pagination>
+                        \{{
+                            createFormVisible ?
+                                'Hide create new member form' :
+                                'Show create new member form'
+                        }}
+                    </button>
+                    {% if createFormVisible %}
+                        <div class="panel mg-b-30 create-member">
+                            <MembersCreate onCreateSuccess=\{{::this._onCreateMember}} />
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="container">
+                    <div class="members-list">
+                        <div class="panel">
+                            <Pagination
+                                dataLoaded=\{{dataLoaded}}
+                                goToPage=\{{::this.loadData}}
+                                currentPage=\{{page}}
+                                limit=\{{limit}}
+                                total=\{{total}}
+                            >
+                                <MembersTable
+                                    members=\{{members}}
+                                    selectedMember=\{{selectedMember}}
+                                    onSelectMember=\{{::this._selectMember}}
+                                    showErrors=\{{::this._showErrors}}
+                                    refresh=\{{this.loadData.bind( this, page )}}
+                                />
+                            </Pagination>
+                        </div>
+                    </div>
+
+                    {% if selectedMember %}
+                        <div class="member-detail">
+                            <div class="panel">
+                                <MembersDetail
+                                    member=\{{selectedMember}}
+                                    onUpdateSuccess=\{{this.loadData.bind( this, page )}}
+                                />
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         {% endblock %}
@@ -65,6 +90,9 @@
         @options total = 0;
         @options members = [];
 
+        @options createFormVisible = false;
+        @options selectedMember = null;
+
         didMount() {
             this.title.change( this.options.pageTitle );
             this.loadData( 1 );
@@ -79,7 +107,8 @@
 
         loadData( page ) {
             this.update( {
-                dataLoaded: false
+                dataLoaded: false,
+                selectedMember: null
             } );
             this.store.api.request( {
                 url: 'admin/members',
@@ -96,6 +125,7 @@
         _loadDataSuccess( page, { members, meta } ) {
             this.update( {
                 dataLoaded: true,
+                errors: [],
                 page,
                 members,
                 ...meta // is offset, limit & total
@@ -107,6 +137,27 @@
                 dataLoaded: true,
                 errors: Messages
             } );
+        }
+
+        _toggleCreateForm() {
+            this.update( {
+                createFormVisible: !this.options.createFormVisible
+            } );
+        }
+
+        _onCreateMember() {
+            this.update( {
+                createFormVisible: false
+            } );
+            this.loadData( this.options.page );
+        }
+
+        _showErrors( errors ) {
+            this.update( { errors } );
+        }
+
+        _selectMember( selectedMember ) {
+            this.update( { selectedMember } );
         }
     }
 

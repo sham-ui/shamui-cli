@@ -1,0 +1,104 @@
+<template>
+    {% import ModalWindow from '../../ModalWindow.sfc' %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Is superuser?</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member of members %}
+                <tr class=\{{selectedMember && selectedMember.ID === member.ID ? "selected": ""}}>
+                    <td>\{{member.ID}}</td>
+                    <td>\{{member.Name}}</td>
+                    <td>\{{member.Email}}</td>
+                    <td class="text-center">\{{member.IsSuperuser ? 'Yes' : 'No'}}</td>
+                    <td class="actions">
+                        <button
+                            data-test-update-button=\{{member.ID}}
+                            :onclick=\{{this.selectMember.bind( this, member )}}
+                        >
+                            Edit
+                        </button>
+                        <button
+                            data-test-delete-button=\{{member.ID}}
+                            class="btn-danger"
+                            :onclick=\{{this.confirmDelete.bind( this, member )}}
+                        >
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if deleteModalVisible %}
+        <ModalWindow
+            title="Delete member"
+            text=\{{"Are you sure you want to delete member with email \"" + member.Email + "\"?" }}
+            isDanger=\{{true}}
+            onOk=\{{::this.deleteMember}}
+            onClose=\{{::this._closeDeleteModal}}
+        />
+    {% endif %}
+</template>
+<script>
+    import { mergeWithTemplate, inject, options } from 'sham-ui-macro/babel.macro';
+
+    @mergeWithTemplate
+    class MembersTable extends Template {
+
+        /** @type Store */
+        @inject store;
+
+        @options members = [];
+        @options showErrors() {}
+        @options refresh() {}
+        @options onSelectMember() {}
+
+        @options deleteModalVisible = false;
+
+        selectMember( member ) {
+            this.options.showErrors( [] );
+            this.options.onSelectMember( member );
+        }
+
+        confirmDelete( member ) {
+            this.options.showErrors( [] );
+            this.update( {
+                member,
+                deleteModalVisible: true
+            } );
+        }
+
+        _closeDeleteModal() {
+            this.update( {
+                member: null,
+                deleteModalVisible: false
+            } );
+        }
+
+        deleteMember() {
+            this.store.api.request( {
+                url: `admin/members/${this.options.member.ID}`,
+                method: 'delete'
+            } ).then(
+                () => this.options.refresh(),
+                ::this._deleteMemberFail
+            );
+        }
+
+        _deleteMemberFail( { Messages = [ 'Fail delete member' ] } ) {
+            this.options.showErrors( Messages );
+            this._closeDeleteModal();
+        }
+    }
+
+    export default MembersTable;
+</script>

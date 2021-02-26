@@ -8,8 +8,8 @@ import (
 func CreateMemberStructure(db *sql.DB) error {
 	_, err := db.Exec(`
 		CREATE TABLE IF NOT EXISTS members(
-			"id" SERIAL PRIMARY KEY, 
-			"name" varchar(100), 
+			"id" SERIAL UNIQUE PRIMARY KEY,
+			"name" varchar(100),
 			"email" varchar(100),
 			"password" varchar(255),
 			"is_superuser" boolean NOT NULL DEFAULT false
@@ -21,6 +21,19 @@ func CreateMemberStructure(db *sql.DB) error {
 		return fmt.Errorf("create table: %s", err)
 	}
 	return nil
+}
+
+func IsUniqueEmailForMemberID(db *sql.DB, id, email string) (bool, error) {
+	var existingEmail string
+	row := db.QueryRow("SELECT email FROM members WHERE email = $1 AND id != $2", email, id)
+	err := row.Scan(&existingEmail)
+	if err == sql.ErrNoRows {
+		return true, nil
+	}
+	if err != nil {
+		return false, fmt.Errorf("select email: %s", err)
+	}
+	return false, nil
 }
 
 func IsUniqueEmail(db *sql.DB, email string) (bool, error) {
@@ -60,5 +73,34 @@ func UpdateMemberEmail(db *sql.DB, id string, email string) error {
 // UpdateMemberPassword uses the member ID to update a password
 func UpdateMemberPassword(db *sql.DB, id string, password string) error {
 	_, err := db.Query("UPDATE members SET password = $2 WHERE id = $1", id, password)
+	return err
+}
+
+// UpdateMemberData uses the member ID to update a name, email, is_superuser
+func UpdateMemberData(db *sql.DB, m *MemberData) error {
+	_, err := db.Query("UPDATE members SET name = $2, email = $3, is_superuser = $4  WHERE id = $1", m.ID, m.Name, m.Email, m.IsSuperuser)
+	if nil != err {
+		return fmt.Errorf("update member: %s", err)
+	}
+	return err
+}
+
+// HasMemberForID check member for id
+func HasMemberForID(db *sql.DB, id string) (bool, error) {
+	var existingId string
+	row := db.QueryRow("SELECT id FROM members WHERE id = $1", id)
+	err := row.Scan(&existingId)
+	if err == sql.ErrNoRows {
+		return false, nil
+	}
+	if err != nil {
+		return false, fmt.Errorf("select id: %s", err)
+	}
+	return true, nil
+}
+
+// DeleteMember uses the member ID to delete
+func DeleteMember(db *sql.DB, id string) error {
+	_, err := db.Query("DELETE FROM members WHERE id = $1", id)
 	return err
 }

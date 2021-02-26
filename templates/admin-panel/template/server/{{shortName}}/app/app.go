@@ -81,6 +81,10 @@ func StartApplication(configPath string, n *negroni.Negroni) *sql.DB {
 
 	// Superuser sections
 	r.HandleFunc("/api/admin/members", membersHandlers.NewListHandler(db, sessionsStore)).Methods("GET")
+	r.HandleFunc("/api/admin/members", membersHandlers.NewCreateHandler(db, sessionsStore)).Methods("POST")
+	r.HandleFunc("/api/admin/members/{id:[0-9]+}", membersHandlers.NewUpdateHandler(db, sessionsStore)).Methods("PUT")
+	r.HandleFunc("/api/admin/members/{id:[0-9]+}/password", membersHandlers.NewResetPasswordHandler(db, sessionsStore)).Methods("PUT")
+	r.HandleFunc("/api/admin/members/{id:[0-9]+}", membersHandlers.NewDeleteHandler(db, sessionsStore)).Methods("DELETE")
 	r.HandleFunc("/api/admin/server-info", serverHandlers.NewInfoHandler(sessionsStore)).Methods("GET")
 
 	// Resources

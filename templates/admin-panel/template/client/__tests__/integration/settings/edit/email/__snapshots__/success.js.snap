@@ -66,11 +66,11 @@ exports[`success edit email 1`] = `
             <!--if-->
             <!--ErrorsPanel-->
             <div class=\\"form-group\\">
-              <label> Enter your email: </label>
+              <label>Enter your email:</label>
               <input name=\\"email1\\" type=\\"text\\" autofocus=\\"\\">
             </div>
             <div class=\\"form-group\\">
-              <label> Confirm your email: </label>
+              <label>Confirm your email:</label>
               <input name=\\"email2\\" type=\\"text\\">
             </div>
             <!--default-->
@@ -175,11 +175,11 @@ exports[`success edit email 2`] = `
             <!--if-->
             <!--ErrorsPanel-->
             <div class=\\"form-group\\">
-              <label> Enter your email: </label>
+              <label>Enter your email:</label>
               <input name=\\"email1\\" type=\\"text\\" autofocus=\\"\\">
             </div>
             <div class=\\"form-group\\">
-              <label> Confirm your email: </label>
+              <label>Confirm your email:</label>
               <input name=\\"email2\\" type=\\"text\\">
             </div>
             <!--default-->
@@ -210,7 +210,7 @@ exports[`success edit email 2`] = `
                 <h4>Change email</h4>
                 <p class=\\"content\\">Are you sure you want to change your email?</p>
                 <div class=\\"footer\\">
-                  <button data-test-ok-button=\\"\\">Ok</button>
+                  <button data-test-ok-button=\\"\\" class=\\"\\">Ok</button>
                   <button class=\\"btn-secondary\\" data-test-cancel-button=\\"\\">Cancel</button>
                 </div>
               </div>

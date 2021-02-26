@@ -19,6 +19,7 @@ Object {
       "onsubmit": [Function],
       "ref": [Function],
     },
+    "isDanger": false,
     "okText": "Ok",
     "onClose": [Function],
     "onOk": [Function],
@@ -33,7 +34,7 @@ Object {
       <h4></h4>
       <p class=\\"content\\"></p>
       <div class=\\"footer\\">
-        <button data-test-ok-button=\\"\\">Ok</button>
+        <button data-test-ok-button=\\"\\" class=\\"\\">Ok</button>
         <button class=\\"btn-secondary\\" data-test-cancel-button=\\"\\">Cancel</button>
       </div>
     </div>

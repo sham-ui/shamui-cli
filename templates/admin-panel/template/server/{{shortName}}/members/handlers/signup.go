@@ -44,6 +44,9 @@ func (h *signupHandler) Validate(ctx *handler.Context, data interface{}) (*handl
 	if "" == requestData.Name {
 		validation.AddError("Name must not be empty.")
 	}
+	if "" == requestData.Email {
+		validation.AddError("Email must not be empty.")
+	}
 	if requestData.Password != requestData.Password2 {
 		validation.AddError("Passwords do not match.")
 	}

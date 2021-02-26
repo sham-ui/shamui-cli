@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"{{shortName}}/core/handler"
 	"{{shortName}}/core/sessions"
@@ -12,7 +13,11 @@ func logoutHandler(ctx *handler.Context, _ interface{}) (interface{}, error) {
 	// Revoke users authentication
 	rawSession.Values["authenticated"] = false
 	rawSession.Options.MaxAge = -1
-	return nil, rawSession.Save(ctx.Request, ctx.Response)
+	err := rawSession.Save(ctx.Request, ctx.Response)
+	if nil != err {
+		return nil, fmt.Errorf("can't save session: %s", err)
+	}
+	return nil, nil
 }
 
 func NewLogoutHandler(sessionsStore *sessions.Store) http.HandlerFunc {

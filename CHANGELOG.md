@@ -9,6 +9,7 @@
 * Add page title in admin-panel [#87](https://github.com/sham-ui/sham-ui-cli/issues/87)
 * Refactoring server code in admin-panel [#88](https://github.com/sham-ui/sham-ui-cli/issues/88)
 * Add confirmation modal on edit name/email/password in admin-panel
+* Add member management (create/edit/reset password) in admin-panel
 
 
 ## 4.3.0

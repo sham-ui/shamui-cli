@@ -29,7 +29,7 @@ Object {
   <!--if-->
   <!--ErrorsPanel-->
   <div class=\\"form-group\\">
-    <label> Name: </label>
+    <label>Name:</label>
     <input name=\\"name\\" type=\\"text\\" autofocus=\\"\\">
   </div>
   <!--default-->
@@ -73,7 +73,7 @@ Object {
   <!--if-->
   <!--ErrorsPanel-->
   <div class=\\"form-group\\">
-    <label> Name: </label>
+    <label>Name:</label>
     <input name=\\"name\\" type=\\"text\\" autofocus=\\"\\">
   </div>
   <!--default-->

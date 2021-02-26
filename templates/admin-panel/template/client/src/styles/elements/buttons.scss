@@ -16,6 +16,7 @@ button {
   text-transform: none;
   font-family: inherit;
   touch-action: manipulation;
+  cursor: pointer;
   overflow: visible;
   &:hover {
     color: #fff;
@@ -62,6 +63,25 @@ button {
     &:disabled {
       background-color: #868e96;
       border-color: #868e96;
+    }
+  }
+
+  &.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    &:hover {
+      color: #fff;
+      background-color: #c82333;
+      border-color: #bd2130;
+    }
+    &:active {
+      background-color: #c82333;
+      background-image: none;
+      border-color: #bd2130;
+    }
+    &:disabled {
+      background-color: #dc3545;
+      border-color: #dc3545;
     }
   }
 }

@@ -1,4 +1,4 @@
-## master
+## 4.3.1
 * Update `sham-ui` dependencies
 * Refactoring store service in admin-panel [#84](https://github.com/sham-ui/sham-ui-cli/issues/84) 
 * Fix a tests

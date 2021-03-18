@@ -10,7 +10,7 @@
 * Refactoring server code in admin-panel [#88](https://github.com/sham-ui/sham-ui-cli/issues/88)
 * Add confirmation modal on edit name/email/password in admin-panel
 * Add member management (create/edit/reset password) in admin-panel
-
+* Update nodejs version for travis in templates
 
 ## 4.3.0
 * Add template for `styled-component` [#3](https://github.com/sham-ui/sham-ui-cli/issues/3)
@@ -20,7 +20,6 @@
 * Fix a tests in admin-panel golang tests
 * Move ErrorPanel component from panel to page in members page in admin-panel template [#73](https://github.com/sham-ui/sham-ui-cli/issues/73)
 * Update go to latest version & migrate to go modules [#63](https://github.com/sham-ui/sham-ui-cli/issues/63)
-
 
 ## 4.1.0
 * Add support for lazy loaded page in `admin-panel` template

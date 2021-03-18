@@ -60,7 +60,7 @@
     "webpack-hot-middleware": "^2.22.3"
   },
   "dependencies": {
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "core-js": "^3.2.1",
     "sham-ui": "^4.1.0",
     "sham-ui-router": "^4.3.1",

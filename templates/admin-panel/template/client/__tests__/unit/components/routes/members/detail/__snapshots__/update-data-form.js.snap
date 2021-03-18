@@ -36,7 +36,8 @@ Object {
   <div class=\\"form-group\\">
     <label></label>
     <label class=\\"checkbox\\">
-      <input name=\\"is_superuser\\" type=\\"checkbox\\" value=\\"undefined\\"><span>Is Superuser</span></label>
+      <input name=\\"is_superuser\\" type=\\"checkbox\\" value=\\"undefined\\"><span>Is Superuser</span>
+    </label>
   </div>
   <!--default-->
   <!--default-->

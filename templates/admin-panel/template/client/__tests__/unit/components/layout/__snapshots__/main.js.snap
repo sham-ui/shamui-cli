@@ -2,7 +2,7 @@
 
 exports[`renders correctly 1`] = `
 Object {
-  "Constructor": "",
+  "Constructor": "LayoutMain",
   "Options": Object {
     "ID": "component",
     "sessionData": Object {

@@ -1,3 +1,6 @@
+## 4.4.0
+* Optional signup in admin-panel template [#96](https://github.com/sham-ui/sham-ui-cli/issues/96)
+
 ## 4.3.1
 * Update `sham-ui` dependencies
 * Refactoring store service in admin-panel [#84](https://github.com/sham-ui/sham-ui-cli/issues/84) 

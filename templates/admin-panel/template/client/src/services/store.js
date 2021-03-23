@@ -41,6 +41,7 @@ export default class Store {
         return this.api.request( { url: '/csrftoken' } );
     }
 
+{{#if signupEnabled}}
     signUp( data ) {
         return this.api.request( {
             url: '/members',
@@ -49,6 +50,7 @@ export default class Store {
         } );
     }
 
+{{/if}}
     login( data ) {
         return this.api.request( {
             url: '/login',

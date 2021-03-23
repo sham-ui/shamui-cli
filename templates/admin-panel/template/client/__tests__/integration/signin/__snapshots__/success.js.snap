@@ -19,8 +19,10 @@ exports[`success login 1`] = `
       <!--if-->Sign In
       <!--submit-->
     </button>
+    {{#if signupEnabled}}
     <div class=\\"signup-label\\"> Not yet a member? <a href=\\"/signup\\"> Sign Up </a>
     </div>
+    {{/if}}
     <!--footer-->
   </form>
 </div>

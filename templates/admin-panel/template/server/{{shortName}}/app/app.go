@@ -74,7 +74,9 @@ func StartApplication(configPath string, n *negroni.Negroni) *sql.DB {
 	r.HandleFunc("/api/validsession", sessionHandlers.NewValidSessionHandler(sessionsStore)).Methods("GET")
 
 	// Member CRUD routes
+	{{#if signupEnabled}}
 	r.HandleFunc("/api/members", membersHandlers.NewSignupHandler(db, sessionsStore)).Methods("POST")
+	{{/if}}
 	r.HandleFunc("/api/members/email", membersHandlers.NewUpdateEmailHandler(db, sessionsStore)).Methods("PUT")
 	r.HandleFunc("/api/members/name", membersHandlers.NewUpdateNameHandler(db, sessionsStore)).Methods("PUT")
 	r.HandleFunc("/api/members/password", membersHandlers.NewUpdatePasswordHandler(db, sessionsStore)).Methods("PUT")

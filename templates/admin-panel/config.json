@@ -5,6 +5,12 @@
       "required": true,
       "label": "App name"
     },
+    "signupEnabled": {
+      "type": "boolean",
+      "required": true,
+      "label": "Sign up enabled?",
+      "default": true
+    },
     "shortName": {
       "type": "string",
       "required": true,
@@ -39,5 +45,17 @@
       "type": "string",
       "label": "Author"
     }
+  },
+  "filters": {
+    "server/*/signup_test.go": "signupEnabled",
+    "server/*/members/handlers/signup.go": "signupEnabled",
+    "client/__tests__/integration/redirects/__snapshots__/authenticated-cant-visit-signup.js.snap": "signupEnabled",
+    "client/__tests__/integration/redirects/authenticated-cant-visit-signup.js": "signupEnabled",
+    "client/__tests__/integration/signin/go-from-sign-up.js": "signupEnabled",
+    "client/__tests__/integration/signin/__snapshots__/go-from-sign-up.js.snap": "signupEnabled",
+    "client/__tests__/integration/signup/**": "signupEnabled",
+    "client/__tests__/unit/components/routes/signup/**": "signupEnabled",
+    "client/src/components/routes/signup/**": "signupEnabled",
+    "client/src/styles/routes/signup.scss": "signupEnabled"
   }
 }

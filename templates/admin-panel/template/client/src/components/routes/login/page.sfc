@@ -22,6 +22,7 @@
                     <input name="password" type="password" placeholder="Enter your password">
                 </div>
             {% endblock %}
+            {{#if signupEnabled}}
 
             {% block 'footer' %}
                 <div class="signup-label">
@@ -31,6 +32,7 @@
                     </a>
                 </div>
             {% endblock %}
+            {{/if}}
         </FormContainer>
     </div>
 </template>

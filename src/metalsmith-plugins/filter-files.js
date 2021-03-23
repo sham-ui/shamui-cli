@@ -1,3 +1,4 @@
+const minimatch = require( 'minimatch' );
 const evaluate = require( '../utils/eval' );
 
 function filter( files, filters, data, done ) {
@@ -9,7 +10,7 @@ function filter( files, filters, data, done ) {
 
     Object.keys( filters ).forEach( function( glob ) {
         fileNames.forEach( function( file ) {
-            if ( match( file, glob, { dot: true } ) ) {
+            if ( minimatch( file, glob, { dot: true } ) ) {
                 const condition = filters[ glob ];
                 if ( !evaluate( condition, data ) ) {
                     delete files[ file ];

@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 	"{{shortName}}/test_helpers"
-	"{{shortName}}/test_helpers/asserts"
+	"{{shortName}}/test_helpers/client"
 	"testing"
 )
 

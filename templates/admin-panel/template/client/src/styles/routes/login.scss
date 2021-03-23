@@ -14,6 +14,7 @@
       justify-content: center;
       margin-bottom: 20px;
     }
+{{#if signupEnabled}}
     .signup-label {
       margin-top: 30px;
       text-align: center;
@@ -22,6 +23,7 @@
         transition: all 0.2s ease-in-out;
       }
     }
+{{/if}}
   }
 }
 

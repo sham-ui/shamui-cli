@@ -10,7 +10,9 @@
 @import "elements/pagination";
 @import "elements/modal-window";
 @import "layout/main";
+{{#if signupEnabled}}
 @import "routes/signup";
+{{/if}}
 @import "routes/login";
 @import "routes/settings";
 @import "routes/members/list";

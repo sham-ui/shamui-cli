@@ -1,6 +1,8 @@
 import { DI } from 'sham-ui';
 import Router from 'sham-ui-router';
+{{#if signupEnabled}}
 import SignupPage from '../components/routes/signup/page.sfc';
+{{/if}}
 import LoginPage from '../components/routes/login/page.sfc';
 import HomePage from '../components/routes/home/page.sfc';
 
@@ -12,7 +14,9 @@ export default function() {
     let loginPageURL;
 
     router
+        {{#if signupEnabled}}
         .bindPage( '/signup', 'signup', SignupPage, {} )
+        {{/if}}
         .bindPage( '/login', 'login', LoginPage, {} )
         .bindLazyPage(
             '/settings',
@@ -57,11 +61,11 @@ export default function() {
                 }
                 const session = DI.resolve( 'session' );
                 session.validateSession().then( isAuthenticated => {
-                    if ( [ 'signup', 'login' ].includes( currentRoute.name ) ) {
+                    if ( [ {{#if signupEnabled}}'signup', {{/if}}'login' ].includes( currentRoute.name ) ) {
                         done( !isAuthenticated );
                         if ( isAuthenticated ) {
 
-                            // Authenticated member can't visit signup & login page
+                            // Authenticated member can't visit {{#if signupEnabled}}signup &{{/if}}login page
                             router.navigate( homePageURL );
                         } else {
                             routerResolve();

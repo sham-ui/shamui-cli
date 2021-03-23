@@ -1,6 +1,6 @@
 {
   "name": "sham-ui-cli",
-  "version": "4.3.1",
+  "version": "4.4.0",
   "description": "CLI tools for sham-ui",
   "preferGlobal": true,
   "bin": {
@@ -27,6 +27,7 @@
     "handlebars": "^4.6.0",
     "inquirer": "~6.5.0",
     "metalsmith": "^2.3.0",
+    "minimatch": "^3.0.4",
     "ora": "^3.4.0",
     "read-metadata": "^1.0.0"
   }

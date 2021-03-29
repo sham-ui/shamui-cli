@@ -59,5 +59,5 @@ func TestLoginIncorrectEmail(t *testing.T) {
 		"Password": "password",
 	})
 	asserts.Equals(t, http.StatusBadRequest, resp.Response.Code, "code")
-	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request", "Messages": nil}, resp.JSON(), "body")
+	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request"}, resp.JSON(), "body")
 }

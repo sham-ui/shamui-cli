@@ -44,7 +44,7 @@ export class API {
     }
 
     _responseFailInterceptor( error ) {
-        const { response, config } = error;
+        const { response, config, request } = error;
         if (
             this.session.data.isAuthenticated &&
             response &&
@@ -55,6 +55,11 @@ export class API {
             this._onUnauthorized( {
                 ...config,
                 url: config.url.replace( config.baseURL, '/' )
+            } );
+        }
+        if ( undefined === response && 0 === request.status ) {
+            return Promise.reject( {
+                Messages: [ 'Network error: connection refused. Check your network connection' ]
             } );
         }
         return Promise.reject(

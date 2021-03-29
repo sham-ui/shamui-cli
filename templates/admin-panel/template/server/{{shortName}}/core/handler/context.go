@@ -18,7 +18,7 @@ type Context struct {
 
 type responseError struct {
 	Status   string   `json:"Status"`
-	Messages []string `json:"Messages"`
+	Messages []string `json:"Messages,omitempty"`
 }
 
 // GetSession return pointer to session (if exists)

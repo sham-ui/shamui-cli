@@ -1,3 +1,8 @@
+## 4.4.1
+* Fix hash password for create superuser from terminal in admin-panel
+* Fix send empty error messages in admin-panel 
+* Handle disconect network in admin-panel
+
 ## 4.4.0
 * Optional signup in admin-panel template [#96](https://github.com/sham-ui/sham-ui-cli/issues/96)
 

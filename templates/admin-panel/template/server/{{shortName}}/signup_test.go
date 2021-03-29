@@ -41,7 +41,7 @@ func TestSignupInvalidData(t *testing.T) {
 
 	resp := env.API.Request("POST", "/api/members", []string{})
 	asserts.Equals(t, http.StatusBadRequest, resp.Response.Code, "code")
-	asserts.Equals(t, map[string]interface{}{"Messages": nil, "Status": "Bad Request"}, resp.JSON(), "body")
+	asserts.Equals(t, map[string]interface{}{"Status": "Bad Request"}, resp.JSON(), "body")
 }
 
 func TestSignupPasswordMustMatch(t *testing.T) {

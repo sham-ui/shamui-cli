@@ -43,10 +43,15 @@ func CreateSuperUser() {
 		log.WithError(err).Fatal("can't get password")
 	}
 
+	hashedPw, err := members.HashPassword(password)
+	if nil != err {
+		log.WithError(err).Fatal("can't hash password")
+	}
+
 	err = members.CreateMember(db, &members.MemberData{
 		Name:        name,
 		Email:       email,
-		Password:    password,
+		Password:    hashedPw,
 		IsSuperuser: true,
 	})
 	if nil == err {

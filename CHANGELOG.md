@@ -1,3 +1,6 @@
+## 4.4.2
+* Fix close icon in ModalWindow 
+
 ## 4.4.1
 * Fix hash password for create superuser from terminal in admin-panel
 * Fix send empty error messages in admin-panel 

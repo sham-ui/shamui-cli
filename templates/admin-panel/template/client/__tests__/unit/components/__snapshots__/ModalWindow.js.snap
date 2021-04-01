@@ -6,6 +6,7 @@ Object {
   "Options": Object {
     "ID": "component",
     "cancelText": "Cancel",
+    "closeIcon": "×",
     "dataSaving": false,
     "directives": Object {
       "EventListener": [Function],

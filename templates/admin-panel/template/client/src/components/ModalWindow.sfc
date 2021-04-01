@@ -3,7 +3,7 @@
 
     <div class="modal" data-test-modal>
         {% if !dataSaving %}
-            <span :onclick=\{{::this._closeClick}} class="close" title="Close Modal" data-test-close-button>&times;</span>
+            <span :onclick=\{{::this._closeClick}} class="close" title="Close Modal" data-test-close-button>\{{closeIcon}}</span>
         {% endif %}
         <div class="modal-content">
             <div class="container">
@@ -41,6 +41,8 @@
 
         @options onOk() {}
         @options onClose() {}
+
+        @options closeIcon = String.fromCharCode( 0xd7 );
 
         _enableSaving() {
             this.update( {
